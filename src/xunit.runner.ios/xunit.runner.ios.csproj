@@ -23,9 +23,11 @@
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -33,6 +35,8 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <DefineConstants>__IOS__;__MOBILE__;LINQ</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\iPhone\Release\xunit.runner.ios.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Options.cs" />
