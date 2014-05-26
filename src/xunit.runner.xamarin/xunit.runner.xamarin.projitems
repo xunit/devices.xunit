@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>265a64f3-d8c2-47b3-a9e1-7480a586da6b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xunit.Runners</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITestListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MonoTestCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MonoTestResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TcpTextWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Visitors\MonoTestExecutionVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestDiscoveryVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Visitors\XmlTestExecutionVisitor.cs" />
+  </ItemGroup>
+</Project>
