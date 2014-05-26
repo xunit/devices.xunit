@@ -32,6 +32,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.ios", "te
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "xunit.runner.xamarin", "src\xunit.runner.xamarin\xunit.runner.xamarin.shproj", "{265A64F3-D8C2-47B3-A9E1-7480A586DA6B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Starter Files", "Starter Files", "{E9830344-D465-4054-9E0D-CC580E39BD34}"
+	ProjectSection(SolutionItems) = preProject
+		src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp = src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp
+		src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp = src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\xunit.runner.xamarin\xunit.runner.xamarin.projitems*{265a64f3-d8c2-47b3-a9e1-7480a586da6b}*SharedItemsImports = 13
@@ -213,5 +219,6 @@ Global
 		{111991DA-D822-4A9F-B57B-CEF2EFC8252E} = {88D90D4D-7706-4419-8177-C21123947D78}
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F} = {88D90D4D-7706-4419-8177-C21123947D78}
 		{265A64F3-D8C2-47B3-A9E1-7480A586DA6B} = {6B0F38C9-7CEE-4181-A47A-D9F4C626E618}
+		{E9830344-D465-4054-9E0D-CC580E39BD34} = {E3B9769B-D056-49F0-A6A5-03EC36DE48F8}
 	EndGlobalSection
 EndGlobal

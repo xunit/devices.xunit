@@ -33,8 +33,8 @@
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.pdb" target="lib\MonoTouch\xunit.runner.ios.pdb" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.xml" target="lib\MonoTouch\xunit.runner.ios.xml" />
     
-    <file src="xunit.runner.ios\NuGet\AppDelegate.Sample.cs" target="content\MonoTouch\AppDelegate.Sample.cs.pp" />
-    <file src="xunit.runner.android\NuGet\MainActivity.Sample.cs" target="content\MonoAndroid\MainActivity.Sample.cs.pp" />
+    <file src="xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp" target="content\MonoTouch\AppDelegate.cs.txt.pp" />
+    <file src="xunit.runner.android\NuGet\MainActivity.cs.txt.pp" target="content\MonoAndroid\MainActivity.cs.txt.pp" />
 
     <file src="**\*.cs" target="src" />
   </files>
