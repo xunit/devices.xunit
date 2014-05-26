@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\common\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Activities\CreditsActivity.cs" />
     <Compile Include="Activities\OptionsActivity.cs" />
     <Compile Include="Activities\RunnerActivity.cs" />
