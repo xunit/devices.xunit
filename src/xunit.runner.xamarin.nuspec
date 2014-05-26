@@ -5,7 +5,10 @@
     <version>0.99.1-beta</version>
     <title>xUnit.net [Xamarin iOS/Android Runner]</title>
     <authors>Oren Novotny</authors>
+    <owners />
     <description>Includes support for running xUnit.net v2 tests on iOS and Android devices</description>
+    <summary>Xamarin xUnit.net runner components for iOS and Android</summary>
+    <tags>xunit xamarin android ios monoandroid monotouch tdd unit test</tags>
     <language>en-US</language>
     <projectUrl>https://github.com/xunit/xamarin.xunit</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</iconUrl>
