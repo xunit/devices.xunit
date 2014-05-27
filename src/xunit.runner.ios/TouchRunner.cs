@@ -636,8 +636,8 @@ namespace Xunit.Runners.UI
 
             Writer.WriteLine("[Runner executing:\t{0}]", message);
             Writer.WriteLine("[MonoTouch Version:\t{0}]", Constants.Version);
-            Writer.WriteLine("[GC:\t{0}{1}]", GC.MaxGeneration == 0 ? "Boehm" : "sgen",
-                NSObject.IsNewRefcountEnabled() ? "+NewRefCount" : String.Empty);
+            //Writer.WriteLine("[GC:\t{0}{1}]", GC.MaxGeneration == 0 ? "Boehm" : "sgen",
+            //    NSObject.IsNewRefcountEnabled() ? "+NewRefCount" : String.Empty);
             UIDevice device = UIDevice.CurrentDevice;
             Writer.WriteLine("[{0}:\t{1} v{2}]", device.Model, device.SystemName, device.SystemVersion);
             Writer.WriteLine("[Device Name:\t{0}]", device.Name);

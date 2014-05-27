@@ -7,11 +7,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6B0F38C9-7CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{88D90D4D-7706-4419-8177-C21123947D78}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E3B9769B-D056-49F0-A6A5-03EC36DE48F8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D056-49F0-A6A5-03EC36DE48F8}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		build.ps1 = build.ps1
+		README.md = README.md
 		xunit.xamarin.proj = xunit.xamarin.proj
 	EndProjectSection
 EndProject
