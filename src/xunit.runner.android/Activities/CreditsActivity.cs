@@ -37,6 +37,7 @@ namespace Xunit.Runners.UI
 					new HtmlElement ("About Mono for Android", "http://android.xamarin.com"),
 					new HtmlElement ("About MonoDroid.Dialog", "https://github.com/spouliot/MonoDroid.Dialog"),
 					new HtmlElement("About xUnit", "https://github.com/xunit/xunit"),
+					new HtmlElement("About xUnit for Xamarin", "https://github.com/xunit/xamarin.xunit"),
 				}
 			};
 			

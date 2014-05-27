@@ -307,7 +307,7 @@ namespace Xunit.Runners.UI
 
         private void Credits()
         {
-            var title = new MultilineElement("xUnit MonoTouch Runner\nCopyright 2014 Outercurve Foundation\nAll rights reserved.");
+            var title = new MultilineElement("xUnit MonoTouch Runner\nCopyright 2014 Outercurve Foundation\nAll rights reserved.\nAuthor: Oren Novotny");
             title.Alignment = UITextAlignment.Center;
 
             var root = new RootElement("Credits")
@@ -322,6 +322,7 @@ namespace Xunit.Runners.UI
                     new HtmlElement("About MonoTouch", "http://ios.xamarin.com"),
                     new HtmlElement("About MonoTouch.Dialog", "https://github.com/migueldeicaza/MonoTouch.Dialog"),
                     new HtmlElement("About xUnit", "https://github.com/xunit/xunit"),
+                    new HtmlElement("About xUnit for Xamarin", "https://github.com/xunit/xamarin.xunit"),
                     new HtmlElement("About Font Awesome", "http://fortawesome.github.com/Font-Awesome")
                 }
             };
