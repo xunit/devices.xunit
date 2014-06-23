@@ -22,9 +22,9 @@ namespace Xunit.Runners
         public MonoTestResult TestResult { get; private set; }
 
 #if __IOS__ || MAC
-        public string DisplayName { get { return RunnerOptions.Current.GetDisplayName(TestCase.DisplayName, TestCase.Method.Name, fqTestMethodName); } }
+        public string DisplayName { get { return RunnerOptions.Current.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
 #else
-        public string DisplayName { get { return RunnerOptions.GetDisplayName(TestCase.DisplayName, TestCase.Method.Name, fqTestMethodName); } }
+        public string DisplayName { get { return RunnerOptions.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
 #endif
         public string UniqueName { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Xunit.Runners
             if (assemblyFileName == null) throw new ArgumentNullException("assemblyFileName");
             if (testCase == null) throw new ArgumentNullException("testCase");
 
-            fqTestMethodName = String.Format("{0}.{1}", testCase.Class.Name, testCase.Method.Name);
+            fqTestMethodName = String.Format("{0}.{1}", testCase.TestMethod.TestClass.Class.Name, testCase.TestMethod.Method.Name);
             UniqueName = forceUniqueNames ? String.Format("{0} ({1})", fqTestMethodName, testCase.UniqueID) : fqTestMethodName;
             AssemblyFileName = assemblyFileName;
             TestCase = testCase;

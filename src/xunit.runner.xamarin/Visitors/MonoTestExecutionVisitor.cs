@@ -55,12 +55,12 @@ namespace Xunit.Runners.Visitors
         private MonoTestResult MakeMonoTestResult(ITestResultMessage testResult, TestState outcome)
         {
             var testCase = testCases[testResult.TestCase];
-            var fqTestMethodName = String.Format("{0}.{1}", testResult.TestCase.Class.Name, testResult.TestCase.Method.Name);
+            var fqTestMethodName = String.Format("{0}.{1}", testResult.TestMethod.TestClass.Class.Name, testResult.TestMethod.Method.Name);
 
 #if __IOS__ || MAC
-            var displayName = RunnerOptions.Current.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.Method.Name, fqTestMethodName);
+            var displayName = RunnerOptions.Current.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
 #else
-            var displayName = RunnerOptions.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.Method.Name, fqTestMethodName);
+            var displayName = RunnerOptions.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
 #endif
             var result = new MonoTestResult(testCase, testResult)
             {

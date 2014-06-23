@@ -229,7 +229,7 @@ namespace Xunit.Runners
                                     new Grouping<string, MonoTestCase>(
                                         fileName,
                                         sink.TestCases
-                                            .GroupBy(tc => String.Format("{0}.{1}", tc.Class.Name, tc.Method.Name))
+                                            .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
                                             .SelectMany(group =>
                                                         group.Select(testCase =>
                                                                      new MonoTestCase(fileName, testCase, forceUniqueNames: group.Count() > 1)))
