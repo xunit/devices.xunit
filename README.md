@@ -29,7 +29,7 @@ Referenced assemblies that contain tests need to be manually specified as descri
 
 Basic functionality works -- tests are discoverable and runnable. There is a lot of room for improvements in each
 of the runner apps. Pull Requests are very welcome. One main requirement -- the runner assemblies should be self-contained; 
-they should not pull in additional non-xunit libraries.
+they should not pull in additional non-xunit libraries (except Xamarin.Forms).
 
 
 ## Links to Resources
