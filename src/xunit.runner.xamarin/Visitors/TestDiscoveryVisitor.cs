@@ -12,11 +12,6 @@ namespace Xunit
 
         public List<ITestCase> TestCases { get; private set; }
 
-        public override void Dispose()
-        {
-            TestCases.ForEach(testCase => testCase.Dispose());
-            TestCases = null;
-        }
 
         protected override bool Visit(ITestCaseDiscoveryMessage discovery)
         {
