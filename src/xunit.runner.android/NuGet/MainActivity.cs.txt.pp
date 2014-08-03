@@ -6,7 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Xunit;
+using Xunit.Sdk;
 using Xunit.Runners.UI;
 
 namespace $rootnamespace$
@@ -20,7 +20,7 @@ namespace $rootnamespace$
             // tests can be inside the main assembly
             Add(Assembly.GetExecutingAssembly());
 
-            AddExecutionAssembly(typeof(ExceptionUtility).Assembly);
+            AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             // or in any reference assemblies			
           //  Add(typeof(m4a.tests.RunnerTest).Assembly);
             // or in any assembly that you load (since JIT is available)

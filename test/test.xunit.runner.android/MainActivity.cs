@@ -7,7 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using test.xunit.pcltestlib;
-using Xunit;
+using Xunit.Sdk;
 using Xunit.Runners.UI;
 
 namespace test.xunit.runner.android
@@ -21,7 +21,7 @@ namespace test.xunit.runner.android
             // tests can be inside the main assembly
             Add(Assembly.GetExecutingAssembly());
 
-            AddExecutionAssembly(typeof(ExceptionUtility).Assembly);
+            AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             // or in any reference assemblies			
 
             Add(typeof(PortableTests).Assembly);
