@@ -115,10 +115,11 @@ namespace Xunit.Runners.UI
       
         private async Task Run()
         {
-            if (TestCase.Result == TestState.NotRun)
-            {
+            //if (TestCase.Result == TestState.NotRun)
+        //    {
+            // always run test on tap to enable rerunning
                 await Runner.Run(TestCase);
-            }
+            //}
         }
 
         protected override void Dispose(bool disposing)

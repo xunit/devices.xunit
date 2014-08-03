@@ -92,10 +92,12 @@ namespace Xunit.Runners.UI
 
         public async Task Run()
         {
-            if (TestCase.Result == TestState.NotRun)
-            {
+            // Always re-run on tapped
+
+            //if (TestCase.Result == TestState.NotRun)
+            //{
                 await Runner.Run(TestCase);
-            }
+            //}
         }
 
         public override View GetView(Context context, View convertView, ViewGroup parent)
