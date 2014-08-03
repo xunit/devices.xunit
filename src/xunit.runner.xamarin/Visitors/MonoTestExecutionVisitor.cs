@@ -10,11 +10,11 @@ namespace Xunit.Runners.Visitors
 {
     class MonoTestExecutionVisitor : TestMessageVisitor<ITestAssemblyFinished>
     {
-        private readonly Dictionary<ITestCase, MonoTestCase> testCases;
+        private readonly Dictionary<ITestCase, MonoTestCaseViewModel> testCases;
         private readonly ITestListener listener;
         private readonly Func<bool> cancelledThunk;
 
-        public MonoTestExecutionVisitor(Dictionary<ITestCase, MonoTestCase> testCases, ITestListener listener, Func<bool> cancelledThunk)
+        public MonoTestExecutionVisitor(Dictionary<ITestCase, MonoTestCaseViewModel> testCases, ITestListener listener, Func<bool> cancelledThunk)
         {
             if (testCases == null) throw new ArgumentNullException("testCases");
             if (listener == null) throw new ArgumentNullException("listener");
@@ -52,7 +52,7 @@ namespace Xunit.Runners.Visitors
             return !cancelledThunk();
         }
 
-        private MonoTestResult MakeMonoTestResult(ITestResultMessage testResult, TestState outcome)
+        private MonoTestResultViewModel MakeMonoTestResult(ITestResultMessage testResult, TestState outcome)
         {
             var testCase = testCases[testResult.TestCase];
             var fqTestMethodName = String.Format("{0}.{1}", testResult.TestMethod.TestClass.Class.Name, testResult.TestMethod.Method.Name);
@@ -62,7 +62,7 @@ namespace Xunit.Runners.Visitors
 #else
             var displayName = RunnerOptions.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
 #endif
-            var result = new MonoTestResult(testCase, testResult)
+            var result = new MonoTestResultViewModel(testCase, testResult)
             {
                 Duration = TimeSpan.FromSeconds((double)testResult.ExecutionTime),        
             };

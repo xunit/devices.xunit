@@ -35,9 +35,9 @@ namespace Xunit.Runners.UI
 {
     internal class TestCaseElement : TestElement
     {
-        public MonoTestCase TestCase { get; private set; }
+        public MonoTestCaseViewModel TestCase { get; private set; }
 
-        public TestCaseElement(MonoTestCase testCase, TouchRunner runner)
+        public TestCaseElement(MonoTestCaseViewModel testCase, TouchRunner runner)
             : base(runner)
         {
             TestCase = testCase;

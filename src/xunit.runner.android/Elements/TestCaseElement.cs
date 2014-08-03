@@ -27,14 +27,14 @@ namespace Xunit.Runners.UI
 {
     internal class TestCaseElement : TestElement
     {
-        public TestCaseElement(MonoTestCase testCase, AndroidRunner runner)
+        public TestCaseElement(MonoTestCaseViewModel testCase, AndroidRunner runner)
             : base(runner)
         {
             if (testCase == null) throw new ArgumentNullException("testCase");
 
             TestCase = testCase;
 
-            MonoTestResult result;
+            MonoTestResultViewModel result;
             Runner.Results.TryGetValue(testCase.UniqueName, out result);
             
             if (testCase.Result == TestState.NotRun)
@@ -51,7 +51,7 @@ namespace Xunit.Runners.UI
         }
 
 
-        public MonoTestCase TestCase { get; private set; }
+        public MonoTestCaseViewModel TestCase { get; private set; }
 
 
 

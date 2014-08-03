@@ -8,6 +8,6 @@ namespace Xunit.Runners
 {
     interface ITestListener
     {
-        void RecordResult(MonoTestResult result);
+        void RecordResult(MonoTestResultViewModel result);
     }
 }

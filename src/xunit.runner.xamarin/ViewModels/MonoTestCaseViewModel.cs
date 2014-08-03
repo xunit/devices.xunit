@@ -5,30 +5,63 @@ using System.Text;
 
 
 using Xunit.Abstractions;
-using Xunit.Runners;
+
 using Xunit.Runners.UI;
 
 namespace Xunit.Runners
 {
-    public class MonoTestCase
+    public class MonoTestCaseViewModel : ViewModelBase
     {
 
         public event EventHandler TestCaseUpdated;
 
         private readonly string fqTestMethodName;
-        public string AssemblyFileName { get; private set; }
-        public ITestCase TestCase { get; private set; }
+        private ITestCase testCase;
+        private string assemblyFileName;
+        private MonoTestResultViewModel testResult;
+        private string uniqueName;
+        private TestState result;
+        private string message;
+        private string output;
+        private string stackTrace;
 
-        public MonoTestResult TestResult { get; private set; }
+        public string AssemblyFileName
+        {
+            get { return assemblyFileName; }
+            private set { Set(ref assemblyFileName, value); }
+        }
+
+        public ITestCase TestCase
+        {
+            get { return testCase; }
+            private set
+            {
+                if (Set(ref testCase, value))
+                {
+                    RaisePropertyChanged("DisplayName");
+                }
+            }
+        }
+
+        public MonoTestResultViewModel TestResult
+        {
+            get { return testResult; }
+            private set { Set(ref testResult, value); }
+        }
 
 #if __IOS__ || MAC
         public string DisplayName { get { return RunnerOptions.Current.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
 #else
         public string DisplayName { get { return RunnerOptions.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
 #endif
-        public string UniqueName { get; private set; }
 
-        public MonoTestCase(string assemblyFileName, ITestCase testCase, bool forceUniqueNames)
+        public string UniqueName
+        {
+            get { return uniqueName; }
+            private set { Set(ref uniqueName, value); }
+        }
+
+        public MonoTestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames)
         {
             if (assemblyFileName == null) throw new ArgumentNullException("assemblyFileName");
             if (testCase == null) throw new ArgumentNullException("testCase");
@@ -40,16 +73,19 @@ namespace Xunit.Runners
 
             Result = TestState.NotRun;
 
-            // Create an initial result represnting not run
-            TestResult = new MonoTestResult(this, null);
+            // Create an initial result representing not run
+            TestResult = new MonoTestResultViewModel(this, null);
         }
 
-        
 
-        public TestState Result { get; private set; }
+        public TestState Result
+        {
+            get { return result; }
+            private set { Set(ref result, value); }
+        }
 
 
-        internal void UpdateTestState(MonoTestResult message)
+        internal void UpdateTestState(MonoTestResultViewModel message)
         {
             TestResult = message;
 
@@ -87,8 +123,22 @@ namespace Xunit.Runners
                 evt(this, EventArgs.Empty);
         }
 
-        public string Message { get; private set; }
-        public string Output { get; private set; }
-        public string StackTrace { get; private set; }
+        public string Message
+        {
+            get { return message; }
+            private set { Set(ref message, value); }
+        }
+
+        public string Output
+        {
+            get { return output; }
+            private set { Set(ref output, value); }
+        }
+
+        public string StackTrace
+        {
+            get { return stackTrace; }
+            private set { Set(ref stackTrace, value); }
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace Xunit.Runners.UI
 {
     internal class TestResultElement : StyledMultilineElement
     {
-        public TestResultElement(MonoTestResult result) :
+        public TestResultElement(MonoTestResultViewModel result) :
             base(result.ErrorMessage ?? "Unknown error", result.ErrorStackTrace, UITableViewCellStyle.Subtitle)
         {
         }
