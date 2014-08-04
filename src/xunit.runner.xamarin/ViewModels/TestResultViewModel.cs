@@ -7,15 +7,15 @@ using Xunit.Abstractions;
 
 namespace Xunit.Runners
 {
-    public class MonoTestResultViewModel : ViewModelBase
+    public class TestResultViewModel : ViewModelBase
     {
         private TimeSpan duration;
         private string errorMessage;
         private string errorStackTrace;
-        private MonoTestCaseViewModel testCase;
+        private TestCaseViewModel testCase;
         private ITestResultMessage testResultMessage;
 
-        public MonoTestResultViewModel(MonoTestCaseViewModel testCase, ITestResultMessage testResult)
+        public TestResultViewModel(TestCaseViewModel testCase, ITestResultMessage testResult)
         {
             if (testCase == null) throw new ArgumentNullException("testCase");
             TestCase = testCase;
@@ -25,7 +25,7 @@ namespace Xunit.Runners
                 testCase.UpdateTestState(this);
         }
 
-        public MonoTestCaseViewModel TestCase
+        public TestCaseViewModel TestCase
         {
             get { return testCase; }
             private set { Set(ref testCase, value); }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using Xamarin.Forms;
 using Xunit.Runners.Pages;
+using Xunit.Runners.ViewModels;
 
 namespace Xunit.Runners
 {
-    public class FormsRunner : ViewModelBase
+    public class FormsRunner : ViewModelBase, ITestListener
     {
         private readonly Assembly executionAssembly;
         private readonly IReadOnlyCollection<Assembly> testAssemblies;
@@ -42,7 +44,17 @@ namespace Xunit.Runners
 
         public Page GetMainPage()
         {
-            return new NavigationPage(new HomePage());
+
+            var hp = new HomePage();
+            var vm = new HomeViewModel(hp.Navigation);
+            hp.BindingContext = vm;
+
+            return new NavigationPage(hp);
+        }
+
+        void ITestListener.RecordResult(TestResultViewModel result)
+        {
+            
         }
     }
 }

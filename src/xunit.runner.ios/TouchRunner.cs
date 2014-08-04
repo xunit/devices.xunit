@@ -62,7 +62,7 @@ namespace Xunit.Runners.UI
         private int skipped;
         private int passed;
         private bool cancelled;
-        private IEnumerable<IGrouping<string, MonoTestCaseViewModel>> allTests;
+        private IEnumerable<IGrouping<string, TestCaseViewModel>> allTests;
 
         private readonly AsyncLock executionLock = new AsyncLock();
 
@@ -106,7 +106,7 @@ namespace Xunit.Runners.UI
                 });
         }
 
-        void ITestListener.RecordResult(MonoTestResultViewModel result)
+        void ITestListener.RecordResult(TestResultViewModel result)
         {
             // Ensure the proeprty changes/updates are on the UI thread
             window.BeginInvokeOnMainThread(result.RaiseTestUpdated);
@@ -163,10 +163,10 @@ namespace Xunit.Runners.UI
             executionAssembly = assembly;
         }
 
-        private IEnumerable<IGrouping<string, MonoTestCaseViewModel>> DiscoverTestsInAssemblies()
+        private IEnumerable<IGrouping<string, TestCaseViewModel>> DiscoverTestsInAssemblies()
         {
             var stopwatch = Stopwatch.StartNew();
-            var result = new List<IGrouping<string, MonoTestCaseViewModel>>();
+            var result = new List<IGrouping<string, TestCaseViewModel>>();
 
             try
             {
@@ -186,13 +186,13 @@ namespace Xunit.Runners.UI
                                 sink.Finished.WaitOne();
 
                                 result.Add(
-                                    new Grouping<string, MonoTestCaseViewModel>(
+                                    new Grouping<string, TestCaseViewModel>(
                                         fileName,
                                         sink.TestCases
                                             .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
                                             .SelectMany(group =>
                                                         group.Select(testCase =>
-                                                                     new MonoTestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1)))
+                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1)))
                                             .ToList()
                                         )
                                     );
@@ -339,7 +339,7 @@ namespace Xunit.Runners.UI
             NavigationController.PushViewController(suites_dvc[suite], true);
         }
 
-        private TestSuiteElement SetupSource(IGrouping<string, MonoTestCaseViewModel> testSource)
+        private TestSuiteElement SetupSource(IGrouping<string, TestCaseViewModel> testSource)
         {
             
             var root = new RootElement("Tests");
@@ -391,7 +391,7 @@ namespace Xunit.Runners.UI
             return tse;
         }
 
-        Task RunTests(IEnumerable<IGrouping<string, MonoTestCaseViewModel>> testCaseAccessor, Stopwatch stopwatch)
+        Task RunTests(IEnumerable<IGrouping<string, TestCaseViewModel>> testCaseAccessor, Stopwatch stopwatch)
         {
             var tcs = new TaskCompletionSource<object>(null);
 
@@ -431,7 +431,7 @@ namespace Xunit.Runners.UI
 
         ManualResetEvent RunTestsInAssemblyAsync(List<IDisposable> toDispose,
                                                 string assemblyFileName,
-                                                IEnumerable<MonoTestCaseViewModel> testCases,
+                                                IEnumerable<TestCaseViewModel> testCases,
                                                 Stopwatch stopwatch)
         {
             var @event = new ManualResetEvent(initialState: false);
@@ -453,7 +453,7 @@ namespace Xunit.Runners.UI
 
         void RunTestsInAssembly(List<IDisposable> toDispose,
                                 string assemblyFileName,
-                                IEnumerable<MonoTestCaseViewModel> testCases,
+                                IEnumerable<TestCaseViewModel> testCases,
                                 Stopwatch stopwatch)
         {
             if (cancelled)
@@ -466,7 +466,7 @@ namespace Xunit.Runners.UI
 
             var xunitTestCases = testCases.ToDictionary(tc => tc.TestCase);
 
-            using (var executionVisitor = new MonoTestExecutionVisitor(xunitTestCases, this, () => cancelled))
+            using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, () => cancelled))
             {
                 var executionOptions = new XunitExecutionOptions
                 {
@@ -490,12 +490,12 @@ namespace Xunit.Runners.UI
         //}
 
 
-        internal Task Run(MonoTestCaseViewModel test)
+        internal Task Run(TestCaseViewModel test)
         {
             return Run(new[] { test });
         }
 
-        internal async Task Run(IEnumerable<MonoTestCaseViewModel> tests, string message = null)
+        internal async Task Run(IEnumerable<TestCaseViewModel> tests, string message = null)
         {
 
             var stopWatch = Stopwatch.StartNew();

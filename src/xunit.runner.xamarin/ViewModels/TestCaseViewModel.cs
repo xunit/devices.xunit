@@ -10,7 +10,7 @@ using Xunit.Runners.UI;
 
 namespace Xunit.Runners
 {
-    public class MonoTestCaseViewModel : ViewModelBase
+    public class TestCaseViewModel : ViewModelBase
     {
 
         public event EventHandler TestCaseUpdated;
@@ -18,7 +18,7 @@ namespace Xunit.Runners
         private readonly string fqTestMethodName;
         private ITestCase testCase;
         private string assemblyFileName;
-        private MonoTestResultViewModel testResult;
+        private TestResultViewModel testResult;
         private string uniqueName;
         private TestState result;
         private string message;
@@ -43,7 +43,7 @@ namespace Xunit.Runners
             }
         }
 
-        public MonoTestResultViewModel TestResult
+        public TestResultViewModel TestResult
         {
             get { return testResult; }
             private set { Set(ref testResult, value); }
@@ -61,7 +61,7 @@ namespace Xunit.Runners
             private set { Set(ref uniqueName, value); }
         }
 
-        public MonoTestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames)
+        public TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames)
         {
             if (assemblyFileName == null) throw new ArgumentNullException("assemblyFileName");
             if (testCase == null) throw new ArgumentNullException("testCase");
@@ -74,7 +74,7 @@ namespace Xunit.Runners
             Result = TestState.NotRun;
 
             // Create an initial result representing not run
-            TestResult = new MonoTestResultViewModel(this, null);
+            TestResult = new TestResultViewModel(this, null);
         }
 
 
@@ -85,7 +85,7 @@ namespace Xunit.Runners
         }
 
 
-        internal void UpdateTestState(MonoTestResultViewModel message)
+        internal void UpdateTestState(TestResultViewModel message)
         {
             TestResult = message;
 

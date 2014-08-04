@@ -18,8 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\TcpTextWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Enums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MonoTestCaseViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MonoTestResultViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestAssemblyViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestCaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestResultViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\MonoTestExecutionVisitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestDiscoveryVisitor.cs" />
