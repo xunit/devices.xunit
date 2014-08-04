@@ -10,7 +10,7 @@ using Xunit.Runners.ViewModels;
 
 namespace Xunit.Runners
 {
-    public class FormsRunner : ViewModelBase, ITestListener
+    public class FormsRunner : ViewModelBase
     {
         private readonly Assembly executionAssembly;
         private readonly IReadOnlyCollection<Assembly> testAssemblies;
@@ -46,15 +46,12 @@ namespace Xunit.Runners
         {
 
             var hp = new HomePage();
-            var vm = new HomeViewModel(hp.Navigation);
+            var vm = new HomeViewModel(hp.Navigation, testAssemblies);
+            
+            
             hp.BindingContext = vm;
 
             return new NavigationPage(hp);
-        }
-
-        void ITestListener.RecordResult(TestResultViewModel result)
-        {
-            
         }
     }
 }
