@@ -148,7 +148,7 @@ namespace Xunit.Runners.ViewModels
                                             .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
                                             .SelectMany(group =>
                                                         group.Select(testCase =>
-                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1)))
+                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation: navigation)))
                                             .ToList()
                                         )
                                     );

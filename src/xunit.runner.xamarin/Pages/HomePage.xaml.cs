@@ -49,9 +49,12 @@ namespace Xunit.Runners.Pages
 	        {
 	            var ts = new TextCell {BindingContext = ta};
 	            ts.SetBinding(TextCell.TextProperty, "DisplayName");
+	            ts.SetBinding(TextCell.DetailProperty, "DetailText");
+	            ts.SetBinding(TextCell.DetailColorProperty, "DetailColor");
+
 	            ts.Command = viewModel.NavigateToTestAssemblyCommand;
 	            ts.CommandParameter = ts.BindingContext;
-
+                
                 fs.Add(ts);
 	        }
 	        tr.Add(fs); // add the first section

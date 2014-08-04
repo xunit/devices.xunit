@@ -2,16 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-
+using System.Windows.Input;
+using Xamarin.Forms;
 using Xunit.Abstractions;
-
+using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 
 namespace Xunit.Runners
 {
     public class TestCaseViewModel : ViewModelBase
     {
+        private readonly INavigation navigation;
+
+        public ICommand NavigateToResultCommand { get; private set; }
 
         public event EventHandler TestCaseUpdated;
 
@@ -61,8 +64,9 @@ namespace Xunit.Runners
             private set { Set(ref uniqueName, value); }
         }
 
-        public TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames)
+        public TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames, INavigation navigation)
         {
+            this.navigation = navigation;
             if (assemblyFileName == null) throw new ArgumentNullException("assemblyFileName");
             if (testCase == null) throw new ArgumentNullException("testCase");
 
@@ -75,6 +79,17 @@ namespace Xunit.Runners
 
             // Create an initial result representing not run
             TestResult = new TestResultViewModel(this, null);
+
+            NavigateToResultCommand = new Command(NavigateToResultsPage);
+        }
+
+        private async void NavigateToResultsPage()
+        {
+            await navigation.PushAsync(new TestResultPage()
+            {
+                BindingContext = TestResult
+            });
+
         }
 
 
