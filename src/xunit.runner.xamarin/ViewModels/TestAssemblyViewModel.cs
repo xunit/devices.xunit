@@ -13,14 +13,16 @@ namespace Xunit.Runners.ViewModels
     public class TestAssemblyViewModel : ViewModelBase
     {
         private readonly INavigation navigation;
+        private readonly ITestRunner runner;
         private string detailText;
         private Color displayColor;
         private string displayName;
         private TestState result;
 
-        public TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group)
+        internal TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
         {
             this.navigation = navigation;
+            this.runner = runner;
 
             RunTestsCommand = new Command(RunTests);
 
@@ -141,6 +143,7 @@ namespace Xunit.Runners.ViewModels
 
         private void RunTests()
         {
+            runner.Run(TestCases);
         }
     }
 }

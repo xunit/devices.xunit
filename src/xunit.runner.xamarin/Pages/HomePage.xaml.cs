@@ -59,6 +59,15 @@ namespace Xunit.Runners.Pages
 	        }
 	        tr.Add(fs); // add the first section
 
+	        var run = new TextCell
+	        {
+	            Text = "Run Everything",
+	            Command = viewModel.RunEverythingCommand,
+	        };
+
+	        table.Root.Skip(1)
+                .First()
+	             .Insert(0, run);
 	        tr.Add(table.Root.Skip(1)); // Skip the first section and add the others
 
 	        table.Root = tr;

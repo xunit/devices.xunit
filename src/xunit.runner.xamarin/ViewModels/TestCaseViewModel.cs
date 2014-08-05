@@ -13,10 +13,9 @@ namespace Xunit.Runners
     public class TestCaseViewModel : ViewModelBase
     {
         private readonly INavigation navigation;
+        private readonly ITestRunner runner;
 
         public ICommand NavigateToResultCommand { get; private set; }
-
-        public event EventHandler TestCaseUpdated;
 
         private readonly string fqTestMethodName;
         private ITestCase testCase;
@@ -27,6 +26,8 @@ namespace Xunit.Runners
         private string message;
         private string output;
         private string stackTrace;
+        private Color detailColor;
+        private string detailText;
 
         public string AssemblyFileName
         {
@@ -64,11 +65,13 @@ namespace Xunit.Runners
             private set { Set(ref uniqueName, value); }
         }
 
-        public TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames, INavigation navigation)
+        internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames, INavigation navigation, ITestRunner runner)
         {
-            this.navigation = navigation;
             if (assemblyFileName == null) throw new ArgumentNullException("assemblyFileName");
             if (testCase == null) throw new ArgumentNullException("testCase");
+            
+            this.navigation = navigation;
+            this.runner = runner;
 
             fqTestMethodName = String.Format("{0}.{1}", testCase.TestMethod.TestClass.Class.Name, testCase.TestMethod.Method.Name);
             UniqueName = forceUniqueNames ? String.Format("{0} ({1})", fqTestMethodName, testCase.UniqueID) : fqTestMethodName;
@@ -76,6 +79,7 @@ namespace Xunit.Runners
             TestCase = testCase;
 
             Result = TestState.NotRun;
+            Message = "not run";
 
             // Create an initial result representing not run
             TestResult = new TestResultViewModel(this, null);
@@ -85,13 +89,24 @@ namespace Xunit.Runners
 
         private async void NavigateToResultsPage()
         {
-            await navigation.PushAsync(new TestResultPage()
+            // run again
+            await runner.Run(this);
+
+            if (Result == TestState.Failed)
             {
-                BindingContext = TestResult
-            });
+                await navigation.PushAsync(new TestResultPage()
+                {
+                    BindingContext = TestResult
+                });   
+            }
 
         }
 
+        public Color DetailColor
+        {
+            get { return detailColor; }
+            set { Set(ref detailColor, value); }
+        }
 
         public TestState Result
         {
@@ -111,7 +126,8 @@ namespace Xunit.Runners
             if (message.TestResultMessage is ITestPassed)
             {
                 Result = TestState.Passed;
-                Message = "Passed";
+                Message = String.Format("Success! {0} ms", TestResult.Duration.TotalMilliseconds);
+                DetailColor = Color.Green;
             }
             if (message.TestResultMessage is ITestFailed)
             {
@@ -119,6 +135,7 @@ namespace Xunit.Runners
                 var failedMessage = (ITestFailed)(message.TestResultMessage);
                 Message = ExceptionUtility.CombineMessages(failedMessage);
                 StackTrace = ExceptionUtility.CombineStackTraces(failedMessage);
+                DetailColor = Color.Red;
             }
             if (message.TestResultMessage is ITestSkipped)
             {
@@ -126,17 +143,13 @@ namespace Xunit.Runners
 
                 var skipped = (ITestSkipped)(message.TestResultMessage);
                 Message = skipped.Reason;
+                DetailColor = Color.FromHex("#FF7700");
             }
         }
 
         // This should be raised on a UI thread as listeners will likely be
         // UI elements
-        internal void RaiseTestCaseUpdated()
-        {
-            var evt = TestCaseUpdated;
-            if (evt != null)
-                evt(this, EventArgs.Empty);
-        }
+   
 
         public string Message
         {

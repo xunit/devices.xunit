@@ -163,7 +163,7 @@ namespace Xunit.Runners
             {
                 Results[result.TestCase.UniqueName] = result;
 
-                result.RaiseTestUpdated();
+                //result.RaiseTestUpdated();
             }, null);
 
             if (result.TestCase.Result == TestState.Passed)
@@ -232,7 +232,7 @@ namespace Xunit.Runners
                                             .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
                                             .SelectMany(group =>
                                                         group.Select(testCase =>
-                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation:null)))
+                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation: null, runner: null)))
                                             .ToList()
                                         )
                                     );
@@ -484,7 +484,7 @@ namespace Xunit.Runners
 
             var xunitTestCases = testCases.ToDictionary(tc => tc.TestCase);
 
-            using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, () => cancelled))
+            using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, () => cancelled, null))
             {
                 var executionOptions = new XunitExecutionOptions
                 {

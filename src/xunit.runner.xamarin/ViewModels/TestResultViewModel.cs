@@ -54,10 +54,6 @@ namespace Xunit.Runners
             get { return errorStackTrace; }
             set { Set(ref errorStackTrace, value); }
         }
-
-        internal void RaiseTestUpdated()
-        {
-            TestCase.RaiseTestCaseUpdated();
-        }
+        
     }
 }

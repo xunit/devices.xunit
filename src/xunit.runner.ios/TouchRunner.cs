@@ -109,7 +109,7 @@ namespace Xunit.Runners.UI
         void ITestListener.RecordResult(TestResultViewModel result)
         {
             // Ensure the proeprty changes/updates are on the UI thread
-            window.BeginInvokeOnMainThread(result.RaiseTestUpdated);
+         //   window.BeginInvokeOnMainThread(result.RaiseTestUpdated);
 
             if (result.TestCase.Result == TestState.Passed)
             {
@@ -192,7 +192,7 @@ namespace Xunit.Runners.UI
                                             .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
                                             .SelectMany(group =>
                                                         group.Select(testCase =>
-                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation:null)))
+                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation:null, runner: null)))
                                             .ToList()
                                         )
                                     );
@@ -466,7 +466,7 @@ namespace Xunit.Runners.UI
 
             var xunitTestCases = testCases.ToDictionary(tc => tc.TestCase);
 
-            using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, () => cancelled))
+            using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, () => cancelled, null))
             {
                 var executionOptions = new XunitExecutionOptions
                 {
@@ -537,57 +537,7 @@ namespace Xunit.Runners.UI
             }
         }
 
-        private static string SelectHostName(string[] names, int port)
-        {
-            if (names.Length == 0)
-                return null;
-
-            if (names.Length == 1)
-                return names[0];
-
-            var lock_obj = new object();
-            string result = null;
-            var failures = 0;
-
-            using (var evt = new ManualResetEvent(false))
-            {
-                for (var i = names.Length - 1; i >= 0; i--)
-                {
-                    var name = names[i];
-                    ThreadPool.QueueUserWorkItem((v) =>
-                    {
-                        try
-                        {
-                            var client = new TcpClient(name, port);
-                            using (var writer = new StreamWriter(client.GetStream()))
-                            {
-                                writer.WriteLine("ping");
-                            }
-                            lock (lock_obj)
-                            {
-                                if (result == null)
-                                    result = name;
-                            }
-                            evt.Set();
-                        }
-                        catch (Exception)
-                        {
-                            lock (lock_obj)
-                            {
-                                failures++;
-                                if (failures == names.Length)
-                                    evt.Set();
-                            }
-                        }
-                    });
-                }
-
-                // Wait for 1 success or all failures
-                evt.WaitOne();
-            }
-
-            return result;
-        }
+       
 
         public bool OpenWriter(string message)
         {
@@ -598,8 +548,8 @@ namespace Xunit.Runners.UI
             {
                 if (options.ShowUseNetworkLogger)
                 {
-                    var hostname = SelectHostName(options.HostName.Split(','), options.HostPort);
-
+                    //var hostname = SelectHostName(options.HostName.Split(','), options.HostPort);
+                    string hostname = null;
                     if (hostname != null)
                     {
                         Console.WriteLine("[{0}] Sending '{1}' results to {2}:{3}", now, message, hostname, options.HostPort);

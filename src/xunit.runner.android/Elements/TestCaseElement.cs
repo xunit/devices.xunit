@@ -42,7 +42,7 @@ namespace Xunit.Runners.UI
 
             Refresh();
 
-            testCase.TestCaseUpdated += OnTestCaseUpdated;
+            //testCase.TestCaseUpdated += OnTestCaseUpdated;
         }
 
         private void OnTestCaseUpdated(object sender, EventArgs e)
@@ -123,7 +123,7 @@ namespace Xunit.Runners.UI
         {
             if (disposing)
             {
-                TestCase.TestCaseUpdated -= OnTestCaseUpdated;
+                //TestCase.TestCaseUpdated -= OnTestCaseUpdated;
             }
             base.Dispose(disposing);
         }

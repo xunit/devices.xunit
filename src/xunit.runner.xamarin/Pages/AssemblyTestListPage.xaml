@@ -6,7 +6,10 @@
         <ListView ItemsSource="{Binding TestCases}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding DisplayName}" Command="{Binding NavigateToResultCommand}"  />
+                    <TextCell Text="{Binding DisplayName}"  
+                              Detail="{Binding Message}"
+                              DetailColor="{Binding DetailColor}"
+                              Command="{Binding NavigateToResultCommand}"  />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

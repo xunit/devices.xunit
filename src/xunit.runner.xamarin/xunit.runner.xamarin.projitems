@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FormsRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITestRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\AssemblyTestListPage.xaml.cs">
       <DependentUpon>AssemblyTestListPage.xaml</DependentUpon>
       <SubType>Code</SubType>

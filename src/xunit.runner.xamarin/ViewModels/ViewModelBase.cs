@@ -16,7 +16,9 @@ namespace Xunit.Runners
             if (!EqualityComparer<T>.Default.Equals(destination, value))
             {
                 destination = value;
-                
+
+                RaisePropertyChanged(propertyName);
+
                 return true;
             }
             return false;

@@ -27,14 +27,16 @@ namespace Xunit.Runners.ViewModels
     {
         private readonly INavigation navigation;
         private readonly IReadOnlyCollection<Assembly> testAssemblies;
+        private readonly ITestRunner runner;
 
         public event EventHandler ScanComplete;
         private ManualResetEventSlim mre = new ManualResetEventSlim(false);
 
-        public HomeViewModel(INavigation navigation, IReadOnlyCollection<Assembly> testAssemblies)
+        internal HomeViewModel(INavigation navigation, IReadOnlyCollection<Assembly> testAssemblies, ITestRunner runner)
         {
             this.navigation = navigation;
             this.testAssemblies = testAssemblies;
+            this.runner = runner;
             TestAssemblies = new ObservableCollection<TestAssemblyViewModel>();
 
             OptionsCommand = new Command(OptionsExecute);
@@ -63,9 +65,9 @@ namespace Xunit.Runners.ViewModels
             Debug.WriteLine("Credits");
         }
 
-        private void RunEverythingExecute()
+        private async void RunEverythingExecute()
         {
-            Debug.WriteLine("Run Everything");
+            await Run();
         }
 
 
@@ -84,7 +86,7 @@ namespace Xunit.Runners.ViewModels
             // Back on UI thread
             foreach (var group in allTests)
             {
-                var vm = new TestAssemblyViewModel(navigation, group);
+                var vm = new TestAssemblyViewModel(navigation, group, runner);
                 TestAssemblies.Add(vm);
             }
 
@@ -97,7 +99,7 @@ namespace Xunit.Runners.ViewModels
             if (AutoStart)
             {
                 await Task.Run(() => mre.Wait());
-                // await Run();
+                 await Run();
 
                 if (TerminateAfterExecution)
                     TerminateWithSuccess();
@@ -118,6 +120,10 @@ namespace Xunit.Runners.ViewModels
         }
 #endif
 
+        private Task Run()
+        {
+            return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
+        }
 
         private IEnumerable<IGrouping<string, TestCaseViewModel>> DiscoverTestsInAssemblies()
         {
@@ -148,7 +154,7 @@ namespace Xunit.Runners.ViewModels
                                             .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
                                             .SelectMany(group =>
                                                         group.Select(testCase =>
-                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation: navigation)))
+                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation: navigation, runner: runner)))
                                             .ToList()
                                         )
                                     );
@@ -170,6 +176,7 @@ namespace Xunit.Runners.ViewModels
 
             return result;
         }
+
 
 
         private class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
