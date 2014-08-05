@@ -72,16 +72,11 @@
     <Compile Include="Activities\CreditsActivity.cs" />
     <Compile Include="Activities\OptionsActivity.cs" />
     <Compile Include="Activities\RunnerActivity.cs" />
-    <Compile Include="Activities\TestResultActivity.cs" />
-    <Compile Include="Activities\TestSuiteActivity.cs" />
     <Compile Include="AndroidRunner.cs" />
     <Compile Include="Elements\ActionElement.cs" />
     <Compile Include="Elements\ActivityElement.cs" />
     <Compile Include="Elements\FormattedElement.cs" />
     <Compile Include="Elements\FormattedSection.cs" />
-    <Compile Include="Elements\TestCaseElement.cs" />
-    <Compile Include="Elements\TestElement.cs" />
-    <Compile Include="Elements\TestSuiteElement.cs" />
     <Compile Include="MonoTouch.Dialog\BindingContext.cs" />
     <Compile Include="MonoTouch.Dialog\BooleanElement.cs" />
     <Compile Include="MonoTouch.Dialog\ButtonElement.cs" />

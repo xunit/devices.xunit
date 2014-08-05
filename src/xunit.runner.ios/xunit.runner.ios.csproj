@@ -45,10 +45,6 @@
     </Compile>
     <Compile Include="Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Elements\TestCaseElement.cs" />
-    <Compile Include="Elements\TestElement.cs" />
-    <Compile Include="Elements\TestResultElement.cs" />
-    <Compile Include="Elements\TestSuiteElement.cs" />
     <Compile Include="RunnerAppDelegate.cs" />
     <Compile Include="RunnerOptions.cs" />
     <Compile Include="TouchRunner.cs" />

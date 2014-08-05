@@ -45,7 +45,6 @@ namespace Xunit.Runners
         private readonly AsyncLock executionLock = new AsyncLock();
         private readonly ManualResetEvent mre = new ManualResetEvent(false);
         private readonly Dictionary<string, TestResultViewModel> results = new Dictionary<string, TestResultViewModel>();
-        private readonly Dictionary<string, TestSuiteElement> suiteElements = new Dictionary<string, TestSuiteElement>();
         private bool cancelled;
         private int failed;
         private RunnerOptions options;
@@ -83,10 +82,7 @@ namespace Xunit.Runners
             get { return results; }
         }
 
-        internal IDictionary<string, TestSuiteElement> Suites
-        {
-            get { return suiteElements; }
-        }
+
 
         public TextWriter Writer { get; set; }
 
@@ -255,82 +251,6 @@ namespace Xunit.Runners
             return result;
         }
 
-        internal View GetView(Activity activity)
-        {
-            if (Options == null)
-                Options = new RunnerOptions(activity);
-
-            RunnerOptions.Initialize(activity);
-
-            Results.Clear();
-            suiteElements.Clear();
-
-            var menu = new RootElement("Test Runner");
-
-            var main = new Section("Loading test assemblies...");
-
-            var optSect = new Section()
-            {
-                new ActivityElement("Options", typeof(OptionsActivity)),
-                new ActivityElement("Credits", typeof(CreditsActivity))
-            };
-
-            menu.Add(main);
-            menu.Add(optSect);
-
-            var a = new DialogAdapter(activity, menu);
-            var lv = new ListView(activity)
-            {
-                Adapter = a
-            };
-
-
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                var allTests = DiscoverTestsInAssemblies();
-                testCasesByAssembly = allTests.ToDictionary(cases => cases.Key, cases => cases as IEnumerable<TestCaseViewModel>);
-
-
-                activity.RunOnUiThread(() =>
-                {
-                    foreach (var kvp in testCasesByAssembly)
-                    {
-                        main.Add(SetupSource(kvp.Key, kvp.Value));
-                    }
-
-
-                    mre.Set();
-                    main.Caption = null;
-
-                    optSect.Insert(0, new ActionElement("Run Everything", async () => await Run()));
-
-                    a.NotifyDataSetChanged();
-                });
-
-                assemblies.Clear();
-            });
-
-
-            // AutoStart running the tests (with either the supplied 'writer' or the options)
-            if (AutoStart)
-            {
-                ThreadPool.QueueUserWorkItem(delegate
-                {
-                    mre.WaitOne();
-                    activity.RunOnUiThread(async () =>
-                    {
-                        await Run();
-
-                        // optionally end the process, 
-                        if (TerminateAfterExecution)
-                            activity.Finish();
-                    });
-                });
-            }
-
-            return lv;
-        }
-
         internal static void AddAssembly(Assembly testAssm)
         {
             assemblies.Add(testAssm);
@@ -370,45 +290,7 @@ namespace Xunit.Runners
             }
         }
 
-        private TestSuiteElement SetupSource(string sourceName, IEnumerable<TestCaseViewModel> testSource)
-        {
-            var root = new RootElement("Tests");
-
-            var elements = new List<TestCaseElement>();
-
-            var section = new Section(sourceName);
-            foreach (var test in testSource)
-            {
-                var ele = new TestCaseElement(test, this);
-                elements.Add(ele);
-                section.Add(ele);
-            }
-
-            var tse = new TestSuiteElement(sourceName, elements, this);
-            suiteElements[sourceName] = tse;
-
-
-            root.Add(section);
-
-            if (section.Count > 1)
-            {
-                StringElement allbtn = null;
-                allbtn = new StringElement("Run all",
-                                           async delegate
-                                           {
-                                               await Run(testSource);
-                                           });
-                var options = new Section()
-                {
-                    allbtn
-                };
-
-                root.Add(options);
-            }
-            return tse;
-        }
-
-
+  
         private Task RunTests(IEnumerable<IGrouping<string, TestCaseViewModel>> testCaseAccessor, Stopwatch stopwatch)
         {
             var tcs = new TaskCompletionSource<object>(null);
@@ -439,7 +321,7 @@ namespace Xunit.Runners
                 finally
                 {
                     toDispose.ForEach(disposable => disposable.Dispose());
-                    OnTestRunCompleted();
+                   
                     tcs.SetResult(null);
                 }
             });
@@ -497,17 +379,6 @@ namespace Xunit.Runners
             }
         }
 
-        private void OnTestRunCompleted()
-        {
-            Application.SynchronizationContext.Post(_ =>
-            {
-                foreach (var ts in suiteElements.Values)
-                {
-                    // Recalc the status
-                    ts.Refresh();
-                }
-            }, null);
-        }
 
         private class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
         {

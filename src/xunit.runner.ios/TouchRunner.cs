@@ -54,7 +54,6 @@ namespace Xunit.Runners.UI
         private readonly List<Assembly> assemblies = new List<Assembly>();
         
         private readonly ManualResetEvent mre = new ManualResetEvent(false);
-        private readonly Dictionary<string, TestSuiteElement> suite_elements = new Dictionary<string, TestSuiteElement>();
         private readonly Dictionary<string, TouchViewController> suites_dvc = new Dictionary<string, TouchViewController>();
         private readonly UIWindow window;
         private Assembly executionAssembly;
@@ -93,18 +92,7 @@ namespace Xunit.Runners.UI
             get { return (UINavigationController)window.RootViewController; }
         }
 
-        private void OnTestRunCompleted()
-        {
-            window.BeginInvokeOnMainThread(
-                () =>
-                {
-                    foreach(var ts in suite_elements.Values)
-                    {
-                        // Recalc the status
-                        ts.Update();
-                    }
-                });
-        }
+
 
         void ITestListener.RecordResult(TestResultViewModel result)
         {
@@ -216,89 +204,8 @@ namespace Xunit.Runners.UI
         }
 
 
-        private static void TerminateWithSuccess()
-        {
-            var selector = new Selector("terminateWithSuccess");
-            UIApplication.SharedApplication.PerformSelector(selector, UIApplication.SharedApplication, 0);
-        }
+ 
 
-
-        [CLSCompliant(false)]
-        public UIViewController GetViewController()
-        {
-            var menu = new RootElement("Test Runner");
-
-            var main = new Section("Loading test suites...");
-            menu.Add(main);
-
-            var options = new Section()
-            {
-                new StyledStringElement("Options", Options)
-                {
-                    Accessory = UITableViewCellAccessory.DisclosureIndicator
-                },
-                new StyledStringElement("Credits", Credits)
-                {
-                    Accessory = UITableViewCellAccessory.DisclosureIndicator
-                }
-            };
-            menu.Add(options);
-
-            // large unit tests applications can take more time to initialize
-            // than what the iOS watchdog will allow them on devices
-            ThreadPool.QueueUserWorkItem(delegate
-            {
-                allTests = DiscoverTestsInAssemblies();
-
-
-                window.InvokeOnMainThread(
-                    delegate
-                    {
-                        foreach (var group in allTests)
-                        {
-                            main.Add(SetupSource(group));
-                        }
-
-
-                        mre.Set();
-
-                        main.Caption = null;
-                        menu.Reload(main, UITableViewRowAnimation.Fade);
-
-                        options.Insert(0, new StringElement("Run Everything", async () => await Run()));
-                        menu.Reload(options, UITableViewRowAnimation.Fade);
-                    });
-                assemblies.Clear();
-            });
-
-            var dv = new DialogViewController(menu)
-            {
-                Autorotate = true
-            };
-
-            // AutoStart running the tests (with either the supplied 'writer' or the options)
-            if (AutoStart)
-            {
-                ThreadPool.QueueUserWorkItem(delegate
-                {
-                    mre.WaitOne();
-                    window.BeginInvokeOnMainThread(async delegate
-                    {
-                        await Run();
-                        // optionally end the process, e.g. click "Touch.Unit" -> log tests results, return to springboard...
-                        // http://stackoverflow.com/questions/1978695/uiapplication-sharedapplication-terminatewithsuccess-is-not-there
-                        if (TerminateAfterExecution)
-                            TerminateWithSuccess();
-                    });
-                });
-            }
-            return dv;
-        }
-
-        private Task Run()
-        {
-            return Run(allTests.SelectMany(t => t), "Run Everything");
-        }
 
         private void Options()
         {
@@ -339,57 +246,7 @@ namespace Xunit.Runners.UI
             NavigationController.PushViewController(suites_dvc[suite], true);
         }
 
-        private TestSuiteElement SetupSource(IGrouping<string, TestCaseViewModel> testSource)
-        {
-            
-            var root = new RootElement("Tests");
-
-            var elements = new List<TestCaseElement>();
-
-            var section = new Section(testSource.Key);
-            foreach (var test in testSource)
-            {
-                var ele = new TestCaseElement(test, this);
-                elements.Add(ele);
-                section.Add(ele);
-            }
-
-            var tse = new TestSuiteElement(testSource.Key, elements, this);
-            suite_elements.Add(testSource.Key, tse);
-
-
-            root.Add(section);
-
-            if (section.Count > 1)
-            {
-                StringElement allbtn = null;
-                allbtn = new StringElement("Run all",
-                                           async delegate
-                                           {
-
-                                               //var table = allbtn.GetContainerTableView();
-                                               //var cell = allbtn.GetCell(table);
-                                               //cell.UserInteractionEnabled = false;
-                                               //cell.SelectionStyle = UITableViewCellSelectionStyle.None;
-                                               //cell.
-                                               await Run(testSource);
-
-                                               //cell.UserInteractionEnabled = true;
-                                               //cell.SelectionStyle = UITableViewCellSelectionStyle.Default;
-
-                                               suites_dvc[testSource.Key].Filter();
-                                           });
-                var options = new Section()
-                {
-                  allbtn
-                };
-
-                root.Add(options);
-            }
-
-            suites_dvc.Add(testSource.Key, new TouchViewController(root));
-            return tse;
-        }
+     
 
         Task RunTests(IEnumerable<IGrouping<string, TestCaseViewModel>> testCaseAccessor, Stopwatch stopwatch)
         {
@@ -421,7 +278,7 @@ namespace Xunit.Runners.UI
                 finally
                 {
                     toDispose.ForEach(disposable => disposable.Dispose());
-                    OnTestRunCompleted();
+ 
                     tcs.SetResult(null);
                 }
             });

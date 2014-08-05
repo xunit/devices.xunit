@@ -87,8 +87,7 @@ namespace Xunit.Runners
             NavigateToResultCommand = new Command(NavigateToResultsPage);
         }
 
-        private async void NavigateToResultsPage()
-        {
+        private async void NavigateToResultsPage(){
             // run again
             await runner.Run(this);
 
