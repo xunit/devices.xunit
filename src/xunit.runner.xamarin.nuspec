@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>xunit.runner.xamarin</id>
-    <version>0.99.2-beta</version>
+    <version>0.99.3-beta</version>
     <title>xUnit.net [Xamarin iOS/Android Runner]</title>
     <authors>Oren Novotny</authors>
     <owners />
@@ -16,10 +16,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>      
       
-      <dependency id="xunit.execution" version="2.0.0-beta-build2727" />
-      <!--<dependency id="xunit.execution" version="[2.0.0-alpha,2.1)" />-->
-      
-      <dependency id="xunit" version="2.0.0-beta-build2727" />
+      <dependency id="xunit" version="2.0.0-beta-build2735" />
       <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
       
     </dependencies>
