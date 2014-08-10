@@ -12,6 +12,7 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>xunit.runner.ios</AssemblyName>
     <NuGetPackageImportStamp>48844f44</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>c1ad7a6d</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,11 +69,11 @@
     </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.abstractions.2.0.0-beta-build2727\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid\xunit.abstractions.dll</HintPath>
+      <HintPath>..\..\packages\xunit.abstractions.2.0.0-beta-build2735\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.runner.utility, Version=2.0.0.2727, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="xunit.runner.utility, Version=2.0.0.2735, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.runner.utility.2.0.0-beta-build2727\lib\monotouch\xunit.runner.utility.dll</HintPath>
+      <HintPath>..\..\packages\xunit.runner.utility.2.0.0-beta-build2735\lib\monotouch\xunit.runner.utility.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

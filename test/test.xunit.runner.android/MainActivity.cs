@@ -21,7 +21,7 @@ namespace test.xunit.runner.android
             // tests can be inside the main assembly
             AddTestAssembly(Assembly.GetExecutingAssembly());
 
-            AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
+          //  AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             // or in any reference assemblies			
 
             AddTestAssembly(typeof(PortableTests).Assembly);
