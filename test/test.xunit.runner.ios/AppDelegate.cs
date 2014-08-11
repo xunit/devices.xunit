@@ -27,7 +27,7 @@ namespace test.xunit.runner.ios
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             // We need this to ensure the execution assembly is part of the app bundle
-            //AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
+            AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             
 
             // tests can be inside the main assembly

@@ -14,9 +14,12 @@
     <iconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</iconUrl>
     <licenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <dependencies>      
-      
-      <dependency id="xunit" version="2.0.0-beta-build2735" />
+    <dependencies>
+
+      <!-- TODO Remove this dep -->
+      <dependency id="xunit.execution" version="2.0.0-beta4-build2738" />
+
+      <dependency id="xunit" version="2.0.0-beta4-build2738" />
       <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
       
     </dependencies>
