@@ -20,7 +20,7 @@ namespace $rootnamespace$
             // tests can be inside the main assembly
             Add(Assembly.GetExecutingAssembly());
 
-           // AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
+            AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             // or in any reference assemblies			
           //  Add(typeof(m4a.tests.RunnerTest).Assembly);
             // or in any assembly that you load (since JIT is available)
