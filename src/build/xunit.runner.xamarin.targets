@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="PreventPclExecLib" 
+          BeforeTargets="_CopyOutOfDateSourceItemsToOutputDirectory"
+          Condition=" '@(_SourceItemsToCopyToOutputDirectory)' != '' "
+          
+          >
+    
+    <Message Text="Prevent Pcl Execution Libraries" />
+    <ItemGroup>
+
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(TargetPath)' == 'xunit.execution.dll' "/>
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(TargetPath)' == 'xunit.execution.pdb' "/>
+
+      <!-- Only remove the exec lib that comes from the portable dir as that's a .net 4.5 one -->
+      <__xUnitExecutionLibsToRemove Remove="@(__xUnitExecutionLibsToRemove)" Condition=" !$([System.Text.RegularExpressions.Regex]::IsMatch('%(FullPath)', 'portable-'))" />       
+      
+      <_SourceItemsToCopyToOutputDirectory Remove="@(__xUnitExecutionLibsToRemove)" />
+      
+    </ItemGroup>
+    <Message Text="Removing @(__xUnitExecutionLibsToRemove)->%(TargetPath)" />
+  </Target>
+</Project>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-//using test.xunit.pcltestlib;
+using test.xunit.pcltestlib;
 using Xamarin.Forms;
 using Xunit.Runner;
 using Xunit.Sdk;
@@ -34,7 +34,7 @@ namespace test.xunit.runner.ios
             AddTestAssembly(Assembly.GetExecutingAssembly());
             // otherwise you need to ensure that the test assemblies will 
             // become part of the app bundle
-       //     AddTestAssembly(typeof(PortableTests).Assembly);
+            AddTestAssembly(typeof(PortableTests).Assembly);
 
 #if false
 			// you can use the default or set your own custom writer (e.g. save to web site and tweet it ;-)

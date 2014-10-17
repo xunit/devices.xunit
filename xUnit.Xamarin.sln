@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D
 		build.ps1 = build.ps1
 		README.md = README.md
 		src\build\xunit.runner.xamarin.props = src\build\xunit.runner.xamarin.props
+		src\build\xunit.runner.xamarin.targets = src\build\xunit.runner.xamarin.targets
 		xunit.xamarin.proj = xunit.xamarin.proj
 	EndProjectSection
 EndProject
