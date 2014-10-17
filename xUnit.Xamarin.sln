@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30626.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6B0F38C9-7CEE-4181-A47A-D9F4C626E618}"
 EndProject
@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D
 		.gitignore = .gitignore
 		build.ps1 = build.ps1
 		README.md = README.md
+		src\build\xunit.runner.xamarin.props = src\build\xunit.runner.xamarin.props
 		xunit.xamarin.proj = xunit.xamarin.proj
 	EndProjectSection
 EndProject
