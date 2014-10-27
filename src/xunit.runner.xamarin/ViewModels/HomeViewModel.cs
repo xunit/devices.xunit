@@ -42,7 +42,7 @@ namespace Xunit.Runners.ViewModels
             OptionsCommand = new Command(OptionsExecute);
             CreditsCommand = new Command(CreditsExecute);
             RunEverythingCommand = new Command(RunEverythingExecute);
-            NavigateToTestAssemblyCommand = new Command(async vm => navigation.PushAsync(new AssemblyTestListPage()
+            NavigateToTestAssemblyCommand = new Command(async vm => await navigation.PushAsync(new AssemblyTestListPage()
             {
                 BindingContext = vm
             }));
