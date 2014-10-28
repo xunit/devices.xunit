@@ -240,6 +240,7 @@ Global
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.AppStore|Mixed Platforms.Deploy.0 = AppStore|iPhone
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.AppStore|x86.ActiveCfg = AppStore|iPhoneSimulator
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.Debug|ARM.ActiveCfg = Debug|iPhoneSimulator
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}.Debug|iPhone.Build.0 = Debug|iPhone
@@ -289,8 +290,8 @@ Global
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|ARM.Build.0 = Debug|ARM
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|x86.ActiveCfg = Debug|x86
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Debug|x86.Build.0 = Debug|x86
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -339,9 +340,9 @@ Global
 		{95735974-02B8-4021-9241-175558CB1150}.Debug|ARM.Deploy.0 = Debug|ARM
 		{95735974-02B8-4021-9241-175558CB1150}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{95735974-02B8-4021-9241-175558CB1150}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{95735974-02B8-4021-9241-175558CB1150}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{95735974-02B8-4021-9241-175558CB1150}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{95735974-02B8-4021-9241-175558CB1150}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{95735974-02B8-4021-9241-175558CB1150}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{95735974-02B8-4021-9241-175558CB1150}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{95735974-02B8-4021-9241-175558CB1150}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{95735974-02B8-4021-9241-175558CB1150}.Debug|x86.ActiveCfg = Debug|x86
 		{95735974-02B8-4021-9241-175558CB1150}.Debug|x86.Build.0 = Debug|x86
 		{95735974-02B8-4021-9241-175558CB1150}.Debug|x86.Deploy.0 = Debug|x86
