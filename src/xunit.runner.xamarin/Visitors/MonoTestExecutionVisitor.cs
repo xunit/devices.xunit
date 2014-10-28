@@ -54,7 +54,7 @@ namespace Xunit.Runners.Visitors
             var testCase = testCases[testResult.TestCase];
             var fqTestMethodName = String.Format("{0}.{1}", testResult.TestMethod.TestClass.Class.Name, testResult.TestMethod.Method.Name);
 
-#if __IOS__ || MAC
+#if __IOS__ || MAC || WINDOWS_PHONE
             var displayName = RunnerOptions.Current.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
 #else
             var displayName = RunnerOptions.GetDisplayName(testResult.TestDisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);

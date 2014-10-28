@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 using Xamarin.Forms;
@@ -120,6 +120,13 @@ namespace Xunit.Runners.ViewModels
         }
 #endif
 
+
+#if WINDOWS_PHONE
+        private static void TerminateWithSuccess()
+        {
+            Application.Current.Terminate();   
+        }
+#endif
         private Task Run()
         {
             return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
@@ -137,7 +144,11 @@ namespace Xunit.Runners.ViewModels
                     foreach (var assm in testAssemblies)
                     {
                         // Xunit needs the file name
+#if !WINDOWS_PHONE
                         var fileName = Path.GetFileName(assm.Location);
+#else
+                        var fileName = assm.GetName().Name + ".dll";
+#endif
 
                         try
                         {

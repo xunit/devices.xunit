@@ -78,7 +78,6 @@
     <Compile Include="Activities\CreditsActivity.cs" />
     <Compile Include="Activities\OptionsActivity.cs" />
     <Compile Include="Activities\RunnerActivity.cs" />
-    <Compile Include="AndroidRunner.cs" />
     <Compile Include="Elements\ActionElement.cs" />
     <Compile Include="Elements\ActivityElement.cs" />
     <Compile Include="Elements\FormattedElement.cs" />

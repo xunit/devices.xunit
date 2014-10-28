@@ -2,10 +2,10 @@
 // overrides and with network-activity UI enhancement
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
-
 #if __IOS__ || MAC
 #if XAMCORE_2_0
 using UIKit;
@@ -14,11 +14,16 @@ using MonoTouch.UIKit;
 #endif
 #endif
 
+#if WINDOWS_PHONE
+using Windows.Networking;
+using Windows.Networking.Sockets;
+#endif
+
 namespace Xunit.Runners.UI {
 
 	public class TcpTextWriter : TextWriter {
 		
-		private TcpClient client;
+		//private TcpClient client;
 		private StreamWriter writer;
 
 		public TcpTextWriter (string hostName, int port)
@@ -35,8 +40,17 @@ namespace Xunit.Runners.UI {
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 #endif
 			try {
-				client = new TcpClient (hostName, port);
+
+#if __IOS__ || MAC || ANDROID
+				var client = new TcpClient (hostName, port);
 				writer = new StreamWriter (client.GetStream ());
+#elif WINDOWS_PHONE
+               
+                var socket = new StreamSocket();
+                socket.ConnectAsync(new HostName(hostName), port.ToString(CultureInfo.InvariantCulture))
+                    .AsTask()
+                    .ContinueWith( _ => writer = new StreamWriter(socket.OutputStream.AsStreamForWrite()));
+#endif
 			}
 			catch {
 #if __IOS__ || MAC

@@ -130,7 +130,7 @@ namespace Xunit.Runners
                 try
                 {
                     cancelled = false;
-
+                    
                     using (AssemblyHelper.SubscribeResolve())
                         if (RunnerOptions.Current.ParallelizeAssemblies)
                             testCaseAccessor
@@ -263,6 +263,18 @@ namespace Xunit.Runners
                     Writer.WriteLine("\t\t{0}", line);
             }
         }
+
+#if WINDOWS_PHONE
+        public bool OpenWriter(string message)
+        {
+            if (Writer == null)
+            {
+                // TODO: Add options support and use TcpTextWriter
+                Writer = Console.Out;
+            }
+            return true;
+        }
+#endif
 
 #if __IOS__
         public bool OpenWriter(string message)
@@ -417,6 +429,7 @@ namespace Xunit.Runners
             Writer = null;
         }
 
+#if !WINDOWS_PHONE
         private static string SelectHostName(string[] names, int port)
         {
             if (names.Length == 0)
@@ -468,5 +481,6 @@ namespace Xunit.Runners
 
             return result;
         }
+#endif
     }
 }
