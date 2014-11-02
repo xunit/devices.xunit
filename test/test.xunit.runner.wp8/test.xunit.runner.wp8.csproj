@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WP8RunnerTests.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -179,16 +180,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\xunit.core.2.0.0-beta5-build2770\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid\xunit.core.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.execution, Version=2.0.0.2770, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.execution.2.0.0-beta5-build2770\lib\wp8\xunit.execution.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\xunit.runner.wp8\xunit.runner.wp8.csproj">
+      <Project>{8825644e-d597-49cd-8a4d-97128ccdebeb}</Project>
+      <Name>xunit.runner.wp8</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
@@ -210,4 +213,5 @@
     <Error Condition="!Exists('..\..\packages\xunit.core.2.0.0-beta5-build2770\build\wp8\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.0.0-beta5-build2770\build\wp8\xunit.core.targets'))" />
   </Target>
   <Import Project="..\..\packages\xunit.core.2.0.0-beta5-build2770\build\wp8\xunit.core.targets" Condition="Exists('..\..\packages\xunit.core.2.0.0-beta5-build2770\build\wp8\xunit.core.targets')" />
+  <Import Project="..\..\src\build\xunit.runner.xamarin.targets" />
 </Project>
