@@ -125,6 +125,7 @@
       <HintPath>..\..\packages\xunit.core.2.0.0-beta4-build2738\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid\xunit.core.dll</HintPath>
     </Reference>
     <Reference Include="xunit.execution, Version=2.0.0.2738, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\xunit.execution.2.0.0-beta4-build2738\lib\monotouch\xunit.execution.dll</HintPath>
     </Reference>
   </ItemGroup>
