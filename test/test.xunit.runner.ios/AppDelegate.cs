@@ -34,7 +34,7 @@ namespace test.xunit.runner.ios
             runner = new TouchRunner(window);
 
             // We need this to ensure the execution assembly is part of the app bundle
-           // runner.AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
+           runner.AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             
             // tests can be inside the main assembly
             runner.Add(Assembly.GetExecutingAssembly());
