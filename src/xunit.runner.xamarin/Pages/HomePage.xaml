@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xunit.Runners.Pages.HomePage" Title="Test Runner">
+
+    <TableView Intent="Settings" x:Name="table">
+        <TableView.Root>
+            <TableRoot>
+                <TableSection Title="Loading Test Suites...." x:Name="root" />
+                <TableSection>
+                    <TextCell Text="Options" Command="{Binding OptionsCommand}" />
+                    <TextCell Text="Credits" Command="{Binding CreditsCommand}" />
+                </TableSection>
+            </TableRoot>
+        </TableView.Root>
+    </TableView>
+
+</ContentPage>

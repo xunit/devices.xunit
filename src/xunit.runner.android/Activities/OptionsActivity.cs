@@ -36,7 +36,7 @@ namespace Xunit.Runners.UI
 		
 		protected override void OnCreate (Bundle bundle)
 		{
-			RunnerOptions options = AndroidRunner.Runner.Options;
+            RunnerOptions options = RunnerOptions.Current;
 
             var nameDisplayGroup = new RadioGroup("nameDisplay", options.NameDisplay == NameDisplay.Short ? 1 : 0); ;
              var nameDisplayFull = new RadioElement("Full", "nameDisplay");
@@ -92,7 +92,7 @@ namespace Xunit.Runners.UI
 		
 		protected override void OnPause ()
 		{
-			var options = AndroidRunner.Runner.Options;
+			var options = RunnerOptions.Current;
 			options.EnableNetwork = remote.Value;
 			options.HostName = host_name.Value;
 			options.HostPort = GetPort ();

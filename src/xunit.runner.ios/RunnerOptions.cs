@@ -40,7 +40,7 @@ namespace Xunit.Runners.UI {
 
         // Normally this would be a bad thing, an event on a static class
         // given the lifespan of these elements, it doesn't matter.
-	    public event EventHandler OptionsChanged;
+	  //  public event EventHandler OptionsChanged;
 		
 		public RunnerOptions ()
 		{
@@ -155,8 +155,8 @@ namespace Xunit.Runners.UI {
 		            defaults.SetBool(SortNames, "display.sort");
 		            defaults.SetBool(ParallelizeAssemblies, "exec.parallel");
 
-		            if (OptionsChanged != null)
-		                OptionsChanged(this, EventArgs.Empty);
+		          //  if (OptionsChanged != null)
+		            //    OptionsChanged(this, EventArgs.Empty);
 		        };
 			
 			return dv;

@@ -546,7 +546,13 @@ namespace Mono.Options
 			if (option == null)
 				throw new ArgumentNullException ("option");
 			try {
-				return base [option];
+				
+                if(base.Contains(option))
+                    return base [option];
+                else
+                {
+                    return null;
+                }
 			}
 			catch (KeyNotFoundException) {
 				return null;

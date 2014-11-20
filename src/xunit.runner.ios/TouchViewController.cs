@@ -56,8 +56,8 @@ namespace Xunit.Runners.UI {
 
 			Section testcases = root [0];
 			OriginalCaption = testcases.Caption;
-			Unfiltered = new List<Element> ();
-			foreach (Element e in testcases)
+			Unfiltered = new List<TestCaseViewModel> ();
+            foreach (TestCaseViewModel e in testcases)
 				Unfiltered.Add (e);
 
 			CurrentFilter = ResultFilter.All;
@@ -83,7 +83,7 @@ namespace Xunit.Runners.UI {
 		}
 
 		string OriginalCaption { get; set; }
-		List<Element> Unfiltered { get; set; }
+		List<TestCaseViewModel> Unfiltered { get; set; }
 
 		ResultFilter CurrentFilter { get; set; }
 
@@ -113,7 +113,7 @@ namespace Xunit.Runners.UI {
 		public void Filter ()
 		{
 			Section filtered = new Section ();
-			foreach (TestElement te in Unfiltered) {
+			foreach (TestCaseViewModel te in Unfiltered) {
 				bool add_element = false;
 				switch (CurrentFilter) {
 				case ResultFilter.All:
@@ -130,8 +130,8 @@ namespace Xunit.Runners.UI {
 					break;
 				}
 
-				if (add_element)
-					filtered.Add (te);
+                //if (add_element)
+                //    filtered.Add (te);
 			}
 			Root.RemoveAt (0);
 			if (CurrentFilter == ResultFilter.All) {

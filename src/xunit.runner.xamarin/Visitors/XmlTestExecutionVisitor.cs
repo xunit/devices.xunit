@@ -28,7 +28,7 @@ namespace Xunit
             var collectionElement = GetTestCollectionElement(testResult.TestCase.TestMethod.TestClass.TestCollection);
             var testResultElement =
                 new XElement("test",
-                    new XAttribute("name", XmlEscape(testResult.TestDisplayName)),
+                    new XAttribute("name", XmlEscape(testResult.Test.DisplayName)),
                     new XAttribute("type", testResult.TestCase.TestMethod.TestClass.Class.Name),
                     new XAttribute("method", testResult.TestCase.TestMethod.Method.Name),
                     new XAttribute("time", testResult.ExecutionTime.ToString("0.000")),

@@ -16,61 +16,71 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
-using Android.App;
 using Android.OS;
-using Android.Widget;
-using MonoDroid.Dialog;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace Xunit.Runners.UI
 {
-    public class RunnerActivity : Activity
+    public class RunnerActivity : AndroidActivity
     {
-        private Assembly assembly;
+        private readonly List<Assembly> testAssemblies = new List<Assembly>();
 
-        public RunnerActivity()
-        {
-            //Initialized = (AndroidRunner.AssemblyLevel.Count > 0);
-        }
+        private FormsRunner runner;
 
-        public bool Initialized { get; private set; }
 
-        public AndroidRunner Runner
-        {
-            get { return AndroidRunner.Runner; }
-        }
+        private Assembly executionAssembly;
+        protected bool Initialized { get; private set; }
+
+        protected bool TerminateAfterExecution { get; set; }
+        protected TextWriter Writer { get; set; }
+        protected bool AutoStart { get; set; }
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            var view = Runner.GetView(this);
+            Forms.Init(this, bundle);
+
+            RunnerOptions.Initialize(this);
+
+            runner = new FormsRunner(executionAssembly, testAssemblies)
+            {
+                TerminateAfterExecution = TerminateAfterExecution,
+                Writer = Writer,
+                AutoStart = AutoStart
+            };
+
+            var page = runner.GetMainPage();
+
 
             Initialized = true;
 
-            SetContentView(view);
+            SetPage(page);
         }
 
-        public void Add(Assembly assembly)
+        protected void AddExecutionAssembly(Assembly assembly)
         {
-            if (assembly == null)
-                throw new ArgumentNullException("assembly");
+            if (assembly == null) throw new ArgumentNullException("assembly");
 
-            // this can be called many times but we only want to load them
-            // once since we need to share them across most activities
             if (!Initialized)
             {
-                AndroidRunner.AddAssembly(assembly);
+                executionAssembly = assembly;
             }
         }
 
-        public void AddExecutionAssembly(Assembly assembly)
+        protected void AddTestAssembly(Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException("assembly");
-            this.assembly = assembly;
+
+            if (!Initialized)
+            {
+                testAssemblies.Add(assembly);
+            }
         }
     }
 }
