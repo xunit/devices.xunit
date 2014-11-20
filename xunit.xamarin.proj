@@ -38,7 +38,7 @@
 
   <!-- Build server targets -->
 
-  <Target Name="TeamCity" DependsOnTargets="DisableParallelization;Clean;PackageRestore;SetVersionNumber;Test;Packages;ZipArtifacts;PushMyGet" />
+  <Target Name="TeamCity" DependsOnTargets="DisableParallelization;Clean;PackageRestore;SetVersionNumber;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
 
   <!-- Individiual targets -->
 
@@ -95,7 +95,8 @@
 
 
   <Target Name='GitLink'>
-    <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/xamarin.xunit -commit $(CommitHash)' IgnoreExitCode='true' />
+    <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/xamarin.xunit -commit $(CommitHash)' IgnoreExitCode='true' Condition="'$(CommitHash)' != '' " />
+    <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/xamarin.xunit' IgnoreExitCode='true' Condition="'$(CommitHash)' == '' " />
   </Target>
 
 
