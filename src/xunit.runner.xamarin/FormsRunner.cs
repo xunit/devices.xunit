@@ -226,41 +226,45 @@ namespace Xunit.Runners
 
         void ITestListener.RecordResult(TestResultViewModel result)
         {
-            
+            // TODO: Find out why this is happening on WP8
+            var writer = Writer;
+            if (writer == null)
+                return;
+
             if (result.TestCase.Result == TestState.Passed)
             {
-                Writer.Write("\t[PASS] ");
+                writer.Write("\t[PASS] ");
                 passed++;
             }
             else if (result.TestCase.Result == TestState.Skipped)
             {
-                Writer.Write("\t[SKIPPED] ");
+                writer.Write("\t[SKIPPED] ");
                 skipped++;
             }
             else if (result.TestCase.Result == TestState.Failed)
             {
-                Writer.Write("\t[FAIL] ");
+                writer.Write("\t[FAIL] ");
                 failed++;
             }
             else
             {
-                Writer.Write("\t[INFO] ");
+                writer.Write("\t[INFO] ");
             }
-            Writer.Write(result.TestCase.DisplayName);
+            writer.Write(result.TestCase.DisplayName);
 
             var message = result.ErrorMessage;
             if (!String.IsNullOrEmpty(message))
             {
-                Writer.Write(" : {0}", message.Replace("\r\n", "\\r\\n"));
+                writer.Write(" : {0}", message.Replace("\r\n", "\\r\\n"));
             }
-            Writer.WriteLine();
+            writer.WriteLine();
 
             var stacktrace = result.ErrorStackTrace;
             if (!String.IsNullOrEmpty(result.ErrorStackTrace))
             {
                 var lines = stacktrace.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var line in lines)
-                    Writer.WriteLine("\t\t{0}", line);
+                    writer.WriteLine("\t\t{0}", line);
             }
         }
 
@@ -375,7 +379,7 @@ namespace Xunit.Runners
                     catch (SocketException)
                     {
                         var msg = String.Format("Cannot connect to {0}:{1}. Start network service or disable network option", RunnerOptions.Current.HostName, RunnerOptions.Current.HostPort);
-                        Toast.MakeText(Application.Context, msg, ToastLength.Long)
+                        Toast.MakeText(Android.App.Application.Context, msg, ToastLength.Long)
                              .Show();
                         return false;
                     }

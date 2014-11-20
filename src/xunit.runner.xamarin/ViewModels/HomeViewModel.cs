@@ -124,7 +124,7 @@ namespace Xunit.Runners.ViewModels
 #if WINDOWS_PHONE
         private static void TerminateWithSuccess()
         {
-            Application.Current.Terminate();   
+            System.Windows.Application.Current.Terminate();   
         }
 #endif
         private Task Run()
