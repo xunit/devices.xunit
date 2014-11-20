@@ -12,7 +12,7 @@ using Microsoft.Phone.Shell;
 using Xamarin.Forms;
 using Xunit.Runners;
 
-namespace xunit.runner.wp8
+namespace Xunit.Runner.Wp8
 {
     public partial class MainPageControl : UserControl
     {

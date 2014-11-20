@@ -93,6 +93,12 @@
     <Exec Command='"C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\SandcastleBuilderConsole.exe" help\xunit.shfb' />
   </Target>
 
+
+  <Target Name='GitLink'>
+    <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/xamarin.xunit -commit $(CommitHash)' IgnoreExitCode='true' />
+  </Target>
+
+
   <Target Name="SetVersionNumber">
     <RegexReplace
         Pattern='AssemblyVersion\("(\d+\.\d+\.\d+)\.\d+"\)'
@@ -109,7 +115,7 @@
   </Target>
 
   <Target Name='Packages'>
-    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -NoPackageAnalysis -NonInteractive -Verbosity quiet -Symbols' />
+    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -NoPackageAnalysis -NonInteractive -Verbosity quiet' />
     <!--<Exec Command='.nuget\NuGet.exe pack %(NuGetCsProjTargets.Identity) -NoPackageAnalysis -NonInteractive -Verbosity quiet -Symbols' />-->
   </Target>
 

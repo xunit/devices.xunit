@@ -5,7 +5,6 @@ using System.Reflection;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using test.xunit.pcltestlib;
-using Xamarin.Forms;
 using Xunit.Runner;
 using Xunit.Sdk;
 

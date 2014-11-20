@@ -189,6 +189,10 @@
       <Project>{8825644e-d597-49cd-8a4d-97128ccdebeb}</Project>
       <Name>xunit.runner.wp8</Name>
     </ProjectReference>
+    <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
+      <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
+      <Name>test.xunit.pcltestlib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

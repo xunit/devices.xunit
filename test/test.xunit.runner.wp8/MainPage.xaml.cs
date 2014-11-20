@@ -8,10 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using test.xunit.runner.wp8.Resources;
-using Xamarin.Forms;
-using xunit.runner.wp8;
-using Xunit.Sdk;
+using test.xunit.pcltestlib;
+using Xunit.Runner.Wp8;
 
 namespace test.xunit.runner.wp8
 {
@@ -35,7 +33,7 @@ namespace test.xunit.runner.wp8
             mainPage.AddTestAssembly(Assembly.GetExecutingAssembly());
             // otherwise you need to ensure that the test assemblies will 
             // become part of the app bundle
-          //  mainPage.AddTestAssembly(typeof(PortableTests).Assembly);
+            mainPage.AddTestAssembly(typeof(PortableTests).Assembly);
 
 
             mainPage.FinishInit(this);

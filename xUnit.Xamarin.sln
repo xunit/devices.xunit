@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22310.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6B0F38C9-7CEE-4181-A47A-D9F4C626E618}"
 EndProject
@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Starter Files", "Starter Fi
 	ProjectSection(SolutionItems) = preProject
 		src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp = src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp
 		src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp = src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp
+		src\xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp = src\xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.runner.wp8", "src\xunit.runner.wp8\xunit.runner.wp8.csproj", "{8825644E-D597-49CD-8A4D-97128CCDEBEB}"
@@ -302,8 +303,8 @@ Global
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|ARM.Build.0 = Release|ARM
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|x86.ActiveCfg = Release|x86
 		{8825644E-D597-49CD-8A4D-97128CCDEBEB}.Release|x86.Build.0 = Release|x86
 		{95735974-02B8-4021-9241-175558CB1150}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
@@ -356,9 +357,9 @@ Global
 		{95735974-02B8-4021-9241-175558CB1150}.Release|ARM.Deploy.0 = Release|ARM
 		{95735974-02B8-4021-9241-175558CB1150}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{95735974-02B8-4021-9241-175558CB1150}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{95735974-02B8-4021-9241-175558CB1150}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{95735974-02B8-4021-9241-175558CB1150}.Release|Mixed Platforms.Build.0 = Release|x86
-		{95735974-02B8-4021-9241-175558CB1150}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{95735974-02B8-4021-9241-175558CB1150}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{95735974-02B8-4021-9241-175558CB1150}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{95735974-02B8-4021-9241-175558CB1150}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
 		{95735974-02B8-4021-9241-175558CB1150}.Release|x86.ActiveCfg = Release|x86
 		{95735974-02B8-4021-9241-175558CB1150}.Release|x86.Build.0 = Release|x86
 		{95735974-02B8-4021-9241-175558CB1150}.Release|x86.Deploy.0 = Release|x86
