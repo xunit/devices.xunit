@@ -48,6 +48,8 @@ namespace Xunit.Runners.ViewModels
             }));
 
 
+
+
             StartAssemblyScan();
         }
 
@@ -75,10 +77,7 @@ namespace Xunit.Runners.ViewModels
         public ICommand CreditsCommand { get; private set; }
         public ICommand RunEverythingCommand { get; private set; }
         public ICommand NavigateToTestAssemblyCommand { get; private set; }
-
-        public bool AutoStart { get; set; }
-        public bool TerminateAfterExecution { get; set; }
-
+        
         public async void StartAssemblyScan()
         {
             var allTests = await Task.Run(() => DiscoverTestsInAssemblies());
@@ -96,12 +95,12 @@ namespace Xunit.Runners.ViewModels
 
             mre.Set();
 
-            if (AutoStart)
+            if (runner.AutoStart)
             {
                 await Task.Run(() => mre.Wait());
                  await Run();
 
-                if (TerminateAfterExecution)
+                if (runner.TerminateAfterExecution)
                     TerminateWithSuccess();
             }
 
@@ -117,6 +116,7 @@ namespace Xunit.Runners.ViewModels
 #if ANDROID
         private static void TerminateWithSuccess()
         {
+            Environment.Exit(0);
         }
 #endif
 

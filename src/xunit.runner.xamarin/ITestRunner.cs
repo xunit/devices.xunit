@@ -9,5 +9,7 @@ namespace Xunit.Runners
     {
         Task Run(TestCaseViewModel test);
         Task Run(IEnumerable<TestCaseViewModel> tests, string message = null);
+        bool TerminateAfterExecution { get; }
+        bool AutoStart { get; }
     }
 }
