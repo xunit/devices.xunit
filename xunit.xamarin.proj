@@ -38,28 +38,9 @@
 
   <!-- Build server targets -->
 
-  <Target Name="TeamCity" DependsOnTargets="DisableParallelization;Clean;PackageRestore;SetVersionNumber;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
+  <Target Name="TeamCity" DependsOnTargets="PackageRestore;SetVersionNumber;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
 
   <!-- Individiual targets -->
-
-  <Target Name="DisableParallelization">
-    <PropertyGroup>
-      <ParallelizeTests>false</ParallelizeTests>
-    </PropertyGroup>
-  </Target>
-
-  <Target Name="Clean">
-    <ItemGroup>
-      <CleanFileList Include="*.html;*.xml;*.nupkg;.nuget\NuGet.exe"/>
-      <!--<CleanFolderList Include="xunit.console\bin\$(Configuration).x86"/>-->
-    </ItemGroup>
-    <MSBuild
-        Projects="xunit.xamarin.sln"
-        Targets="Clean"
-        Properties="Configuration=$(Configuration);TrackFileAccess=$(TrackFileAccess)"/>
-    <Delete Files="@(CleanFileList)"/>
-    <!--<RemoveDir Directories="@(CleanFolderList)" ContinueOnError="true"/>-->
-  </Target>
 
   <Target Name="PackageRestore" DependsOnTargets="_DownloadNuGet">
     <Message Text="Restoring NuGet packages..." Importance="High" />
@@ -72,33 +53,20 @@
         Projects="xunit.xamarin.sln"
         Targets="Build"
         Properties="Configuration=$(Configuration);TrackFileAccess=$(TrackFileAccess)"/>
-
   </Target>
 
-  <Target Name="_Test32" DependsOnTargets="Build">
-    <!--<MSBuild
-        Projects="tools\xunit.tests.msbuild"
-        Properties="Configuration=$(Configuration);ParallelizeTests=$(ParallelizeTests);MaxParallelThreads=$(MaxParallelThreads)" />-->
+  <Target Name="Test" DependsOnTargets="Build">
+    <!-- TODO: add unit tests here, if desired -->
   </Target>
-
-  <Target Name="_Test64" DependsOnTargets="Build">
-    <!--<Exec
-        Condition="'$(PROCESSOR_ARCHITEW6432)' != ''"
-        Command="$(SystemRoot)\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe tools\xunit.tests.msbuild /nologo /p:Configuration=$(Configuration);ParallelizeTests=$(ParallelizeTests);MaxParallelThreads=$(MaxParallelThreads) /v:$(RequestedVerbosity)" />-->
-  </Target>
-
-  <Target Name="Test" DependsOnTargets="Build;_Test32;_Test64" />
 
   <Target Name="Help" DependsOnTargets="Build">
     <Exec Command='"C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\SandcastleBuilderConsole.exe" help\xunit.shfb' />
   </Target>
 
-
   <Target Name='GitLink'>
     <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/xamarin.xunit -commit $(CommitHash)' IgnoreExitCode='true' Condition="'$(CommitHash)' != '' " />
     <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/xamarin.xunit' IgnoreExitCode='true' Condition="'$(CommitHash)' == '' " />
   </Target>
-
 
   <Target Name="SetVersionNumber">
     <RegexReplace
@@ -117,7 +85,6 @@
 
   <Target Name='Packages'>
     <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -NoPackageAnalysis -NonInteractive -Verbosity quiet' />
-    <!--<Exec Command='.nuget\NuGet.exe pack %(NuGetCsProjTargets.Identity) -NoPackageAnalysis -NonInteractive -Verbosity quiet -Symbols' />-->
   </Target>
 
   <Target Name='ZipArtifacts'>
@@ -142,7 +109,6 @@
     <Exec Command=".nuget\NuGet.exe push %(NupkgSymbolsFiles.Identity) -NonInteractive -Source https://nuget.symbolsource.org/MyGet/xunit-xamarin" />
   </Target>
 
-  
   <Target Name="_DownloadNuGet">
     <MakeDir Directories="$(SolutionDir).nuget" />
     <DownloadNuGet OutputFilename="$(NuGetExePath)" Condition="!Exists('$(NuGetExePath)')" />
