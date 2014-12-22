@@ -33,7 +33,7 @@ using Android.Widget;
 
 namespace Xunit.Runners
 {
-    public class FormsRunner : ViewModelBase, ITestListener, ITestRunner
+    public class FormsRunner : Xamarin.Forms.Application, ITestListener, ITestRunner
     {
         private readonly Assembly executionAssembly;
         private readonly IReadOnlyCollection<Assembly> testAssemblies;
@@ -55,27 +55,41 @@ namespace Xunit.Runners
             this.executionAssembly = executionAssembly;
             this.testAssemblies = testAssemblies;
             context = SynchronizationContext.Current;
+
+            MainPage = GetMainPage();
         }
 
         public bool TerminateAfterExecution
         {
             get { return terminateAfterExecution; }
-            set { Set(ref terminateAfterExecution, value); }
+            set
+            {
+                terminateAfterExecution = value;
+                OnPropertyChanged();
+            }
         }
 
         public TextWriter Writer
         {
             get { return writer; }
-            set { Set(ref writer, value); }
+            set
+            {
+                writer = value;
+                OnPropertyChanged();
+            }
         }
 
         public bool AutoStart
         {
             get { return autoStart; }
-            set { Set(ref autoStart, value); }
+            set
+            {
+                autoStart = value;
+                OnPropertyChanged();
+            }
         }
 
-        public Page GetMainPage()
+        private Page GetMainPage()
         {
 
             var hp = new HomePage();

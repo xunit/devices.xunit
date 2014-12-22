@@ -8,12 +8,13 @@ using System.Text;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 using Xunit.Runners;
 using Xunit.Runners.UI;
 
 namespace Xunit.Runner
 {
-    public class RunnerAppDelegate : UIApplicationDelegate
+    public class RunnerAppDelegate : FormsApplicationDelegate
     {
         // class-level declarations
         UIWindow window;
@@ -56,9 +57,6 @@ namespace Xunit.Runner
         {
             Forms.Init();
 
-            // create a new window instance based on the screen size
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
-
             runner = new FormsRunner(executionAssembly, testAssemblies)
             {
                 TerminateAfterExecution = TerminateAfterExecution,
@@ -66,15 +64,11 @@ namespace Xunit.Runner
                 AutoStart = AutoStart,
             };
 
-            window.RootViewController = runner.GetMainPage()
-                                              .CreateViewController();
-
-            // make the window visible
-            window.MakeKeyAndVisible();
-
             Initialized = true;
 
-            return true;
+            LoadApplication(runner);
+
+            return base.FinishedLaunching(app, options);
         }
 
         protected bool Initialized { get; set; }

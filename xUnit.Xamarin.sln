@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Starter Files", "Starter Fi
 		src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp = src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp
 		src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp = src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp
 		src\xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp = src\xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp
+		src\xunit.runner.wp8\NuGet\MainPage.xaml.txt.pp = src\xunit.runner.wp8\NuGet\MainPage.xaml.txt.pp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.runner.wp8", "src\xunit.runner.wp8\xunit.runner.wp8.csproj", "{8825644E-D597-49CD-8A4D-97128CCDEBEB}"

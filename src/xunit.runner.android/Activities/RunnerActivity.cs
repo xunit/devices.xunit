@@ -26,7 +26,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xunit.Runners.UI
 {
-    public class RunnerActivity : AndroidActivity
+    public class RunnerActivity : FormsApplicationActivity
     {
         private readonly List<Assembly> testAssemblies = new List<Assembly>();
 
@@ -55,12 +55,9 @@ namespace Xunit.Runners.UI
                 AutoStart = AutoStart
             };
 
-            var page = runner.GetMainPage();
-
-
             Initialized = true;
 
-            SetPage(page);
+            LoadApplication(runner);
         }
 
         protected void AddExecutionAssembly(Assembly assembly)
