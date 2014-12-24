@@ -21,6 +21,7 @@
         <group targetFramework="monotouch">
           <!-- TODO Remove this dep -->
           <dependency id="xunit.execution" version="2.0.0-beta5-build2785" />
+          <dependency id="xunit.runner.utility" version="2.0.0-beta5-build2785" />
 
           <dependency id="xunit" version="2.0.0-beta5-build2785" />
           <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
@@ -31,6 +32,7 @@
         <group targetFramework="monoandroid">
           <!-- TODO Remove this dep -->
           <dependency id="xunit.execution" version="2.0.0-beta5-build2785" />
+          <dependency id="xunit.runner.utility" version="2.0.0-beta5-build2785" />
 
           <dependency id="xunit" version="2.0.0-beta5-build2785" />
           <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
@@ -48,16 +50,12 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="build\xunit.runner.xamarin.props" target="build\MonoAndroid\xunit.runner.xamarin.props" />
     <file src="build\xunit.runner.xamarin.targets" target="build\MonoAndroid\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.utility.dll" target="build\MonoAndroid\xunit.runner.utility.dll" />
     <file src="xunit.runner.android\bin\Release\xunit.runner.android.dll" target="lib\MonoAndroid\xunit.runner.android.dll" />
     <file src="xunit.runner.android\bin\Release\xunit.runner.android.pdb" target="lib\MonoAndroid\xunit.runner.android.pdb" />
     <file src="xunit.runner.android\bin\Release\xunit.runner.android.xml" target="lib\MonoAndroid\xunit.runner.android.xml" />
 
-    <file src="build\xunit.runner.xamarin.props" target="build\MonoTouch\xunit.runner.xamarin.props" />
     <file src="build\xunit.runner.xamarin.targets" target="build\MonoTouch\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.utility.dll" target="build\MonoTouch\xunit.runner.utility.dll" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.dll" target="lib\MonoTouch\xunit.runner.ios.dll" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.pdb" target="lib\MonoTouch\xunit.runner.ios.pdb" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.xml" target="lib\MonoTouch\xunit.runner.ios.xml" />
