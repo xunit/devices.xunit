@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xunit.Runners.Utilities;
 
 namespace Xunit.Runners.ViewModels
 {
@@ -18,6 +19,11 @@ namespace Xunit.Runners.ViewModels
         private Color displayColor;
         private string displayName;
         private TestState result;
+        private bool isBusy;
+        private string searchQuery;
+        private TestState resultFilter;
+        private readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
+        private readonly ObservableCollection<TestCaseViewModel> allTests; 
 
         internal TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
         {
@@ -28,34 +34,28 @@ namespace Xunit.Runners.ViewModels
 
             DisplayName = @group.Key;
 
-            TestCases = new ObservableCollection<TestCaseViewModel>(@group);
+            allTests = new ObservableCollection<TestCaseViewModel>(@group);
+
+            filteredTests = new FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>>(
+                allTests,
+                IsTestFilterMatch,
+                Tuple.Create(SearchQuery, ResultFilter),
+                new TestComparer()
+                );
+
+            filteredTests.ItemChanged += (sender, args) => UpdateCaption();
+            filteredTests.CollectionChanged += (sender, args) => UpdateCaption();
+
             Result = TestState.NotRun;
 
 
-            foreach (var tc in TestCases)
-                WireTest(tc);
-
             UpdateCaption();
-        }
 
-        private void WireTest(TestCaseViewModel tc)
-        {
-            tc.PropertyChanged += TestCasePropertyChanged;
         }
-
-        private void TestCasePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            UpdateCaption();
-        }
-
-        private void UnwireTest(TestCaseViewModel tc)
-        {
-            tc.PropertyChanged -= TestCasePropertyChanged;
-        }
-
+   
         private void UpdateCaption()
         {
-            var count = TestCases.Count;
+            var count = allTests.Count;
             
             if (count == 0)
             {
@@ -64,7 +64,7 @@ namespace Xunit.Runners.ViewModels
             }
             else
             {
-                var outcomes = TestCases.GroupBy(r => r.Result);
+                var outcomes = allTests.GroupBy(r => r.Result);
 
                 var results = outcomes.ToDictionary(k => k.Key, v => v.Count());
 
@@ -112,6 +112,72 @@ namespace Xunit.Runners.ViewModels
             
         }
 
+        private static bool IsTestFilterMatch(TestCaseViewModel test, Tuple<string, TestState> query)
+        {
+            if (test == null) throw new ArgumentNullException("test");
+            if (query == null) throw new ArgumentNullException("query");
+
+            TestState? requiredTestState;
+            switch (query.Item2)
+            {
+                case TestState.All:
+                    requiredTestState = null;
+                    break;
+                case TestState.Passed:
+                    requiredTestState = TestState.Passed;
+                    break;
+                case TestState.Failed:
+                    requiredTestState = TestState.Failed;
+                    break;
+                case TestState.Skipped:
+                    requiredTestState = TestState.Skipped;
+                    break;
+                case TestState.NotRun:
+                    requiredTestState = TestState.NotRun;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            if (requiredTestState.HasValue && test.Result != requiredTestState.Value)
+            {
+                return false;
+            }
+
+            var pattern = query.Item1;
+            return string.IsNullOrWhiteSpace(pattern) || test.DisplayName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        public string SearchQuery
+        {
+            get { return searchQuery; }
+            set
+            {
+                if (Set(ref searchQuery, value))
+                {
+                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                }
+            }
+        }
+        
+        public TestState ResultFilter
+        {
+            get { return resultFilter; }
+            set
+            {
+                if (Set(ref resultFilter, value))
+                {
+                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                }
+            }
+        }
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            private set { Set(ref isBusy, value); }
+        }
+
         public TestState Result
         {
             get { return result; }
@@ -137,13 +203,38 @@ namespace Xunit.Runners.ViewModels
         }
 
 
-        public ObservableCollection<TestCaseViewModel> TestCases { get; private set; }
+        public IList<TestCaseViewModel> TestCases
+        {
+            get { return filteredTests; }
+        }
 
         public ICommand RunTestsCommand { get; private set; }
 
-        private void RunTests()
+        private async void RunTests()
         {
-            runner.Run(TestCases);
+            try
+            {
+                IsBusy = true;
+                await runner.Run(allTests);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private class TestComparer : IComparer<TestCaseViewModel>
+        {
+            public int Compare(TestCaseViewModel x, TestCaseViewModel y)
+            {
+                int compare = string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase);
+                if (compare != 0)
+                {
+                    return compare;
+                }
+
+                return string.Compare(x.UniqueName, y.UniqueName, StringComparison.OrdinalIgnoreCase);
+            }
         }
     }
 }

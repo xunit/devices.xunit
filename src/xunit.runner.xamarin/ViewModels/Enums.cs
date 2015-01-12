@@ -7,10 +7,11 @@ namespace Xunit.Runners
 {
     public enum TestState
     {
-        NotRun,
+        All = 0,
         Passed,
         Failed,
-        Skipped
+        Skipped,
+        NotRun
     }
 
 

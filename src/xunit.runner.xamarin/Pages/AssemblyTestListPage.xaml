@@ -1,18 +1,41 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-					   x:Class="Xunit.Runners.Pages.AssemblyTestListPage" Title="{Binding DisplayName}">
-	<StackLayout>
-        <ListView ItemsSource="{Binding TestCases}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding DisplayName}"  
-                              Detail="{Binding Message}"
-                              DetailColor="{Binding DetailColor}"
-                              Command="{Binding NavigateToResultCommand}"  />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="Run All" Command="{Binding RunTestsCommand}" />
-    </StackLayout>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+             x:Class="Xunit.Runners.Pages.AssemblyTestListPage" Title="{Binding DisplayName}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Padding="0,0,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Entry Placeholder="filter" Text="{Binding SearchQuery, Mode=TwoWay}" />
+            <Picker 
+                Grid.Column="1"
+                Title="Filter by results" 
+                WidthRequest="130"
+                    x:Name="resultStatePicker" />
+            
+        </Grid>
+        <StackLayout Grid.Row="1">
+            <ListView ItemsSource="{Binding TestCases}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding DisplayName}"
+                                  Detail="{Binding Message}"
+                                  DetailColor="{Binding DetailColor}"
+                                  Command="{Binding NavigateToResultCommand}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Run All" Command="{Binding RunTestsCommand}" />
+        </StackLayout>
+        <ActivityIndicator Grid.Row="0"  VerticalOptions="Start" IsRunning="{Binding IsBusy}"  />
+    </Grid>
+
 </ContentPage>
