@@ -31,6 +31,7 @@ namespace Xunit.Runners.ViewModels
 
         public event EventHandler ScanComplete;
         private ManualResetEventSlim mre = new ManualResetEventSlim(false);
+        private bool isBusy;
 
         internal HomeViewModel(INavigation navigation, IReadOnlyCollection<Assembly> testAssemblies, ITestRunner runner)
         {
@@ -69,42 +70,65 @@ namespace Xunit.Runners.ViewModels
 
         private async void RunEverythingExecute()
         {
-            await Run();
+            try
+            {
+                IsBusy = true;
+                await Run();
+            }
+            finally
+            {
+                IsBusy = false;
+            }                       
         }
 
 
         public ICommand OptionsCommand { get; private set; }
-        public ICommand CreditsCommand { get; private set; }
+        public ICommand	CreditsCommand { get; private set; }
         public ICommand RunEverythingCommand { get; private set; }
         public ICommand NavigateToTestAssemblyCommand { get; private set; }
-        
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            private set { Set(ref isBusy, value); }
+        }
+
         public async void StartAssemblyScan()
         {
-            var allTests = await Task.Run(() => DiscoverTestsInAssemblies());
-
-            // Back on UI thread
-            foreach (var group in allTests)
+            IsBusy = true;
+            try
             {
-                var vm = new TestAssemblyViewModel(navigation, group, runner);
-                TestAssemblies.Add(vm);
+                var allTests = await Task.Run(() => DiscoverTestsInAssemblies());
+
+                // Back on UI thread
+                foreach (var group in allTests)
+                {
+                    var vm = new TestAssemblyViewModel(navigation, group, runner);
+                    TestAssemblies.Add(vm);
+                }
+
+                var evt = ScanComplete;
+                if (evt != null)
+                    evt(this, EventArgs.Empty);
+
+                mre.Set();
+
             }
-
-            var evt = ScanComplete;
-            if (evt != null)
-                evt(this, EventArgs.Empty);
-
-            mre.Set();
+            finally
+            {
+                IsBusy = false;
+            }
 
             if (runner.AutoStart)
             {
                 await Task.Run(() => mre.Wait());
-                 await Run();
+                await Run();
 
                 if (runner.TerminateAfterExecution)
                     TerminateWithSuccess();
             }
-
         }
+
 #if __IOS__
         private static void TerminateWithSuccess()
         {
