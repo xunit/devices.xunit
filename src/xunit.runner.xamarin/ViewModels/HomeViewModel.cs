@@ -179,7 +179,7 @@ namespace Xunit.Runners.ViewModels
                             using (var framework = new XunitFrontController(fileName, configFileName: null, shadowCopy: true))
                             using (var sink = new TestDiscoveryVisitor())
                             {
-                                framework.Find(includeSourceInformation: true, messageSink: sink, options: new TestFrameworkOptions());
+                                framework.Find(includeSourceInformation: true, messageSink: sink, discoveryOptions: TestFrameworkOptions.ForDiscovery());
                                 sink.Finished.WaitOne();
 
                                 result.Add(

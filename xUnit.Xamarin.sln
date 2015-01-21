@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22310.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6B0F38C9-7CEE-4181-A47A-D9F4C626E618}"
 EndProject
@@ -393,7 +393,6 @@ Global
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Debug|Mixed Platforms.ActiveCfg = Debug|iPhone
-		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Debug|Mixed Platforms.Build.0 = Debug|iPhone
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Debug|x86.ActiveCfg = Debug|iPhone
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|Any CPU.ActiveCfg = Release|iPhone
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|ARM.ActiveCfg = Release|iPhone
@@ -402,7 +401,6 @@ Global
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|Mixed Platforms.ActiveCfg = Release|iPhone
-		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|Mixed Platforms.Build.0 = Release|iPhone
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58}.Release|x86.ActiveCfg = Release|iPhone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

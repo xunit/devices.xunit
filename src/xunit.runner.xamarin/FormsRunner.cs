@@ -210,11 +210,7 @@ namespace Xunit.Runners
 
             using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, () => cancelled, context))
             {
-                var executionOptions = new XunitExecutionOptions
-                {
-                    //DisableParallelization = !settings.ParallelizeTestCollections,
-                    //MaxParallelThreads = settings.MaxParallelThreads
-                };
+                var executionOptions = TestFrameworkOptions.ForExecution();
 
                 controller.RunTests(xunitTestCases.Keys.ToList(), executionVisitor, executionOptions);
                 executionVisitor.Finished.WaitOne();

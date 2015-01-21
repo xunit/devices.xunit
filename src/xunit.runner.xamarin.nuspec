@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>xunit.runner.xamarin</id>
-    <version>0.99.6-beta</version>
+    <version>0.99.7-rc1</version>
     <title>xUnit.net [Xamarin iOS/Android/WP8 Runner]</title>
     <authors>Oren Novotny</authors>
     <owners />
@@ -19,29 +19,29 @@
       <dependencies>
 
         <group targetFramework="monotouch">
-          <!-- TODO Remove this dep -->
-          <dependency id="xunit.execution" version="2.0.0-beta5-build2785" />
-          <dependency id="xunit.runner.utility" version="2.0.0-beta5-build2785" />
+  
+          <dependency id="xunit.extensibility.execution" version="2.0.0-rc1-build2826" />
+          <dependency id="xunit.runner.utility" version="2.0.0-rc1-build2826" />
 
-          <dependency id="xunit" version="2.0.0-beta5-build2785" />
+          <dependency id="xunit" version="2.0.0-rc1-build2826" />
           <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
 
           <dependency id="Xamarin.Forms" version="1.3.1.6296" />
         </group>
 
         <group targetFramework="monoandroid">
-          <!-- TODO Remove this dep -->
-          <dependency id="xunit.execution" version="2.0.0-beta5-build2785" />
-          <dependency id="xunit.runner.utility" version="2.0.0-beta5-build2785" />
 
-          <dependency id="xunit" version="2.0.0-beta5-build2785" />
+          <dependency id="xunit.extensibility.execution" version="2.0.0-rc1-build2826" />
+          <dependency id="xunit.runner.utility" version="2.0.0-rc1-build2826" />
+
+          <dependency id="xunit" version="2.0.0-rc1-build2826" />
           <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
 
           <dependency id="Xamarin.Forms" version="1.3.1.6296" />
         </group>
 
         <group targetFramework="wp8">
-          <dependency id="xunit" version="2.0.0-beta5-build2785" />
+          <dependency id="xunit" version="2.0.0-rc1-build2826" />
           <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
 
           <dependency id="Xamarin.Forms" version="1.3.1.6296" />
