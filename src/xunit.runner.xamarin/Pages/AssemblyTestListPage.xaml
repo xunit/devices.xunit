@@ -9,7 +9,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Padding="0,0,5,0">
+        <Grid Padding="0,5,5,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -35,7 +35,7 @@
             </ListView>
             <Button Text="Run All" Command="{Binding RunTestsCommand}" />
         </StackLayout>
-        <ActivityIndicator Grid.Row="0"  VerticalOptions="Start" IsRunning="{Binding IsBusy}"  />
+        <ActivityIndicator Grid.Row="0"  VerticalOptions="Start" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"  />
     </Grid>
 
 </ContentPage>

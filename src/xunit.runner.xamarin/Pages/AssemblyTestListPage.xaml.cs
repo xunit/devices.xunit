@@ -56,9 +56,6 @@ namespace Xunit.Runners.Pages
                 case 4:
                     state = TestState.NotRun;
                     break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
 	                
 	        }
 
