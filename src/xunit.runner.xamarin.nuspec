@@ -77,7 +77,7 @@
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.ios-unified.xml" target="lib\MonoTouch\xunit.runner.ios-unified.xml" />
 
     <file src="build\xunit.runner.xamarin.props" target="build\wp8\xunit.runner.xamarin.props" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.dll" target="build\wp8\xunit.runner.utility.dll" />
+    <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.wp8.dll" target="build\wp8\xunit.runner.utility.wp8.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.wp8.dll" target="lib\wp8\xunit.runner.wp8.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.wp8.pdb" target="lib\wp8\xunit.runner.wp8.pdb" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.wp8.xml" target="lib\wp8\xunit.runner.wp8.xml" />
