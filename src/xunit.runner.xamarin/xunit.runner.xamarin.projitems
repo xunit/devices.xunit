@@ -24,6 +24,7 @@
       <DependentUpon>TestResultPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)RunnerOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FilteredCollectionView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SortedList.cs" />

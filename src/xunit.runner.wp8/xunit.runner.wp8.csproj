@@ -96,7 +96,6 @@
     <Compile Include="Concurrent\SplitOrderedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunnerApplicationPage.cs" />
-    <Compile Include="RunnerOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">

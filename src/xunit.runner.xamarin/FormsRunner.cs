@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 using Xamarin.Forms;
 using Xunit.Runners.Pages;
@@ -15,13 +16,17 @@ using Xunit.Runners.UI;
 using Xunit.Runners.Utilities;
 using Xunit.Runners.ViewModels;
 
-#if __IOS__
+#if __IOS__ && !__UNIFIED__
 using MonoTouch;
 using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using MonoTouch.UIKit;
-using System.Runtime.InteropServices;
+#elif __IOS__ && __UNIFIED__
+using Foundation;
+using ObjCRuntime;
+using UIKit;
 #endif
+
 using Xunit.Runners.Visitors;
 
 #if ANDROID

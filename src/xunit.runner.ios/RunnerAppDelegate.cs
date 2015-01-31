@@ -5,8 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
+#if __UNIFIED__
+using Foundation;
+using UIKit;
+#else
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+#endif
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Xunit.Runners;

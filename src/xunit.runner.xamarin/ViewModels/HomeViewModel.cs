@@ -16,9 +16,12 @@ using Xamarin.Forms;
 using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 
-#if __IOS__
+#if __IOS__ && !__UNIFIED__
 using MonoTouch.ObjCRuntime;
 using MonoTouch.UIKit;
+#elif __IOS__ && __UNIFIED__
+using ObjCRuntime;
+using UIKit;
 #endif
 
 namespace Xunit.Runners.ViewModels

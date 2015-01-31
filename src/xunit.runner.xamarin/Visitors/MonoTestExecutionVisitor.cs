@@ -53,12 +53,8 @@ namespace Xunit.Runners.Visitors
             var tcs = new TaskCompletionSource<TestResultViewModel>();
             var testCase = testCases[testResult.TestCase];
             var fqTestMethodName = String.Format("{0}.{1}", testResult.TestMethod.TestClass.Class.Name, testResult.TestMethod.Method.Name);
-
-#if __IOS__ || MAC || WINDOWS_PHONE
             var displayName = RunnerOptions.Current.GetDisplayName(testResult.Test.DisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
-#else
-            var displayName = RunnerOptions.GetDisplayName(testResult.Test.DisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
-#endif
+
 
             // Create the result VM on the UI thread as it updates properties
             context.Post(_ =>

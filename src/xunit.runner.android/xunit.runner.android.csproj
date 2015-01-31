@@ -77,38 +77,7 @@
     <Compile Include="..\common\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Activities\CreditsActivity.cs" />
-    <Compile Include="Activities\OptionsActivity.cs" />
     <Compile Include="Activities\RunnerActivity.cs" />
-    <Compile Include="Elements\ActionElement.cs" />
-    <Compile Include="Elements\ActivityElement.cs" />
-    <Compile Include="Elements\FormattedElement.cs" />
-    <Compile Include="Elements\FormattedSection.cs" />
-    <Compile Include="MonoTouch.Dialog\BindingContext.cs" />
-    <Compile Include="MonoTouch.Dialog\BooleanElement.cs" />
-    <Compile Include="MonoTouch.Dialog\ButtonElement.cs" />
-    <Compile Include="MonoTouch.Dialog\CheckboxElement.cs" />
-    <Compile Include="MonoTouch.Dialog\DateTimeElement.cs" />
-    <Compile Include="MonoTouch.Dialog\DialogActivity.cs" />
-    <Compile Include="MonoTouch.Dialog\DialogAdapter.cs" />
-    <Compile Include="MonoTouch.Dialog\DialogHelper.cs" />
-    <Compile Include="MonoTouch.Dialog\DroidResources.cs" />
-    <Compile Include="MonoTouch.Dialog\Element.cs" />
-    <Compile Include="MonoTouch.Dialog\EntryElement.cs" />
-    <Compile Include="MonoTouch.Dialog\FloatElement.cs" />
-    <Compile Include="MonoTouch.Dialog\Group.cs" />
-    <Compile Include="MonoTouch.Dialog\HtmlElement.cs" />
-    <Compile Include="MonoTouch.Dialog\IElementSizing.cs" />
-    <Compile Include="MonoTouch.Dialog\ImageElement.cs" />
-    <Compile Include="MonoTouch.Dialog\MultilineElement.cs" />
-    <Compile Include="MonoTouch.Dialog\RadioElement.cs" />
-    <Compile Include="MonoTouch.Dialog\Reflect.cs" />
-    <Compile Include="MonoTouch.Dialog\RootElement.cs" />
-    <Compile Include="MonoTouch.Dialog\Section.cs" />
-    <Compile Include="MonoTouch.Dialog\SectionAdapter.cs" />
-    <Compile Include="MonoTouch.Dialog\StringElement.cs" />
-    <Compile Include="MonoTouch.Dialog\ViewElement.cs" />
-    <Compile Include="RunnerOptions.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

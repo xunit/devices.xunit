@@ -7,7 +7,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 #if __IOS__ || MAC
-#if XAMCORE_2_0
+#if __UNIFIED__
 using UIKit;
 #else
 using MonoTouch.UIKit;

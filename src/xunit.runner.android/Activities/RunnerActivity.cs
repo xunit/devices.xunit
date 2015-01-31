@@ -46,8 +46,7 @@ namespace Xunit.Runners.UI
 
             Forms.Init(this, bundle);
 
-            RunnerOptions.Initialize(this);
-
+            
             runner = new FormsRunner(executionAssembly, testAssemblies)
             {
                 TerminateAfterExecution = TerminateAfterExecution,

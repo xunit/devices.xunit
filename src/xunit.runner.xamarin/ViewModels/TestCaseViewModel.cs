@@ -52,12 +52,8 @@ namespace Xunit.Runners
             get { return testResult; }
             private set { Set(ref testResult, value); }
         }
-
-#if __IOS__ || MAC || WINDOWS_PHONE
         public string DisplayName { get { return RunnerOptions.Current.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
-#else
-        public string DisplayName { get { return RunnerOptions.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
-#endif
+
 
         public string UniqueName
         {
