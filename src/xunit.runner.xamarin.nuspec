@@ -62,25 +62,25 @@
   </metadata>
   <files>
     <file src="build\xunit.runner.xamarin.targets" target="build\MonoAndroid\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.android.dll" target="lib\MonoAndroid\xunit.runner.android.dll" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.android.pdb" target="lib\MonoAndroid\xunit.runner.android.pdb" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.android.xml" target="lib\MonoAndroid\xunit.runner.android.xml" />
+    <file src="xunit.runner.android\bin\Release\xunit.runner.xamarin.dll" target="lib\MonoAndroid\xunit.runner.xamarin.dll" />
+    <file src="xunit.runner.android\bin\Release\xunit.runner.xamarin.pdb" target="lib\MonoAndroid\xunit.runner.xamarin.pdb" />
+    <file src="xunit.runner.android\bin\Release\xunit.runner.xamarin.xml" target="lib\MonoAndroid\xunit.runner.xamarin.xml" />
 
     <file src="build\xunit.runner.xamarin.targets" target="build\MonoTouch\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.dll" target="lib\MonoTouch\xunit.runner.ios.dll" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.pdb" target="lib\MonoTouch\xunit.runner.ios.pdb" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.ios.xml" target="lib\MonoTouch\xunit.runner.ios.xml" />
+    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.xamarin.dll" target="lib\MonoTouch\xunit.runner.xamarin.dll" />
+    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.xamarin.pdb" target="lib\MonoTouch\xunit.runner.xamarin.pdb" />
+    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.xamarin.xml" target="lib\MonoTouch\xunit.runner.xamarin.xml" />
     
     <file src="build\xunit.runner.xamarin.targets" target="build\Xamarin.iOS\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.ios-unified.dll" target="lib\Xamarin.iOS\xunit.runner.ios-unified.dll" />
-    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.ios-unified.pdb" target="lib\Xamarin.iOS\xunit.runner.ios-unified.pdb" />
-    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.ios-unified.xml" target="lib\Xamarin.iOS\xunit.runner.ios-unified.xml" />
+    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.dll" target="lib\Xamarin.iOS\xunit.runner.xamarind.dll" />
+    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.pdb" target="lib\Xamarin.iOS\xunit.runner.xamarin.pdb" />
+    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.xml" target="lib\Xamarin.iOS\xunit.runner.xamarin.xml" />
 
     <file src="build\xunit.runner.xamarin.props" target="build\wp8\xunit.runner.xamarin.props" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.wp8.dll" target="build\wp8\xunit.runner.utility.wp8.dll" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.wp8.dll" target="lib\wp8\xunit.runner.wp8.dll" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.wp8.pdb" target="lib\wp8\xunit.runner.wp8.pdb" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.wp8.xml" target="lib\wp8\xunit.runner.wp8.xml" />
+    <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.dll" target="lib\wp8\xunit.runner.xamarin.dll" />
+    <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.pdb" target="lib\wp8\xunit.runner.xamarin.pdb" />
+    <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.xml" target="lib\wp8\xunit.runner.xamarin.xml" />
 
     <file src="xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp" target="content\MonoTouch\AppDelegate.cs.txt.pp" />
     <file src="xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp" target="content\Xamarin.iOS\AppDelegate.cs.txt.pp" />

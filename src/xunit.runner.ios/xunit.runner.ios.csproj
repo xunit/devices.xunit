@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Xunit.Runner.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>xunit.runner.ios</AssemblyName>
+    <AssemblyName>xunit.runner.xamarin</AssemblyName>
     <NuGetPackageImportStamp>0a091cbe</NuGetPackageImportStamp>
     <_ResolveReferenceDependencies>true</_ResolveReferenceDependencies>
   </PropertyGroup>
@@ -38,7 +38,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <DefineConstants>__IOS__;__MOBILE__;LINQ</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>bin\iPhone\Release\xunit.runner.ios.xml</DocumentationFile>
+    <DocumentationFile>bin\iPhone\Release\xunit.runner.xamarin.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\common\GlobalAssemblyInfo.cs">
