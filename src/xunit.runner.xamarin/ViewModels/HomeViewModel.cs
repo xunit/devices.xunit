@@ -66,9 +66,9 @@ namespace Xunit.Runners.ViewModels
             Debug.WriteLine("Options");
         }
 
-        private void CreditsExecute()
+        private async void CreditsExecute()
         {
-            Debug.WriteLine("Credits");
+            await navigation.PushAsync(new CreditsPage());
         }
 
         private async void RunEverythingExecute()

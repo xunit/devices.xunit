@@ -16,6 +16,9 @@
       <DependentUpon>AssemblyTestListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\CreditsPage.xaml.cs">
+      <DependentUpon>CreditsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -26,6 +29,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)RunnerOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Commands.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FilteredCollectionView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SortedList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\TcpTextWriter.cs" />
@@ -53,6 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TestResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\CreditsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

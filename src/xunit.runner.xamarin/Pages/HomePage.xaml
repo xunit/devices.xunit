@@ -10,7 +10,7 @@
                 <TableRoot>
                     <TableSection Title="Loading Test Suites...." x:Name="root" />
                     <TableSection>
-                        <TextCell Text="Options" Command="{Binding OptionsCommand}" />
+                        <!--<TextCell Text="Options" Command="{Binding OptionsCommand}" />-->
                         <TextCell Text="Credits" Command="{Binding CreditsCommand}" />
                     </TableSection>
                 </TableRoot>
