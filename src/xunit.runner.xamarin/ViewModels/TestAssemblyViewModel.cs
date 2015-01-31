@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace Xunit.Runners.ViewModels
 
             RunTestsCommand = new Command(RunTests);
 
-            DisplayName = @group.Key;
+            DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
 
             allTests = new ObservableCollection<TestCaseViewModel>(@group);
 

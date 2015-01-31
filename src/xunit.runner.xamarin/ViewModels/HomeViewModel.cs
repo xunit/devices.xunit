@@ -171,7 +171,9 @@ namespace Xunit.Runners.ViewModels
                     foreach (var assm in testAssemblies)
                     {
                         // Xunit needs the file name
-#if !WINDOWS_PHONE
+#if __UNIFIED__
+                        var fileName = assm.Location;
+#elif !WINDOWS_PHONE
                         var fileName = Path.GetFileName(assm.Location);
 #else
                         var fileName = assm.GetName().Name + ".dll";
