@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(PackageSources)' == '' ">
     <PackageSource Include="https://nuget.org/api/v2/" />
-    <PackageSource Include="ttps://www.myget.org/F/xunit-xamarin/" />
+    <PackageSource Include="https://www.myget.org/F/xunit-xamarin/" />
     <PackageSource Include="https://www.myget.org/F/xunit/" />
     <PackageSource Include="https://www.myget.org/F/b4ff5f68eccf4f6bbfed74f055f88d8f/" />
   </ItemGroup>
