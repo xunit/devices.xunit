@@ -40,7 +40,13 @@ namespace Xunit.Runners
         public TimeSpan Duration
         {
             get { return duration; }
-            set { Set(ref duration, value); }
+            set 
+            {
+                if (Set(ref duration, value) && testCase != null)
+                {
+                    testCase.UpdateTestState(this);
+                }
+            }
         }
 
         public string ErrorMessage
