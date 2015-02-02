@@ -148,7 +148,7 @@ namespace Xunit.Runners.ViewModels
             }
 
             var pattern = query.Item1;
-            return string.IsNullOrWhiteSpace(pattern) || test.DisplayName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
+            return string.IsNullOrWhiteSpace(pattern) || test.UniqueName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         public string SearchQuery
