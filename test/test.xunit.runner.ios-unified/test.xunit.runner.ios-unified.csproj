@@ -62,16 +62,11 @@
     <MtouchSdkVersion>8.1</MtouchSdkVersion>
     <MtouchLink>Full</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchProfiling>False</MtouchProfiling>
-    <MtouchExtraArgs />
-    <MtouchFastDev>False</MtouchFastDev>
-    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
-    <MtouchUseLlvm>False</MtouchUseLlvm>
-    <MtouchUseThumb>False</MtouchUseThumb>
-    <MtouchUseSGen>False</MtouchUseSGen>
-    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -145,12 +140,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\xunit.runner.ios-unified\xunit.runner.ios-unified.csproj">
-      <Project>{3133b3c8-08e5-435d-84ae-0ba775ff10a7}</Project>
+      <Project>{3133B3C8-08E5-435D-84AE-0BA775FF10A7}</Project>
       <Name>xunit.runner.ios-unified</Name>
-      <IsAppExtension>false</IsAppExtension>
+      <IsAppExtension>False</IsAppExtension>
     </ProjectReference>
     <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
-      <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
+      <Project>{B7C9BEBB-26C2-483B-9BE8-80A8EE523EB8}</Project>
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
   </ItemGroup>

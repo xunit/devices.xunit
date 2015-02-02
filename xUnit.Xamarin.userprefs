@@ -1,0 +1,38 @@
+﻿<Properties StartupItem="src/xunit.runner.android/xunit.runner.android.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/xunit.runner.xamarin/ViewModels/TestAssemblyViewModel.cs">
+    <Files>
+      <File FileName="src/xunit.runner.xamarin/ViewModels/TestAssemblyViewModel.cs" Line="35" Column="35" />
+      <File FileName="src/xunit.runner.xamarin/Utilities/FilteredCollectionView.cs" Line="1" Column="1" />
+      <File FileName="src/xunit.runner.xamarin/Pages/AssemblyTestListPage.xaml" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="xunit" expanded="True">
+            <Node name="xunit.runner.ios-unified" expanded="True" />
+            <Node name="xunit.runner.xamarin" expanded="True" />
+          </Node>
+          <Node name="WorkoutWotch.UnitTests" expanded="True">
+            <Node name="Services" expanded="True">
+              <Node name="Logger" expanded="True">
+                <Node name="LoggerServiceFixture.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>test</Value>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Catchpoint enabled="false" exceptionName="System.Exception" includeSubclasses="True" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
