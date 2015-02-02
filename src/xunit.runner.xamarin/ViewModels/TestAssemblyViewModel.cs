@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -25,6 +26,7 @@ namespace Xunit.Runners.ViewModels
         private TestState resultFilter;
         private readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
         private readonly ObservableCollection<TestCaseViewModel> allTests; 
+        private CancellationTokenSource filterCancellationTokenSource;
 
         internal TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
         {
@@ -156,7 +158,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref searchQuery, value))
                 {
-                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    this.FilterAfterDelay();
                 }
             }
         }
@@ -168,7 +170,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref resultFilter, value))
                 {
-                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    this.FilterAfterDelay();
                 }
             }
         }
@@ -222,6 +224,28 @@ namespace Xunit.Runners.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void FilterAfterDelay()
+        {
+            if (this.filterCancellationTokenSource != null)
+            {
+                this.filterCancellationTokenSource.Cancel();
+            }
+
+            this.filterCancellationTokenSource = new CancellationTokenSource();
+            var token = this.filterCancellationTokenSource.Token;
+
+            Task
+                .Delay(500, token)
+                .ContinueWith(
+                    x =>
+                    {
+                        filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    },
+                    token,
+                    TaskContinuationOptions.None,
+                    TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private class TestComparer : IComparer<TestCaseViewModel>
