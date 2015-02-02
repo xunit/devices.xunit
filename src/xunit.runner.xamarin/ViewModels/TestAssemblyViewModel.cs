@@ -17,6 +17,8 @@ namespace Xunit.Runners.ViewModels
     {
         private readonly INavigation navigation;
         private readonly ITestRunner runner;
+        private readonly Command runAllTestsCommand;
+        private readonly Command runFilteredTestsCommand;
         private string detailText;
         private Color displayColor;
         private string displayName;
@@ -33,7 +35,8 @@ namespace Xunit.Runners.ViewModels
             this.navigation = navigation;
             this.runner = runner;
 
-            RunTestsCommand = new Command(RunTests);
+            runAllTestsCommand = new Command(RunAllTests, () => !isBusy);
+            runFilteredTestsCommand = new Command(RunFilteredTests, () => !isBusy);
 
             DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
 
@@ -178,7 +181,14 @@ namespace Xunit.Runners.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            private set { Set(ref isBusy, value); }
+            private set 
+            {
+                if (Set(ref isBusy, value))
+                {
+                    this.runAllTestsCommand.ChangeCanExecute();
+                    this.runFilteredTestsCommand.ChangeCanExecute();
+        }
+            }
         }
 
         public TestState Result
@@ -211,9 +221,17 @@ namespace Xunit.Runners.ViewModels
             get { return filteredTests; }
         }
 
-        public ICommand RunTestsCommand { get; private set; }
+        public ICommand RunAllTestsCommand
+        {
+            get { return runAllTestsCommand; }
+        }
 
-        private async void RunTests()
+        public ICommand RunFilteredTestsCommand
+        {
+            get { return runFilteredTestsCommand; }
+        }
+
+        private async void RunAllTests()
         {
             try
             {
@@ -246,6 +264,19 @@ namespace Xunit.Runners.ViewModels
                     token,
                     TaskContinuationOptions.None,
                     TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private async void RunFilteredTests()
+        {
+            try
+            {
+                IsBusy = true;
+                await runner.Run(filteredTests);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private class TestComparer : IComparer<TestCaseViewModel>

@@ -31,6 +31,7 @@ namespace Xunit.Runners.ViewModels
         private readonly INavigation navigation;
         private readonly IReadOnlyCollection<Assembly> testAssemblies;
         private readonly ITestRunner runner;
+        private readonly Command runEverythingCommand;
 
         public event EventHandler ScanComplete;
         private ManualResetEventSlim mre = new ManualResetEventSlim(false);
@@ -45,7 +46,7 @@ namespace Xunit.Runners.ViewModels
 
             OptionsCommand = new Command(OptionsExecute);
             CreditsCommand = new Command(CreditsExecute);
-            RunEverythingCommand = new Command(RunEverythingExecute);
+            runEverythingCommand = new Command(RunEverythingExecute, () => !isBusy);
             NavigateToTestAssemblyCommand = new Command(async vm => await navigation.PushAsync(new AssemblyTestListPage()
             {
                 BindingContext = vm
@@ -87,13 +88,22 @@ namespace Xunit.Runners.ViewModels
 
         public ICommand OptionsCommand { get; private set; }
         public ICommand	CreditsCommand { get; private set; }
-        public ICommand RunEverythingCommand { get; private set; }
+        public ICommand RunEverythingCommand
+        {
+            get { return runEverythingCommand; }
+        }
         public ICommand NavigateToTestAssemblyCommand { get; private set; }
 
         public bool IsBusy
         {
             get { return isBusy; }
-            private set { Set(ref isBusy, value); }
+            private set
+            {
+                if (Set(ref isBusy, value))
+                {
+                    runEverythingCommand.ChangeCanExecute();
+                }
+            }
         }
 
         public async void StartAssemblyScan()
