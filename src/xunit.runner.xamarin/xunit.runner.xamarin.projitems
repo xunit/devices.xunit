@@ -42,12 +42,30 @@
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\MonoTestExecutionVisitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestDiscoveryVisitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\XmlTestExecutionVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\TestsPage.xaml.cs">
+      <DependentUpon>TestsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestsViewModelStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Visitors\ResultCollectionVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITestExecutionSink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestExecutionProgressViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TestsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Executing.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Failed.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Passed.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Skipped.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PendingExecution.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\AssemblyTestListPage.xaml">
@@ -66,5 +84,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Resources\" />
   </ItemGroup>
 </Project>

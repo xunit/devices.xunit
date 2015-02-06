@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,22 +17,26 @@ namespace Xunit.Runners.ViewModels
     {
         private readonly INavigation navigation;
         private readonly ITestRunner runner;
+        private readonly Command runAllTestsCommand;
+        private readonly Command runFilteredTestsCommand;
         private string detailText;
         private Color displayColor;
         private string displayName;
         private TestState result;
-        private bool isBusy;
+        private volatile bool isBusy;
         private string searchQuery;
         private TestState resultFilter;
         private readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
         private readonly ObservableCollection<TestCaseViewModel> allTests; 
+        private CancellationTokenSource filterCancellationTokenSource;
 
         internal TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
         {
             this.navigation = navigation;
             this.runner = runner;
 
-            RunTestsCommand = new Command(RunTests);
+            runAllTestsCommand = new Command(() => ExecuteAllAsync(), () => !isBusy);
+            runFilteredTestsCommand = new Command(() => ExecuteFilteredAsync(), () => !isBusy);
 
             DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
 
@@ -60,13 +65,20 @@ namespace Xunit.Runners.ViewModels
             
             if (count == 0)
             {
-                DetailText = "no test was found inside this assembly";
-                DetailColor = Color.FromHex("#ff7f00");
+                DetailText = "No tests were found inside this assembly";
+                DetailColor = Colors.NoTests;
+            }
+            else if (!isBusy)
+            {
+                DetailText = string.Format(
+                    "{0} tests awaiting execution",
+                    allTests.Count);
+
+                DetailColor = Colors.NotRun;
             }
             else
             {
                 var outcomes = allTests.GroupBy(r => r.Result);
-
                 var results = outcomes.ToDictionary(k => k.Key, v => v.Count());
 
                 int positive;
@@ -81,36 +93,37 @@ namespace Xunit.Runners.ViewModels
                 int notRun;
                 results.TryGetValue(TestState.NotRun, out notRun);
 
-                // No failures and all run
-                if (failure == 0 && notRun == 0)
-                {
-                    DetailText = string.Format("Success! {0} test{1}",
-                                             positive, positive == 1 ? string.Empty : "s");
-                    DetailColor = Color.Green;
+                var haveFailures = failure > 0;
+                var haveSkipped = skipped > 0;
+                var havePendingRun = notRun > 0;
 
+                DetailText = string.Format(
+                    "{0} successful, {1} failed, {2} skipped, {3} not run",
+                    positive,
+                    failure,
+                    skipped,
+                    notRun);
+
+                if (!haveFailures && !havePendingRun)
+                {
+                    DetailColor = Colors.Success;
                     Result = TestState.Passed;
-
                 }
-                else if (failure > 0 || (notRun > 0 && notRun < count))
+                else if (haveFailures)
                 {
-                    // we either have failures or some of the tests are not run
-                    DetailText = string.Format("{0} success, {1} failure{2}, {3} skip{4}, {5} not run",
-                                             positive, failure, failure > 1 ? "s" : String.Empty,
-                                             skipped, skipped > 1 ? "s" : String.Empty,
-                                             notRun);
-
-                    DetailColor = Color.Red;
-
+                    DetailColor = Colors.Failure;
                     Result = TestState.Failed;
                 }
-                else if (Result == TestState.NotRun)
+                else if (haveSkipped)
                 {
-                    DetailText = string.Format("{0} test case{1}, {2}",
-                        count, count == 1 ? String.Empty : "s", Result);
-                    DetailColor = Color.Green;
+                    DetailColor = Colors.RunningWithSkipped;
+                    Result = TestState.Skipped;
+                }
+                else if (havePendingRun)
+                {
+                    DetailColor = Colors.Running;
                 }
             }
-            
         }
 
         private static bool IsTestFilterMatch(TestCaseViewModel test, Tuple<string, TestState> query)
@@ -146,7 +159,7 @@ namespace Xunit.Runners.ViewModels
             }
 
             var pattern = query.Item1;
-            return string.IsNullOrWhiteSpace(pattern) || test.DisplayName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
+            return string.IsNullOrWhiteSpace(pattern) || test.UniqueName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         public string SearchQuery
@@ -156,7 +169,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref searchQuery, value))
                 {
-                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    this.FilterAfterDelay();
                 }
             }
         }
@@ -168,7 +181,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref resultFilter, value))
                 {
-                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    this.FilterAfterDelay();
                 }
             }
         }
@@ -176,7 +189,14 @@ namespace Xunit.Runners.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            private set { Set(ref isBusy, value); }
+            private set 
+            {
+                if (Set(ref isBusy, value))
+                {
+                    this.runAllTestsCommand.ChangeCanExecute();
+                    this.runFilteredTestsCommand.ChangeCanExecute();
+                }
+            }
         }
 
         public TestState Result
@@ -209,10 +229,23 @@ namespace Xunit.Runners.ViewModels
             get { return filteredTests; }
         }
 
-        public ICommand RunTestsCommand { get; private set; }
-
-        private async void RunTests()
+        public ICommand RunAllTestsCommand
         {
+            get { return runAllTestsCommand; }
+        }
+
+        public ICommand RunFilteredTestsCommand
+        {
+            get { return runFilteredTestsCommand; }
+        }
+
+        public async Task ExecuteAllAsync()
+        {
+            if (allTests.Count == 0)
+            {
+                return;
+            }
+
             try
             {
                 IsBusy = true;
@@ -222,6 +255,41 @@ namespace Xunit.Runners.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public async Task ExecuteFilteredAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                await runner.Run(filteredTests);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void FilterAfterDelay()
+        {
+            if (this.filterCancellationTokenSource != null)
+            {
+                this.filterCancellationTokenSource.Cancel();
+            }
+
+            this.filterCancellationTokenSource = new CancellationTokenSource();
+            var token = this.filterCancellationTokenSource.Token;
+
+            Task
+                .Delay(500, token)
+                .ContinueWith(
+                    x =>
+                    {
+                        filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    },
+                    token,
+                    TaskContinuationOptions.None,
+                    TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private class TestComparer : IComparer<TestCaseViewModel>

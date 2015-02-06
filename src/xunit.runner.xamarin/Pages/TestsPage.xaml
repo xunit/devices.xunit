@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Xunit.Runners.Pages.TestsPage"
+        Title="XUnit Test Runner">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <SearchBar Placeholder="Filter" Text="{Binding FilterText, Mode=TwoWay}" />
+            <ListView Grid.Row="1" ItemsSource="{Binding FilteredTests}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell Text="{Binding DisplayName}"
+                                  Detail="{Binding Detail}"
+                                  DetailColor="{Binding DetailColor}"
+                                  ImageSource="{Binding StatusImageSource}"
+                                  Command="{Binding ExecuteCommand}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ActivityIndicator Grid.Row="1" IsVisible="{Binding IsScanningAssemblies}" IsRunning="{Binding IsScanningAssemblies}"/>
+            <ProgressBar Grid.Row="2" IsVisible="{Binding HasProgress}" BackgroundColor="{Binding Progress.EffectiveColor}" Progress="{Binding Progress.Progress}" HeightRequest="10"/>
+            <StackLayout Grid.Row="3" Orientation="Horizontal">
+                <Button Text="{Binding ExecuteCommandText}" Command="{Binding ExecuteCommand}" BorderWidth="10"/>
+                <Button Text="{Binding FilterFailedCommandText}" Command="{Binding FilterFailedCommand}" IsVisible="{Binding IsFilterFailedCommandVisible}"/>
+                <Button Text="{Binding FilterPassedCommandText}" Command="{Binding FilterPassedCommand}" IsVisible="{Binding IsFilterPassedCommandVisible}"/>
+                <Button Text="{Binding FilterSkippedCommandText}" Command="{Binding FilterSkippedCommand}" IsVisible="{Binding IsFilterSkippedCommandVisible}"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

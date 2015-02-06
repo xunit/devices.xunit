@@ -31,10 +31,11 @@ namespace Xunit.Runners.ViewModels
         private readonly INavigation navigation;
         private readonly IReadOnlyCollection<Assembly> testAssemblies;
         private readonly ITestRunner runner;
+        private readonly Command runEverythingCommand;
 
         public event EventHandler ScanComplete;
         private ManualResetEventSlim mre = new ManualResetEventSlim(false);
-        private bool isBusy;
+        private volatile bool isBusy;
 
         internal HomeViewModel(INavigation navigation, IReadOnlyCollection<Assembly> testAssemblies, ITestRunner runner)
         {
@@ -45,7 +46,7 @@ namespace Xunit.Runners.ViewModels
 
             OptionsCommand = new Command(OptionsExecute);
             CreditsCommand = new Command(CreditsExecute);
-            RunEverythingCommand = new Command(RunEverythingExecute);
+            runEverythingCommand = new Command(() => ExecuteAllAsync(), () => !isBusy);
             NavigateToTestAssemblyCommand = new Command(async vm => await navigation.PushAsync(new AssemblyTestListPage()
             {
                 BindingContext = vm
@@ -71,12 +72,16 @@ namespace Xunit.Runners.ViewModels
             await navigation.PushAsync(new CreditsPage());
         }
 
-        private async void RunEverythingExecute()
+        public async Task ExecuteAllAsync()
         {
             try
             {
                 IsBusy = true;
-                await Run();
+
+                foreach (var testAssembly in TestAssemblies)
+                {
+                    await testAssembly.ExecuteAllAsync();
+                }
             }
             finally
             {
@@ -87,13 +92,22 @@ namespace Xunit.Runners.ViewModels
 
         public ICommand OptionsCommand { get; private set; }
         public ICommand	CreditsCommand { get; private set; }
-        public ICommand RunEverythingCommand { get; private set; }
+        public ICommand RunEverythingCommand
+        {
+            get { return runEverythingCommand; }
+        }
         public ICommand NavigateToTestAssemblyCommand { get; private set; }
 
         public bool IsBusy
         {
             get { return isBusy; }
-            private set { Set(ref isBusy, value); }
+            private set
+            {
+                if (Set(ref isBusy, value))
+                {
+                    runEverythingCommand.ChangeCanExecute();
+                }
+            }
         }
 
         public async void StartAssemblyScan()
@@ -125,7 +139,7 @@ namespace Xunit.Runners.ViewModels
             if (runner.AutoStart)
             {
                 await Task.Run(() => mre.Wait());
-                await Run();
+                await ExecuteAllAsync();
 
                 if (runner.TerminateAfterExecution)
                     TerminateWithSuccess();
@@ -154,10 +168,6 @@ namespace Xunit.Runners.ViewModels
             System.Windows.Application.Current.Terminate();   
         }
 #endif
-        private Task Run()
-        {
-            return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
-        }
 
         private IEnumerable<IGrouping<string, TestCaseViewModel>> DiscoverTestsInAssemblies()
         {

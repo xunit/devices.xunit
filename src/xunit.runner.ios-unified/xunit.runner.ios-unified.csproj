@@ -2,9 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3133B3C8-08E5-435D-84AE-0BA775FF10A7}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -65,12 +63,6 @@
       <HintPath>..\..\packages\Xamarin.Forms.1.3.1.6296\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\..\packages\xunit.abstractions.2.0.0-rc1-build2826\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.runner.utility.iOS-Universal">
-      <HintPath>..\..\packages\xunit.runner.utility.2.0.0-rc1-build2826\lib\Xamarin.iOS\xunit.runner.utility.iOS-Universal.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="..\xunit.runner.xamarin\xunit.runner.xamarin.projitems" Label="Shared" Condition="Exists('..\xunit.runner.xamarin\xunit.runner.xamarin.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
@@ -81,4 +73,17 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
   </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\xunit\src\xunit.abstractions.pcl\xunit.abstractions.pcl.csproj">
+      <Project>{77743589-F177-4007-97B8-50B82A1C7044}</Project>
+      <Name>xunit.abstractions.pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\xunit\src\xunit.runner.utility.ios-universal\xunit.runner.utility.ios-universal.csproj">
+      <Project>{DB7068BF-3B26-49AB-83B3-F6B8431E37E9}</Project>
+      <Name>xunit.runner.utility.ios-universal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>

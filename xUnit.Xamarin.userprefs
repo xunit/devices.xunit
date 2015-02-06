@@ -1,0 +1,22 @@
+﻿<Properties StartupItem="src/xunit.runner.android/xunit.runner.android.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.MonoForAndroid_API_10" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/xunit.runner.xamarin/Pages/AssemblyTestListPage.xaml.cs">
+    <Files>
+      <File FileName="../WorkoutWotch/Src/WorkoutWotch.UnitTests/ViewModels/ExerciseProgramsViewModelFixture.cs" Line="1" Column="1" />
+      <File FileName="../WorkoutWotch/Src/WorkoutWotch.ViewModels/ExerciseProgramsViewModel.cs" Line="1" Column="1" />
+      <File FileName="src/xunit.runner.xamarin/Pages/AssemblyTestListPage.xaml.cs" Line="52" Column="52" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Catchpoint enabled="false" exceptionName="System.Exception" includeSubclasses="True" />
+      <Breakpoint file="/Users/kent/Repository/xamarin.xunit/src/xunit.runner.xamarin/ViewModels/TestAssemblyViewModel.cs" line="274" column="1" />
+      <Breakpoint file="/Users/kent/Repository/xamarin.xunit/src/xunit.runner.xamarin/ViewModels/TestAssemblyViewModel.cs" line="278" column="1" />
+      <Breakpoint file="/Users/kent/Repository/xamarin.xunit/src/xunit.runner.xamarin/FormsRunner.cs" line="166" column="1" />
+      <Breakpoint file="/Users/kent/Repository/xamarin.xunit/src/xunit.runner.xamarin/FormsRunner.cs" line="184" column="1" />
+      <Breakpoint file="/Users/kent/Repository/WorkoutWotch/Src/WorkoutWotch.UnitTests/ViewModels/ExerciseProgramsViewModelFixture.cs" line="280" column="1" />
+      <Breakpoint file="/Users/kent/Repository/WorkoutWotch/Src/WorkoutWotch.UnitTests/ViewModels/ExerciseProgramsViewModelFixture.cs" line="269" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

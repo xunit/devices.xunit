@@ -64,28 +64,24 @@ namespace Xunit.Runners.Utilities
             }
         }
 
+        public void Reset()
+        {
+            this.RefreshFilter();
+        }
+
         private void RefreshFilter()
         {
+            this.filteredList.Clear();
+
             foreach (var item in this.dataSource)
             {
-                int index = this.filteredList.IndexOf(item);
                 if (this.filter(item, this.filterArgument))
                 {
-                    if (index < 0)
-                    {
-                        this.filteredList.Insert(~index, item);
-                        this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
-                    }
-                }
-                else
-                {
-                    if (index >= 0)
-                    {
-                        this.filteredList.RemoveAt(index);
-                        this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
-                    }
+                    this.filteredList.Add(item);
                 }
             }
+
+            this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         private void dataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

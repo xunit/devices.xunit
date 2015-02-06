@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Xunit.Runners
 {
-    interface ITestListener
+    public interface ITestListener
     {
         void RecordResult(TestResultViewModel result);
     }
