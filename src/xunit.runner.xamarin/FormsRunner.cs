@@ -15,6 +15,7 @@ using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 using Xunit.Runners.Utilities;
 using Xunit.Runners.ViewModels;
+using Xunit.Abstractions;
 
 #if __IOS__ && !__UNIFIED__
 using MonoTouch;
@@ -96,14 +97,34 @@ namespace Xunit.Runners
 
         private Page GetMainPage()
         {
+//            var mainPage = new HomePage();
+//            var vm = new HomeViewModel(mainPage.Navigation, testAssemblies, this);
+//            mainPage.BindingContext = vm;
 
-            var hp = new HomePage();
-            var vm = new HomeViewModel(hp.Navigation, testAssemblies, this);
-            
-            
-            hp.BindingContext = vm;
+            var mainPage = new TestsPage();
+            var mainViewModel = new TestsViewModel(mainPage.Navigation, this, this.testAssemblies);
+            mainPage.BindingContext = mainViewModel;
 
-            return new NavigationPage(hp);
+            return new NavigationPage(mainPage);
+        }
+
+        public async Task Run(IEnumerable<ITestExecutionSink> testExecutionSinks)
+        {
+            foreach (var testExecutionSink in testExecutionSinks)
+            {
+                testExecutionSink.Reset();
+            }
+
+            var groupedTestExecutionSinks = testExecutionSinks
+                .GroupBy(x => x.AssemblyFileName);
+            var testExecutionSinkDictionary = testExecutionSinks
+                .ToDictionary(x => x.TestCase);
+            var visitor = new ResultCollectionVisitor(testExecutionSinkDictionary, this.context);
+
+            using (await executionLock.LockAsync())
+            {
+                await RunTestsAsync(groupedTestExecutionSinks, visitor);
+            }
         }
 
         public Task Run(TestCaseViewModel test)
@@ -127,7 +148,7 @@ namespace Xunit.Runners
                     return;
                 try
                 {
-                    await RunTests(groups, stopWatch);
+                    await RunTestsAsync(groups, stopWatch);
                 }
                 finally
                 {
@@ -138,7 +159,51 @@ namespace Xunit.Runners
             stopWatch.Stop();
         }
 
-        Task RunTests(IEnumerable<IGrouping<string, TestCaseViewModel>> testCaseAccessor, Stopwatch stopwatch)
+        async Task RunTestsAsync(IEnumerable<IGrouping<string, ITestExecutionSink>> testExecutionSinksByAssembly, ResultCollectionVisitor visitor)
+        {
+            var toDispose = new List<IDisposable>();
+
+            try
+            {
+                cancelled = false;
+
+                using (AssemblyHelper.SubscribeResolve())
+                {
+                    foreach (var assemblyGroup in testExecutionSinksByAssembly)
+                    {
+//                        if (RunnerOptions.Current.ParallelizeAssemblies)
+//                        {
+                            await this.RunTestsInAssemblyAsync(assemblyGroup.Key, assemblyGroup, visitor);
+//                        }
+//                        else
+//                        {
+//                            this.RunTestsInAssembly(assemblyGroup.Key, assemblyGroup, visitor);
+//                        }
+                    }
+                }
+            }
+            finally
+            {
+                toDispose.ForEach(disposable => disposable.Dispose());
+            }
+        }
+
+        Task RunTestsInAssemblyAsync(string assemblyFileName, IEnumerable<ITestExecutionSink> testExecutionSinks, ResultCollectionVisitor visitor)
+        {
+            return Task.Run(() => this.RunTestsInAssembly(assemblyFileName, testExecutionSinks, visitor));
+        }
+
+        void RunTestsInAssembly(string assemblyFileName, IEnumerable<ITestExecutionSink> testExecutionSinks, ResultCollectionVisitor visitor)
+        {
+            using (var controller = new XunitFrontController(assemblyFileName, configFileName: null, shadowCopy: true))
+            {
+                var executionOptions = TestFrameworkOptions.ForExecution();
+                controller.RunTests(testExecutionSinks.Select(x => x.TestCase), visitor, executionOptions);
+                visitor.Finished.WaitOne();
+            }
+        }
+
+        Task RunTestsAsync(IEnumerable<IGrouping<string, TestCaseViewModel>> testCaseAccessor, Stopwatch stopwatch)
         {
             var tcs = new TaskCompletionSource<object>(null);
 

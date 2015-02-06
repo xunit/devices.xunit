@@ -64,6 +64,11 @@ namespace Xunit.Runners.Utilities
             }
         }
 
+        public void Reset()
+        {
+            this.RefreshFilter();
+        }
+
         private void RefreshFilter()
         {
             this.filteredList.Clear();

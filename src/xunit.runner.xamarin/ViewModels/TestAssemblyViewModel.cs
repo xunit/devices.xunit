@@ -23,7 +23,7 @@ namespace Xunit.Runners.ViewModels
         private Color displayColor;
         private string displayName;
         private TestState result;
-        private bool isBusy;
+        private volatile bool isBusy;
         private string searchQuery;
         private TestState resultFilter;
         private readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
@@ -35,8 +35,8 @@ namespace Xunit.Runners.ViewModels
             this.navigation = navigation;
             this.runner = runner;
 
-            runAllTestsCommand = new Command(RunAllTests, () => !isBusy);
-            runFilteredTestsCommand = new Command(RunFilteredTests, () => !isBusy);
+            runAllTestsCommand = new Command(() => ExecuteAllAsync(), () => !isBusy);
+            runFilteredTestsCommand = new Command(() => ExecuteFilteredAsync(), () => !isBusy);
 
             DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
 
@@ -65,13 +65,20 @@ namespace Xunit.Runners.ViewModels
             
             if (count == 0)
             {
-                DetailText = "no test was found inside this assembly";
-                DetailColor = Color.FromHex("#ff7f00");
+                DetailText = "No tests were found inside this assembly";
+                DetailColor = Colors.NoTests;
+            }
+            else if (!isBusy)
+            {
+                DetailText = string.Format(
+                    "{0} tests awaiting execution",
+                    allTests.Count);
+
+                DetailColor = Colors.NotRun;
             }
             else
             {
                 var outcomes = allTests.GroupBy(r => r.Result);
-
                 var results = outcomes.ToDictionary(k => k.Key, v => v.Count());
 
                 int positive;
@@ -86,36 +93,37 @@ namespace Xunit.Runners.ViewModels
                 int notRun;
                 results.TryGetValue(TestState.NotRun, out notRun);
 
-                // No failures and all run
-                if (failure == 0 && notRun == 0)
-                {
-                    DetailText = string.Format("Success! {0} test{1}",
-                                             positive, positive == 1 ? string.Empty : "s");
-                    DetailColor = Color.Green;
+                var haveFailures = failure > 0;
+                var haveSkipped = skipped > 0;
+                var havePendingRun = notRun > 0;
 
+                DetailText = string.Format(
+                    "{0} successful, {1} failed, {2} skipped, {3} not run",
+                    positive,
+                    failure,
+                    skipped,
+                    notRun);
+
+                if (!haveFailures && !havePendingRun)
+                {
+                    DetailColor = Colors.Success;
                     Result = TestState.Passed;
-
                 }
-                else if (failure > 0 || (notRun > 0 && notRun < count))
+                else if (haveFailures)
                 {
-                    // we either have failures or some of the tests are not run
-                    DetailText = string.Format("{0} success, {1} failure{2}, {3} skip{4}, {5} not run",
-                                             positive, failure, failure > 1 ? "s" : String.Empty,
-                                             skipped, skipped > 1 ? "s" : String.Empty,
-                                             notRun);
-
-                    DetailColor = Color.Red;
-
+                    DetailColor = Colors.Failure;
                     Result = TestState.Failed;
                 }
-                else if (Result == TestState.NotRun)
+                else if (haveSkipped)
                 {
-                    DetailText = string.Format("{0} test case{1}, {2}",
-                        count, count == 1 ? String.Empty : "s", Result);
-                    DetailColor = Color.Green;
+                    DetailColor = Colors.RunningWithSkipped;
+                    Result = TestState.Skipped;
+                }
+                else if (havePendingRun)
+                {
+                    DetailColor = Colors.Running;
                 }
             }
-            
         }
 
         private static bool IsTestFilterMatch(TestCaseViewModel test, Tuple<string, TestState> query)
@@ -231,12 +239,30 @@ namespace Xunit.Runners.ViewModels
             get { return runFilteredTestsCommand; }
         }
 
-        private async void RunAllTests()
+        public async Task ExecuteAllAsync()
         {
+            if (allTests.Count == 0)
+            {
+                return;
+            }
+
             try
             {
                 IsBusy = true;
                 await runner.Run(allTests);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public async Task ExecuteFilteredAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                await runner.Run(filteredTests);
             }
             finally
             {
@@ -264,19 +290,6 @@ namespace Xunit.Runners.ViewModels
                     token,
                     TaskContinuationOptions.None,
                     TaskScheduler.FromCurrentSynchronizationContext());
-        }
-
-        private async void RunFilteredTests()
-        {
-            try
-            {
-                IsBusy = true;
-                await runner.Run(filteredTests);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private class TestComparer : IComparer<TestCaseViewModel>
