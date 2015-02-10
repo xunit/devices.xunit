@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,6 +17,8 @@ namespace Xunit.Runners.ViewModels
     {
         private readonly INavigation navigation;
         private readonly ITestRunner runner;
+        private readonly Command runAllTestsCommand;
+        private readonly Command runFilteredTestsCommand;
         private string detailText;
         private Color displayColor;
         private string displayName;
@@ -25,13 +28,15 @@ namespace Xunit.Runners.ViewModels
         private TestState resultFilter;
         private readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
         private readonly ObservableCollection<TestCaseViewModel> allTests; 
+        private CancellationTokenSource filterCancellationTokenSource;
 
         internal TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
         {
             this.navigation = navigation;
             this.runner = runner;
 
-            RunTestsCommand = new Command(RunTests);
+            runAllTestsCommand = new Command(RunAllTests, () => !isBusy);
+            runFilteredTestsCommand = new Command(RunFilteredTests, () => !isBusy);
 
             DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
 
@@ -146,7 +151,7 @@ namespace Xunit.Runners.ViewModels
             }
 
             var pattern = query.Item1;
-            return string.IsNullOrWhiteSpace(pattern) || test.DisplayName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
+            return string.IsNullOrWhiteSpace(pattern) || test.UniqueName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         public string SearchQuery
@@ -156,7 +161,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref searchQuery, value))
                 {
-                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    this.FilterAfterDelay();
                 }
             }
         }
@@ -168,7 +173,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref resultFilter, value))
                 {
-                    filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    this.FilterAfterDelay();
                 }
             }
         }
@@ -176,7 +181,14 @@ namespace Xunit.Runners.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            private set { Set(ref isBusy, value); }
+            private set 
+            {
+                if (Set(ref isBusy, value))
+                {
+                    this.runAllTestsCommand.ChangeCanExecute();
+                    this.runFilteredTestsCommand.ChangeCanExecute();
+        }
+            }
         }
 
         public TestState Result
@@ -209,14 +221,57 @@ namespace Xunit.Runners.ViewModels
             get { return filteredTests; }
         }
 
-        public ICommand RunTestsCommand { get; private set; }
+        public ICommand RunAllTestsCommand
+        {
+            get { return runAllTestsCommand; }
+        }
 
-        private async void RunTests()
+        public ICommand RunFilteredTestsCommand
+        {
+            get { return runFilteredTestsCommand; }
+        }
+
+        private async void RunAllTests()
         {
             try
             {
                 IsBusy = true;
                 await runner.Run(allTests);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void FilterAfterDelay()
+        {
+            if (this.filterCancellationTokenSource != null)
+            {
+                this.filterCancellationTokenSource.Cancel();
+            }
+
+            this.filterCancellationTokenSource = new CancellationTokenSource();
+            var token = this.filterCancellationTokenSource.Token;
+
+            Task
+                .Delay(500, token)
+                .ContinueWith(
+                    x =>
+                    {
+                        filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
+                    },
+                    token,
+                    TaskContinuationOptions.None,
+                    TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private async void RunFilteredTests()
+        {
+            try
+            {
+                IsBusy = true;
+                await runner.Run(filteredTests);
             }
             finally
             {

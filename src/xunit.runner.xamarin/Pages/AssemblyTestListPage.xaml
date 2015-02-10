@@ -33,7 +33,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Run All" Command="{Binding RunTestsCommand}" />
+            <Button Text="Run Filtered" Command="{Binding RunFilteredTestsCommand}" />
+            <Button Text="Run All" Command="{Binding RunAllTestsCommand}" />
         </StackLayout>
         <ActivityIndicator Grid.Row="0"  VerticalOptions="Start" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"  />
     </Grid>
