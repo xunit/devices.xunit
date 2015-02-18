@@ -66,10 +66,11 @@
     </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.abstractions.2.0.0-rc1-build2826\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.abstractions.dll</HintPath>
+      <HintPath>..\..\packages\xunit.abstractions.2.0.0-rc2-build2857\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.runner.utility.MonoAndroid">
-      <HintPath>..\..\packages\xunit.runner.utility.2.0.0-rc1-build2826\lib\monoandroid\xunit.runner.utility.MonoAndroid.dll</HintPath>
+    <Reference Include="xunit.runner.utility.MonoAndroid, Version=2.0.0.2857, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\xunit.runner.utility.2.0.0-rc2-build2857\lib\monoandroid\xunit.runner.utility.MonoAndroid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
