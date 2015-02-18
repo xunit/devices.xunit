@@ -76,7 +76,7 @@
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.pdb" target="lib\Xamarin.iOS\xunit.runner.xamarin.pdb" />
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.xml" target="lib\Xamarin.iOS\xunit.runner.xamarin.xml" />
 
-    <file src="build\xunit.runner.xamarin.props" target="build\wp8\xunit.runner.xamarin.props" />
+    <file src="build\xunit.runner.xamarin.wp8.props" target="build\wp8\xunit.runner.xamarin.props" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.wp8.dll" target="build\wp8\xunit.runner.utility.wp8.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.dll" target="lib\wp8\xunit.runner.xamarin.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.pdb" target="lib\wp8\xunit.runner.xamarin.pdb" />
