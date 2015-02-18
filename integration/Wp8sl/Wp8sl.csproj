@@ -17,7 +17,6 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <WPTestProject>true</WPTestProject>
     <SupportedCultures>
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
