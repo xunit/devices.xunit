@@ -2,90 +2,21 @@
 <package>
   <metadata>
     <id>xunit.runner.xamarin</id>
-    <version>1.0.0-rc3</version>
-    <title>xUnit.net [Xamarin iOS/Android/WP8 Runner]</title>
+    <version>1.0</version>
+    <title>xUnit.net [Xamarin iOS/Android/WP8 Runner] - DEPRECATED</title>
     <authors>Oren Novotny</authors>
     <owners />
-    <description>Includes support for running xUnit.net v2 tests on iOS, Android and WP8 devices</description>
-    <summary>Xamarin xUnit.net runner components for iOS and Android</summary>
-    <tags>xunit xamarin android ios monoandroid monotouch tdd unit test</tags>
+    <description>This package is deprecated. Use xunit.runner.devices directly</description>
+    <summary>This package is deprecated. Use xunit.runner.devices directly</summary>
+    <tags />
     <language>en-US</language>
-    <projectUrl>https://github.com/xunit/xamarin.xunit</projectUrl>
+    <projectUrl>https://github.com/xunit/devices.xunit</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</iconUrl>
     <licenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-
-    
       <dependencies>
-
-        <group targetFramework="monotouch">
-  
-          <dependency id="xunit.extensibility.execution" version="2.0.0-rc3-build2880" />
-          <dependency id="xunit.runner.utility" version="2.0.0-rc3-build2880" />
-
-          <dependency id="xunit" version="2.0.0-rc3-build2880" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.3.4.6332" />
-        </group>
-        
-         <group targetFramework="Xamarin.iOS">
-  
-          <dependency id="xunit.extensibility.execution" version="2.0.0-rc3-build2880" />
-          <dependency id="xunit.runner.utility" version="2.0.0-rc3-build2880" />
-
-          <dependency id="xunit" version="2.0.0-rc3-build2880" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.3.4.6332" />
-        </group>
-
-        <group targetFramework="monoandroid">
-
-          <dependency id="xunit.extensibility.execution" version="2.0.0-rc3-build2880" />
-          <dependency id="xunit.runner.utility" version="2.0.0-rc3-build2880" />
-
-          <dependency id="xunit" version="2.0.0-rc3-build2880" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.3.4.6332" />
-        </group>
-
-        <group targetFramework="wp8">
-          <dependency id="xunit" version="2.0.0-rc3-build2880" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.3.4.6332" />
-        </group>
-      
+        <dependency id="xunit.runner.devices" version="1.0" />
     </dependencies>
+    <files />
   </metadata>
-  <files>
-    <file src="build\xunit.runner.xamarin.targets" target="build\MonoAndroid\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.xamarin.dll" target="lib\MonoAndroid\xunit.runner.xamarin.dll" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.xamarin.pdb" target="lib\MonoAndroid\xunit.runner.xamarin.pdb" />
-    <file src="xunit.runner.android\bin\Release\xunit.runner.xamarin.xml" target="lib\MonoAndroid\xunit.runner.xamarin.xml" />
-
-    <file src="build\xunit.runner.xamarin.targets" target="build\MonoTouch\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.xamarin.dll" target="lib\MonoTouch\xunit.runner.xamarin.dll" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.xamarin.pdb" target="lib\MonoTouch\xunit.runner.xamarin.pdb" />
-    <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.xamarin.xml" target="lib\MonoTouch\xunit.runner.xamarin.xml" />
-    
-    <file src="build\xunit.runner.xamarin.targets" target="build\Xamarin.iOS\xunit.runner.xamarin.targets" />
-    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.dll" target="lib\Xamarin.iOS\xunit.runner.xamarin.dll" />
-    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.pdb" target="lib\Xamarin.iOS\xunit.runner.xamarin.pdb" />
-    <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.xamarin.xml" target="lib\Xamarin.iOS\xunit.runner.xamarin.xml" />
-
-    <file src="build\xunit.runner.xamarin.wp8.props" target="build\wp8\xunit.runner.xamarin.props" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.wp8.dll" target="build\wp8\xunit.runner.utility.wp8.dll" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.dll" target="lib\wp8\xunit.runner.xamarin.dll" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.pdb" target="lib\wp8\xunit.runner.xamarin.pdb" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.xamarin.xml" target="lib\wp8\xunit.runner.xamarin.xml" />
-
-    <file src="xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp" target="content\MonoTouch\AppDelegate.cs.txt.pp" />
-    <file src="xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp" target="content\Xamarin.iOS\AppDelegate.cs.txt.pp" />
-    <file src="xunit.runner.android\NuGet\MainActivity.cs.txt.pp" target="content\MonoAndroid\MainActivity.cs.txt.pp" />
-    <file src="xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp" target="content\wp8\MainPage.xaml.cs.txt.pp" />
-    <file src="xunit.runner.wp8\NuGet\MainPage.xaml.txt.pp" target="content\wp8\MainPage.xaml.txt.pp" />
-  </files>
 </package>
