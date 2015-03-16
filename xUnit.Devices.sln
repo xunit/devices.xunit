@@ -13,13 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D
 		.gitignore = .gitignore
 		build.ps1 = build.ps1
 		README.md = README.md
-		src\build\xunit.runner.xamarin.targets = src\build\xunit.runner.xamarin.targets
-		src\build\xunit.runner.xamarin.wp8.props = src\build\xunit.runner.xamarin.wp8.props
+		src\build\xunit.runner.devices.targets = src\build\xunit.runner.devices.targets
+		src\build\xunit.runner.devices.wp8.props = src\build\xunit.runner.devices.wp8.props
 		xunit.xamarin.proj = xunit.xamarin.proj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{98950ECA-3A16-4A7C-9E82-03EEB81EBDB3}"
 	ProjectSection(SolutionItems) = preProject
+		src\xunit.runner.devices.nuspec = src\xunit.runner.devices.nuspec
 		src\xunit.runner.xamarin.nuspec = src\xunit.runner.xamarin.nuspec
 	EndProjectSection
 EndProject
@@ -33,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.android",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.ios", "test\test.xunit.runner.ios\test.xunit.runner.ios.csproj", "{D1F45C28-A2B8-48A2-9D06-DAB9FA0BC85F}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "xunit.runner.xamarin", "src\xunit.runner.xamarin\xunit.runner.xamarin.shproj", "{265A64F3-D8C2-47B3-A9E1-7480A586DA6B}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "xunit.runner.devices", "src\xunit.runner.xamarin\xunit.runner.devices.shproj", "{265A64F3-D8C2-47B3-A9E1-7480A586DA6B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Starter Files", "Starter Files", "{E9830344-D465-4054-9E0D-CC580E39BD34}"
 	ProjectSection(SolutionItems) = preProject
