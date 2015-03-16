@@ -74,14 +74,14 @@
         Pattern='AssemblyVersion\("(\d+\.\d+\.\d+)\.\d+"\)'
         Replacement='AssemblyVersion("$1.$(BuildNumber)")'
         Files='src\common\GlobalAssemblyInfo.cs'/>
-    <RegexReplace
+  <!--  <RegexReplace
         Pattern='&lt;version&gt;(\d+\.\d+\.\d+(-[A-Za-z0-9-]+)?)&lt;'
         Replacement='&lt;version&gt;$1-build$(BuildNumber)&lt;'
         Files='@(NuspecFiles)'/>
     <RegexReplace
         Pattern='version=&quot;\[(\d+\.\d+\.\d+(-[A-Za-z0-9-]+)?)\]&quot;'
         Replacement='version=&quot;[$1-build$(BuildNumber)]&quot;'
-        Files='@(NuspecFiles)'/>
+        Files='@(NuspecFiles)'/> -->
   </Target>
 
   <Target Name='Packages'>
