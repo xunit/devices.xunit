@@ -89,7 +89,7 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup />
-  <Import Project="..\xunit.runner.xamarin\xunit.runner.xamarin.projitems" Label="Shared" Condition="Exists('..\xunit.runner.xamarin\xunit.runner.xamarin.projitems')" />
+  <Import Project="..\xunit.runner.devices\xunit.runner.devices.projitems" Label="Shared" Condition="Exists('..\xunit.runner.devices\xunit.runner.devices.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
