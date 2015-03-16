@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xunit.Runners</RootNamespace>
-    <AssemblyName>xunit.runner.xamarin</AssemblyName>
+    <AssemblyName>xunit.runner.devices</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <DocumentationFile>bin\Release\xunit.runner.xamarin.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\xunit.runner.devices.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormsViewGroup, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">

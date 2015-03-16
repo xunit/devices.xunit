@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Xunit.Runner.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>xunit.runner.xamarin</AssemblyName>
+    <AssemblyName>xunit.runner.devices</AssemblyName>
     <NuGetPackageImportStamp>dd375bcb</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <DocumentationFile>bin\iPhone\Release\xunit.runner.xamarin.xml</DocumentationFile>
+    <DocumentationFile>bin\iPhone\Release\xunit.runner.devices.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
