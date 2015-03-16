@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>xunit.runner.devices</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>xUnit.net for Devices [Xamarin iOS/Android/WP8 Runner]</title>
     <authors>Oren Novotny</authors>
     <owners />
