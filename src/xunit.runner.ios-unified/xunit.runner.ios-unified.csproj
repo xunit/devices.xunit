@@ -71,11 +71,11 @@
     <Reference Include="Xamarin.iOS" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.abstractions.2.0.0-rc3-build2880\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.abstractions.dll</HintPath>
+      <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.runner.utility.iOS-Universal, Version=2.0.0.2880, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="xunit.runner.utility.iOS-Universal, Version=2.0.0.2929, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.runner.utility.2.0.0-rc3-build2880\lib\Xamarin.iOS\xunit.runner.utility.iOS-Universal.dll</HintPath>
+      <HintPath>..\..\packages\xunit.runner.utility.2.0.0\lib\Xamarin.iOS\xunit.runner.utility.iOS-Universal.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="..\xunit.runner.devices\xunit.runner.devices.projitems" Label="Shared" Condition="Exists('..\xunit.runner.devices\xunit.runner.devices.projitems')" />
