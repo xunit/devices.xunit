@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>xunit.runner.xamarin</id>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <title>xUnit.net [Xamarin iOS/Android/WP8 Runner] - DEPRECATED</title>
     <authors>Oren Novotny</authors>
     <owners />
@@ -15,8 +15,8 @@
     <licenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <dependencies>
-        <dependency id="xunit.runner.devices" version="1.0" />
+        <dependency id="xunit.runner.devices" version="1.0.0" />
     </dependencies>
-    <files />
   </metadata>
+  <files />
 </package>
