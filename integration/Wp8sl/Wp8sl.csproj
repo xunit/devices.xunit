@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\xunit.runner.devices.1.0.0\build\wp8\xunit.runner.devices.props" Condition="Exists('..\..\packages\xunit.runner.devices.1.0.0\build\wp8\xunit.runner.devices.props')" />
   <Import Project="..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.props')" />
-  <Import Project="..\..\packages\xunit.runner.xamarin.1.0.0-rc2-build1051\build\wp8\xunit.runner.xamarin.props" Condition="Exists('..\..\packages\xunit.runner.xamarin.1.0.0-rc2-build1051\build\wp8\xunit.runner.xamarin.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -27,7 +27,7 @@
     <ValidateXaml>false</ValidateXaml>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <NuGetPackageImportStamp>669fa1b8</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>e17427e1</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -166,8 +166,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\xunit.extensibility.core.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.runner.xamarin">
-      <HintPath>..\..\packages\xunit.runner.xamarin.1.0.0-rc2-build1051\lib\wp8\xunit.runner.xamarin.dll</HintPath>
+    <Reference Include="xunit.runner.devices">
+      <HintPath>..\..\packages\xunit.runner.devices.1.0.0\lib\wp8\xunit.runner.devices.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
@@ -184,10 +184,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\xunit.runner.xamarin.1.0.0-rc2-build1051\build\wp8\xunit.runner.xamarin.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.xamarin.1.0.0-rc2-build1051\build\wp8\xunit.runner.xamarin.props'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.1.4.0.6341\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.1.4.0.6341\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
     <Error Condition="!Exists('..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.props'))" />
     <Error Condition="!Exists('..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.targets'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.devices.1.0.0\build\wp8\xunit.runner.devices.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.devices.1.0.0\build\wp8\xunit.runner.devices.props'))" />
   </Target>
   <Import Project="..\..\packages\Xamarin.Forms.1.4.0.6341\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.1.4.0.6341\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Import Project="..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.targets" Condition="Exists('..\..\packages\xunit.core.2.0.0\build\wp8\xunit.core.targets')" />

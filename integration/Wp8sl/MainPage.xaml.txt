@@ -11,7 +11,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    xmlns:runner="clr-namespace:Xunit.Runners.UI;assembly=xunit.runner.xamarin"
+    xmlns:runner="clr-namespace:Xunit.Runners.UI;assembly=xunit.runner.devices"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
