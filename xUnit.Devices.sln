@@ -73,6 +73,7 @@ Global
 		src\xunit.runner.devices\xunit.runner.devices.projitems*{a0d90d0b-bc16-42aa-af74-8b49772f8406}*SharedItemsImports = 4
 		src\xunit.runner.devices\xunit.runner.devices.projitems*{bb8946fe-4d2a-4fed-8ffd-5dfba190db8a}*SharedItemsImports = 4
 		src\xunit.runner.devices\xunit.runner.devices.projitems*{8825644e-d597-49cd-8a4d-97128ccdebeb}*SharedItemsImports = 4
+		src\xunit.runner.devices\xunit.runner.devices.projitems*{e7ad2705-eb5e-4c6e-b8dc-ed11ba069b75}*SharedItemsImports = 4
 		src\xunit.runner.devices\xunit.runner.devices.projitems*{3133b3c8-08e5-435d-84ae-0ba775ff10a7}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

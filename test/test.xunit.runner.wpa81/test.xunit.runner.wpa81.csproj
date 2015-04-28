@@ -150,6 +150,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\xunit.runner.wpa81\xunit.runner.wpa81.csproj">
+      <Project>{e7ad2705-eb5e-4c6e-b8dc-ed11ba069b75}</Project>
+      <Name>xunit.runner.wpa81</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
+      <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
+      <Name>test.xunit.pcltestlib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
