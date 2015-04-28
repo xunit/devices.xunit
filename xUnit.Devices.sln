@@ -49,13 +49,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.wp8", "te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{F8D208A4-217E-46B7-A45B-E3259B0D0B73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS", "integration\iOS\iOS.csproj", "{875AC482-ABEF-4978-80B7-16BB0EB62E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "integration.iOS", "integration\iOS\integration.iOS.csproj", "{875AC482-ABEF-4978-80B7-16BB0EB62E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.runner.ios-unified", "src\xunit.runner.ios-unified\xunit.runner.ios-unified.csproj", "{3133B3C8-08E5-435D-84AE-0BA775FF10A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.ios-unified", "test\test.xunit.runner.ios-unified\test.xunit.runner.ios-unified.csproj", "{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wp8sl", "integration\Wp8sl\Wp8sl.csproj", "{B4C6EEB4-541F-4887-A2E0-BB9513F3988E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "integration.Wp8sl", "integration\Wp8sl\integration.Wp8sl.csproj", "{B4C6EEB4-541F-4887-A2E0-BB9513F3988E}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "xunit.runner.devices", "src\xunit.runner.devices\xunit.runner.devices.shproj", "{265A64F3-D8C2-47B3-A9E1-7480A586DA6B}"
 EndProject
