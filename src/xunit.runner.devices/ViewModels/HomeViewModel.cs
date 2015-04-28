@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-
 using Xamarin.Forms;
 using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
@@ -164,6 +163,13 @@ namespace Xunit.Runners.ViewModels
             System.Windows.Application.Current.Terminate();   
         }
 #endif
+
+#if NETFX_CORE
+        private static void TerminateWithSuccess()
+        {
+            Windows.UI.Xaml.Application.Current.Exit();
+        }
+#endif
         private Task Run()
         {
             return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
@@ -183,7 +189,7 @@ namespace Xunit.Runners.ViewModels
                         // Xunit needs the file name
 #if __UNIFIED__
                         var fileName = assm.Location;
-#elif !WINDOWS_PHONE
+#elif !WINDOWS_PHONE && !NETFX_CORE
                         var fileName = Path.GetFileName(assm.Location);
 #else
                         var fileName = assm.GetName().Name + ".dll";

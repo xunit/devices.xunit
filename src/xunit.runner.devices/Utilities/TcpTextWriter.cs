@@ -4,7 +4,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Net.Sockets;
 using System.Text;
 #if __IOS__ || MAC
 #if __UNIFIED__
@@ -14,9 +13,11 @@ using MonoTouch.UIKit;
 #endif
 #endif
 
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || NETFX_CORE
 using Windows.Networking;
 using Windows.Networking.Sockets;
+#else
+using System.Net.Sockets;
 #endif
 
 namespace Xunit.Runners.UI {
@@ -44,7 +45,7 @@ namespace Xunit.Runners.UI {
 #if __IOS__ || MAC || ANDROID
 				var client = new TcpClient (hostName, port);
 				writer = new StreamWriter (client.GetStream ());
-#elif WINDOWS_PHONE
+#elif WINDOWS_PHONE || NETFX_CORE
                
                 var socket = new StreamSocket();
                 socket.ConnectAsync(new HostName(hostName), port.ToString(CultureInfo.InvariantCulture))
@@ -71,17 +72,12 @@ namespace Xunit.Runners.UI {
 			get { return System.Text.Encoding.UTF8; }
 		}
 
-		public override void Close ()
+		protected override void Dispose (bool disposing)
 		{
 #if __IOS__ || MAC
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 #endif
-			writer.Close ();
-		}
-		
-		protected override void Dispose (bool disposing)
-		{
-			 writer.Dispose ();
+            writer.Dispose ();
 		}
 
 		public override void Flush ()

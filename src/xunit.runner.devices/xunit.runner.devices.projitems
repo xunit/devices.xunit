@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)RunnerOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Commands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FilteredCollectionView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SortedList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\TcpTextWriter.cs" />

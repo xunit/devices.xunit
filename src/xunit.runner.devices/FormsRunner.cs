@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
+
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -15,6 +15,14 @@ using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 using Xunit.Runners.Utilities;
 using Xunit.Runners.ViewModels;
+
+#if !NETFX_CORE
+using System.Net.Sockets;
+#endif
+
+#if NETFX_CORE
+
+#endif
 
 #if __IOS__ && !__UNIFIED__
 using MonoTouch;
@@ -142,7 +150,7 @@ namespace Xunit.Runners
         {
             var tcs = new TaskCompletionSource<object>(null);
 
-            ThreadPool.QueueUserWorkItem(state =>
+            Task.Run(() =>
             {
                 var toDispose = new List<IDisposable>();
 
@@ -183,7 +191,7 @@ namespace Xunit.Runners
         {
             var @event = new ManualResetEvent(initialState: false);
 
-            ThreadPool.QueueUserWorkItem(_ =>
+            Task.Run(() =>
             {
                 try
                 {
@@ -223,8 +231,6 @@ namespace Xunit.Runners
             }
 
         }
-
-
 
         //private void OnTestRunCompleted()
         //{
@@ -290,6 +296,19 @@ namespace Xunit.Runners
             {
                 // TODO: Add options support and use TcpTextWriter
                 Writer = Console.Out;
+            }
+            return true;
+        }
+#endif
+
+#if NETFX_CORE
+
+        public bool OpenWriter(string message)
+        {
+            if (Writer == null)
+            {
+                // TODO: Add options support and use TcpTextWriter
+                Writer = new StringWriter();
             }
             return true;
         }
@@ -444,11 +463,11 @@ namespace Xunit.Runners
             var total = passed + failed; // ignored are *not* run
             Writer.WriteLine("Tests run: {0} Passed: {1} Failed: {2} Skipped: {3}", total, passed, failed, skipped);
 
-            Writer.Close();
+            Writer.Dispose();
             Writer = null;
         }
 
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !NETFX_CORE
         private static string SelectHostName(string[] names, int port)
         {
             if (names.Length == 0)
