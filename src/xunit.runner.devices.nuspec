@@ -2,62 +2,24 @@
 <package>
   <metadata>
     <id>xunit.runner.devices</id>
-    <version>1.1.0</version>
-    <title>xUnit.net for Devices [Xamarin iOS/Android/WP8 Runner]</title>
+    <version>1.2.0-beta1</version>
+    <title>xUnit.net for Devices [Xamarin iOS/Android/WP8/Win8.1 Runner]</title>
     <authors>Oren Novotny</authors>
     <owners />
-    <description>Includes support for running xUnit.net v2 tests on iOS, Android and WP8 devices</description>
-    <summary>Xamarin xUnit.net runner components for iOS, Android and WP8</summary>
-    <tags>xunit xamarin android ios monoandroid monotouch wp8 tdd unit test</tags>
+    <description>Includes support for running xUnit.net v2 tests on iOS, Android, WP8 and Win 8.1 devices</description>
+    <summary>Xamarin xUnit.net runner components for iOS, Android, WP8 and Win 8.1</summary>
+    <tags>xunit xamarin android ios monoandroid monotouch wp8 wpa81 win81 uwp tdd unit test</tags>
     <language>en-US</language>
     <projectUrl>https://github.com/xunit/devices.xunit</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</iconUrl>
     <licenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-
-    
-      <dependencies>
-
-        <group targetFramework="monotouch">
-  
-          <dependency id="xunit.extensibility.execution" version="2.0.0" />
-          <dependency id="xunit.runner.utility" version="2.0.0" />
-
-          <dependency id="xunit" version="2.0.0" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.4.0.6341" />
-        </group>
-        
-         <group targetFramework="Xamarin.iOS">
-  
-          <dependency id="xunit.extensibility.execution" version="2.0.0" />
-          <dependency id="xunit.runner.utility" version="2.0.0" />
-
-          <dependency id="xunit" version="2.0.0" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.4.0.6341" />
-        </group>
-
-        <group targetFramework="monoandroid">
-
-          <dependency id="xunit.extensibility.execution" version="2.0.0" />
-          <dependency id="xunit.runner.utility" version="2.0.0" />
-
-          <dependency id="xunit" version="2.0.0" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.4.0.6341" />
-        </group>
-
-        <group targetFramework="wp8">
-          <dependency id="xunit" version="2.0.0" />
-          <!--<dependency id="xunit" version="[2.0.0-alpha,2.1)" />-->
-
-          <dependency id="Xamarin.Forms" version="1.4.0.6341" />
-        </group>
-      
+    <dependencies>
+      <group>
+        <dependency id="xunit" version="2.1.0-beta3-build2999" />
+        <dependency id="xunit.runner.utility" version="2.1.0-beta3-build2999" />
+        <dependency id="Xamarin.Forms" version="1.4.2.6359" />
+      </group>
     </dependencies>
   </metadata>
   <files>
@@ -77,15 +39,37 @@
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.devices.xml" target="lib\Xamarin.iOS\xunit.runner.devices.xml" />
 
     <file src="build\xunit.runner.devices.wp8.props" target="build\wp8\xunit.runner.devices.props" />
+    <file src="build\xunit.runner.devices.targets" target="build\wp8\xunit.runner.devices.targets" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.wp8.dll" target="build\wp8\xunit.runner.utility.wp8.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.dll" target="lib\wp8\xunit.runner.devices.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.pdb" target="lib\wp8\xunit.runner.devices.pdb" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.xml" target="lib\wp8\xunit.runner.devices.xml" />
 
+    <file src="build\xunit.runner.devices.targets" target="build\wpa81\xunit.runner.devices.targets" />
+    <file src="xunit.runner.wpa81\Release\xunit.runner.devices.dll" target="lib\wpa81\xunit.runner.devices.dll" />
+    <file src="xunit.runner.wpa81\Release\xunit.runner.devices.pdb" target="lib\wpa81\xunit.runner.devices.pdb" />
+    <file src="xunit.runner.wpa81\Release\xunit.runner.devices.xml" target="lib\wpa81\xunit.runner.devices.xml" />
+    <file src="xunit.runner.wpa81\Release\xunit.runner.devices.pri" target="lib\wpa81\xunit.runner.devices.pri" />
+
+    <file src="build\xunit.runner.devices.targets" target="build\wpa81\xunit.runner.devices.targets" />
+    <file src="xunit.runner.win81\Release\xunit.runner.devices.dll" target="lib\win81\xunit.runner.devices.dll" />
+    <file src="xunit.runner.win81\Release\xunit.runner.devices.pdb" target="lib\win81\xunit.runner.devices.pdb" />
+    <file src="xunit.runner.win81\Release\xunit.runner.devices.xml" target="lib\win81\xunit.runner.devices.xml" />
+    <file src="xunit.runner.win81\Release\xunit.runner.devices.pri" target="lib\win81\xunit.runner.devices.pri" />
+
+    
     <file src="xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp" target="content\MonoTouch\AppDelegate.cs.txt.pp" />
     <file src="xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp" target="content\Xamarin.iOS\AppDelegate.cs.txt.pp" />
+    
     <file src="xunit.runner.android\NuGet\MainActivity.cs.txt.pp" target="content\MonoAndroid\MainActivity.cs.txt.pp" />
+    
     <file src="xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp" target="content\wp8\MainPage.xaml.cs.txt.pp" />
     <file src="xunit.runner.wp8\NuGet\MainPage.xaml.txt.pp" target="content\wp8\MainPage.xaml.txt.pp" />
+
+    <file src="xunit.runner.wpa81\NuGet\MainPage.xaml.cs.txt.pp" target="content\wpa81\App.xaml.cs.txt.pp" />
+    <file src="xunit.runner.wpa81\NuGet\MainPage.xaml.txt.pp" target="content\wpa81\App.xaml.txt.pp" />
+
+    <file src="xunit.runner.win81\NuGet\MainPage.xaml.cs.txt.pp" target="content\win81\App.xaml.cs.txt.pp" />
+    <file src="xunit.runner.win81\NuGet\MainPage.xaml.txt.pp" target="content\win81\App.xaml.txt.pp" />
   </files>
 </package>

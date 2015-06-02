@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.ios", "te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Starter Files", "Starter Files", "{E9830344-D465-4054-9E0D-CC580E39BD34}"
 	ProjectSection(SolutionItems) = preProject
+		src\xunit.runner.wpa81\NuGet\App.xaml.cs.txt.pp = src\xunit.runner.wpa81\NuGet\App.xaml.cs.txt.pp
+		src\xunit.runner.wpa81\NuGet\App.xaml.txt.pp = src\xunit.runner.wpa81\NuGet\App.xaml.txt.pp
 		src\xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp = src\xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp
 		src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp = src\xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp
 		src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp = src\xunit.runner.android\NuGet\MainActivity.cs.txt.pp
