@@ -165,6 +165,10 @@
       <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0-beta3-build2999\lib\monotouch\xunit.execution.MonoTouch.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="xunit.runner.utility.MonoTouch, Version=2.1.0.2999, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.utility.2.1.0-beta3-build2999\lib\monotouch\xunit.runner.utility.MonoTouch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

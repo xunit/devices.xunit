@@ -99,6 +99,10 @@
       <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0-beta3-build2999\lib\monoandroid\xunit.execution.MonoAndroid.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="xunit.runner.utility.MonoAndroid, Version=2.1.0.2999, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.utility.2.1.0-beta3-build2999\lib\monoandroid\xunit.runner.utility.MonoAndroid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\test.xunit.runner.ios\iOSRunnerTests.cs">

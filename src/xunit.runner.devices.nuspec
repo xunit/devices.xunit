@@ -38,9 +38,7 @@
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.devices.pdb" target="lib\Xamarin.iOS\xunit.runner.devices.pdb" />
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.devices.xml" target="lib\Xamarin.iOS\xunit.runner.devices.xml" />
 
-    <file src="build\xunit.runner.devices.wp8.props" target="build\wp8\xunit.runner.devices.props" />
     <file src="build\xunit.runner.devices.targets" target="build\wp8\xunit.runner.devices.targets" />
-    <file src="xunit.runner.wp8\bin\Release\xunit.runner.utility.wp8.dll" target="build\wp8\xunit.runner.utility.wp8.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.dll" target="lib\wp8\xunit.runner.devices.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.pdb" target="lib\wp8\xunit.runner.devices.pdb" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.xml" target="lib\wp8\xunit.runner.devices.xml" />

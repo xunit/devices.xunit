@@ -150,6 +150,10 @@
       <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0-beta3-build2999\lib\Xamarin.iOS\xunit.execution.iOS-Universal.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="xunit.runner.utility.iOS-Universal, Version=2.1.0.2999, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.utility.2.1.0-beta3-build2999\lib\Xamarin.iOS\xunit.runner.utility.iOS-Universal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entitlements.plist" />

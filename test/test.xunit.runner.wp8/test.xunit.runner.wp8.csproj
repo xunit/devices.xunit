@@ -188,6 +188,10 @@
       <HintPath>..\..\packages\xunit.extensibility.core.2.1.0-beta3-build2999\lib\portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="xunit.runner.utility.wp8, Version=2.1.0.2999, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.utility.2.1.0-beta3-build2999\lib\wp8\xunit.runner.utility.wp8.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml">
