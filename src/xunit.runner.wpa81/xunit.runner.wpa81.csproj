@@ -83,7 +83,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunnerApplication.cs" />
-    <Compile Include="RunnerPhonePage.cs" />
+    <Compile Include="RunnerPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">

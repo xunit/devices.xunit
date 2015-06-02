@@ -71,7 +71,7 @@ namespace Xunit.Runners.UI
             }
 #endif
 
-            var rootFrame = Window.Current.Content as RunnerPhonePage;
+            var rootFrame = Window.Current.Content as RunnerPage;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -95,7 +95,7 @@ namespace Xunit.Runners.UI
                     AutoStart = AutoStart,
                 };
 
-                var page = new RunnerPhonePage(runner);
+                var page = new RunnerPage(runner);
 
                 Window.Current.Content = page;
             }

@@ -8,9 +8,9 @@ using Xunit.Runners;
 
 namespace Xunit.Runners
 {
-    class RunnerPhonePage : WindowsPhonePage
+    class RunnerPage : WindowsPhonePage
     {
-        public RunnerPhonePage(FormsRunner runner)
+        public RunnerPage(FormsRunner runner)
         {
             LoadApplication(runner);
         }
