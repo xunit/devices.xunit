@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>xunit.runner.devices</id>
-    <version>1.2.0-beta1</version>
+    <version>1.2.0-1</version>
     <title>xUnit.net for Devices [Xamarin iOS/Android/WP8/Win8.1 Runner]</title>
     <authors>Oren Novotny</authors>
     <owners />
@@ -16,9 +16,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="xunit" version="2.1.0-beta3-build2999" />
-        <dependency id="xunit.runner.utility" version="2.1.0-beta3-build2999" />
-        <dependency id="Xamarin.Forms" version="1.4.2.6359" />
+        <dependency id="xunit" version="2.1.0-beta3-build3029" />
+        <dependency id="xunit.runner.utility" version="2.1.0-beta3-build3029" />
+        <dependency id="Xamarin.Forms" version="1.4.3.6374" />
       </group>
     </dependencies>
   </metadata>
