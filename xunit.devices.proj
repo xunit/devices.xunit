@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <ParallelizeTests Condition="'$(ParallelizeTests)' == ''">true</ParallelizeTests>
     <MaxParallelThreads Condition="'$(MaxParallelThreads)' == ''">0</MaxParallelThreads>
     <TrackFileAccess>false</TrackFileAccess>
