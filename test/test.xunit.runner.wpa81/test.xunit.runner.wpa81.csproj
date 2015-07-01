@@ -18,6 +18,10 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(BuildNumber)' != ''"> 
+    <!-- this is causing an issue on the TC server -->
+    <DisableXbfGeneration>true</DisableXbfGeneration>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
