@@ -10,6 +10,7 @@
 
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ParallelizeTests Condition="'$(ParallelizeTests)' == ''">true</ParallelizeTests>
     <MaxParallelThreads Condition="'$(MaxParallelThreads)' == ''">0</MaxParallelThreads>
     <TrackFileAccess>false</TrackFileAccess>
@@ -53,7 +54,7 @@
     <MSBuild
         Projects="xunit.devices.sln"
         Targets="Build"
-        Properties="Configuration=$(Configuration);TrackFileAccess=$(TrackFileAccess)"/>
+        Properties="Configuration=$(Configuration);Platform=$(Platform);TrackFileAccess=$(TrackFileAccess)"/>
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build">
