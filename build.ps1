@@ -21,5 +21,5 @@ if ($maxCpuCount -lt 1) {
     $maxCpuCountText = ":$maxCpuCount"
 }
 
-$allArgs = @("xunit.xamarin.proj", "/m$maxCpuCountText", "/nologo", "/verbosity:$verbosity", "/t:$target", "/property:RequestedVerbosity=$verbosity", $args)
+$allArgs = @("xunit.devices.proj", "/m$maxCpuCountText", "/nologo", "/verbosity:$verbosity", "/t:$target", "/property:RequestedVerbosity=$verbosity", $args)
 & $msbuild $allArgs
