@@ -124,8 +124,9 @@
       <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0-beta4-build3107\lib\monotouch\xunit.execution.MonoTouch.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.runner.devices">
-      <HintPath>..\..\packages\xunit.runner.devices.1.0.0\lib\MonoTouch\xunit.runner.devices.dll</HintPath>
+    <Reference Include="xunit.runner.devices, Version=2.0.0.1078, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.devices.1.2.0-rc2-build1078\lib\MonoTouch\xunit.runner.devices.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="xunit.runner.utility.MonoTouch, Version=2.1.0.3107, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.runner.utility.2.1.0-beta4-build3107\lib\monotouch\xunit.runner.utility.MonoTouch.dll</HintPath>
@@ -140,10 +141,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\xunit.runner.devices.1.0.0\build\MonoTouch\xunit.runner.devices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.devices.1.0.0\build\MonoTouch\xunit.runner.devices.targets'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
     <Error Condition="!Exists('..\..\packages\xunit.core.2.1.0-beta4-build3107\build\monotouch\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.1.0-beta4-build3107\build\monotouch\xunit.core.props'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.devices.1.2.0-rc2-build1078\build\MonoTouch\xunit.runner.devices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.devices.1.2.0-rc2-build1078\build\MonoTouch\xunit.runner.devices.targets'))" />
   </Target>
-  <Import Project="..\..\packages\xunit.runner.devices.1.0.0\build\MonoTouch\xunit.runner.devices.targets" Condition="Exists('..\..\packages\xunit.runner.devices.1.0.0\build\MonoTouch\xunit.runner.devices.targets')" />
   <Import Project="..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\xunit.runner.devices.1.2.0-rc2-build1078\build\MonoTouch\xunit.runner.devices.targets" Condition="Exists('..\..\packages\xunit.runner.devices.1.2.0-rc2-build1078\build\MonoTouch\xunit.runner.devices.targets')" />
 </Project>
