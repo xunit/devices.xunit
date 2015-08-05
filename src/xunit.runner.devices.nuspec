@@ -16,8 +16,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="xunit" version="2.1.0-beta4-build3107" />
-        <dependency id="xunit.runner.utility" version="2.1.0-beta4-build3107" />
+        <dependency id="xunit" version="2.1.0-beta4-build3109" />
+        <dependency id="xunit.runner.utility" version="2.1.0-beta4-build3109" />
         <dependency id="Xamarin.Forms" version="1.4.4.6392" />
       </group>
     </dependencies>
