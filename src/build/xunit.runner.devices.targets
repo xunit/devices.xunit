@@ -9,11 +9,11 @@
     <Message Text="Prevent Pcl Execution Libraries" />
     <ItemGroup>
 
-      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(TargetPath)' == 'xunit.execution.dll' "/>
-      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(TargetPath)' == 'xunit.execution.pdb' "/>
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(TargetPath)' == 'xunit.execution.desktop.dll' "/>
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(TargetPath)' == 'xunit.execution.desktop.pdb' "/>
 
       <!-- Only remove the exec lib that comes from the portable dir as that's a .net 4.5 one -->
-      <__xUnitExecutionLibsToRemove Remove="@(__xUnitExecutionLibsToRemove)" Condition=" !$([System.Text.RegularExpressions.Regex]::IsMatch('%(FullPath)', 'portable-'))" />       
+      <!--<__xUnitExecutionLibsToRemove Remove="@(__xUnitExecutionLibsToRemove)" Condition=" !$([System.Text.RegularExpressions.Regex]::IsMatch('%(FullPath)', 'portable-'))" />-->       
       
       <_SourceItemsToCopyToOutputDirectory Remove="@(__xUnitExecutionLibsToRemove)" />
       

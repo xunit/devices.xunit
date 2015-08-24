@@ -197,7 +197,7 @@ namespace Xunit.Runners.ViewModels
 
                         try
                         {
-                            using (var framework = new XunitFrontController(false, fileName, configFileName: null, shadowCopy: true))
+                            using (var framework = new XunitFrontController(AppDomainSupport.Denied, fileName))
                             using (var sink = new TestDiscoveryVisitor())
                             {
                                 framework.Find(includeSourceInformation: true, messageSink: sink, discoveryOptions: TestFrameworkOptions.ForDiscovery());

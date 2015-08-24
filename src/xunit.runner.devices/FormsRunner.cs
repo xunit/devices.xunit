@@ -214,7 +214,7 @@ namespace Xunit.Runners
             if (cancelled)
                 return;
 
-            var controller = new XunitFrontController(false, assemblyFileName, configFileName: null, shadowCopy: true);
+            var controller = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName);
 
             lock (toDispose)
                 toDispose.Add(controller);
