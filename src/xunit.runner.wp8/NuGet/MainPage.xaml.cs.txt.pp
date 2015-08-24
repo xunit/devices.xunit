@@ -3,15 +3,23 @@ using Xunit.Runners.UI;
 
 namespace $rootnamespace$
 {
-    public sealed partial class App : RunnerApplication
+    public partial class MainPage : RunnerApplicationPage
     {
+        // Constructor
+        public MainPage()
+        {
+            InitializeComponent();
+        }
+
         protected override void OnInitializeRunner()
         {
+            
             // tests can be inside the main assembly
-            AddTestAssembly(GetType().GetTypeInfo().Assembly);
+            AddTestAssembly(Assembly.GetExecutingAssembly());
             // otherwise you need to ensure that the test assemblies will 
             // become part of the app bundle
-            //AddTestAssembly(typeof(PortableTests).GetTypeInfo().Assembly);
+            //AddTestAssembly(typeof(PortableTests).Assembly);
+
         }
     }
 }
