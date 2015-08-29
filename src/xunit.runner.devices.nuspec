@@ -49,7 +49,7 @@
     <file src="xunit.runner.wpa81\bin\Release\xunit.runner.devices.xml" target="lib\wpa81\xunit.runner.devices.xml" />
     <file src="xunit.runner.wpa81\bin\Release\xunit.runner.devices.pri" target="lib\wpa81\xunit.runner.devices.pri" />
 
-    <file src="build\xunit.runner.devices.targets" target="build\wpa81\xunit.runner.devices.targets" />
+    <file src="build\xunit.runner.devices.targets" target="build\win81\xunit.runner.devices.targets" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.dll" target="lib\win81\xunit.runner.devices.dll" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.pdb" target="lib\win81\xunit.runner.devices.pdb" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.xml" target="lib\win81\xunit.runner.devices.xml" />
