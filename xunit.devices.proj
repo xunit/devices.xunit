@@ -47,6 +47,7 @@
   <Target Name="PackageRestore" DependsOnTargets="_DownloadNuGet">
     <Message Text="Restoring NuGet packages..." Importance="High" />
     <Exec Command="$(NuGetExePath) install xunit.buildtasks -Source @(PackageSource) -SolutionDir $(SolutionDir) -Verbosity quiet -ExcludeVersion" Condition="!Exists('$(SolutionDir)packages\xunit.buildtasks\')" />
+    <Exec Command="&quot;$(NuGetExePath)&quot; install gitlink -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion" Condition="!Exists('$(SolutionDir)\packages\gitlink\')" />
     <Exec Command="$(NuGetExePath) restore $(SolutionDir)xunit.devices.sln -NonInteractive -Source @(PackageSource) -Verbosity quiet" />
   </Target>
 
