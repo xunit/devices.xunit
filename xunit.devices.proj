@@ -9,6 +9,7 @@
   <!-- Settings -->
 
   <PropertyGroup>
+    <SolutionName Condition="'$(SolutionName)' == ''">xUnit.Devices.sln</SolutionName>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <ParallelizeTests Condition="'$(ParallelizeTests)' == ''">true</ParallelizeTests>
@@ -67,8 +68,10 @@
   </Target>
 
   <Target Name='GitLink'>
-    <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/devices.xunit -commit $(CommitHash)' IgnoreExitCode='true' Condition="'$(CommitHash)' != '' " />
-    <Exec Command='.nuget\GitLink.exe $(MSBuildThisFileDirectory) -u https://github.com/xunit/devices.xunit' IgnoreExitCode='true' Condition="'$(CommitHash)' == '' " />
+    <Warning Condition=" '$(CommitHash)' == '' "
+        Text="Skipping GitLink because CommitHash was not specified." />
+    <Exec Condition=" '$(CommitHash)' != '' "
+        Command='packages\gitlink\lib\net45\GitLink.exe $(MSBuildThisFileDirectory) -f $(SolutionName) -u https://github.com/xunit/devices.xunit -s $(CommitHash)' IgnoreExitCode='true' />
   </Target>
 
   <Target Name="SetVersionNumber">
