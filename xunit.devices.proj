@@ -96,7 +96,8 @@
 
   <Target Name='Packages'>
     <PropertyGroup>
-      <NuGetPaddedBuild>$(GitVersion_BuildMetaData.PadLeft(5, '0'))</NuGetPaddedBuild>
+      <!-- Temp hack to start version at 2k to be higher than existing versions -->
+      <NuGetPaddedBuild>2$(GitVersion_BuildMetaData.PadLeft(3, '0'))</NuGetPaddedBuild>
     </PropertyGroup>
     
     <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_LegacySemVer)-build$(NuGetPaddedBuild) -NoPackageAnalysis -NonInteractive' />
