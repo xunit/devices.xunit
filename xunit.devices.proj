@@ -41,7 +41,7 @@
 
   <!-- Build server targets -->
 
-  <Target Name="TeamCity" DependsOnTargets="PackageRestore;SetVersionNumber;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
+  <Target Name="TeamCity" DependsOnTargets="PackageRestore;GitVersion;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
 
   <!-- Individiual targets -->
 
@@ -49,7 +49,12 @@
     <Message Text="Restoring NuGet packages..." Importance="High" />
     <Exec Command="&quot;$(NuGetExePath)&quot; install xunit.buildtasks -Source @(PackageSource) -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion" Condition="!Exists('$(SolutionDir)packages\xunit.buildtasks\')" />
     <Exec Command="&quot;$(NuGetExePath)&quot; install gitlink -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion -pre" Condition="!Exists('$(SolutionDir)\packages\gitlink\')" />
+    <Exec Command="&quot;$(NuGetExePath)&quot; install gitversion.commandline -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion -pre" Condition="!Exists('$(SolutionDir)\packages\gitversion.commandline\')" />
     <Exec Command="&quot;$(NuGetExePath)&quot; restore &quot;$(SolutionDir)\$(SolutionName)&quot; -NonInteractive -Source @(PackageSource) -Verbosity quiet" />
+  </Target>
+
+  <Target Name="GitVersion" DependsOnTargets="PackageRestore">
+    <Exec Command="packages\gitversion.commandline\tools\GitVersion.exe /output buildserver /updateassemblyinfo true" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="PackageRestore">
@@ -90,7 +95,7 @@
   </Target>
 
   <Target Name='Packages'>
-    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -NoPackageAnalysis -NonInteractive' />
+    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GITVERSION_NUGETVERSION) -NoPackageAnalysis -NonInteractive' />
   </Target>
 
   <Target Name='ZipArtifacts'>
