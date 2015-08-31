@@ -9,6 +9,9 @@ using Android.App;
 [assembly: AssemblyTitle("xUnit.net Runner for Android")]
 [assembly: ComVisible(false)]
 
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("")]
 
 
 // Add some common permissions, these can be removed if not needed

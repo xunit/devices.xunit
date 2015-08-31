@@ -86,6 +86,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\common\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Concurrent\CollectionDebugView.cs" />
     <Compile Include="Concurrent\ConcurrentBag.cs" />
     <Compile Include="Concurrent\ConcurrentDictionary.cs" />
