@@ -97,11 +97,10 @@
   <Target Name='Packages'>
     <PropertyGroup>
       <!-- Temp hack to start version at 2k to be higher than existing versions -->
-      <NuGetSafeVer>$(GitVersion_LegacySemVer.Replace('/', '-'))</NuGetSafeVer>
       <NuGetPaddedBuild>$(GitVersion_BuildMetaData.PadLeft(5, '0'))</NuGetPaddedBuild>
     </PropertyGroup>
     
-    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(NuGetSafeVer)-build$(NuGetPaddedBuild) -NoPackageAnalysis -NonInteractive' />
+    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_LegacySemVer)-build$(NuGetPaddedBuild) -NoPackageAnalysis -NonInteractive' />
   </Target>
 
   <Target Name='ZipArtifacts'>
