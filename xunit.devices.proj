@@ -41,7 +41,7 @@
 
   <!-- Build server targets -->
 
-  <Target Name="TeamCity" DependsOnTargets="PackageRestore;GitVersion;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
+  <Target Name="TeamCity" DependsOnTargets="PackageRestore;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
 
   <!-- Individiual targets -->
 
@@ -95,7 +95,6 @@
   </Target>
 
   <Target Name='Packages'>
-    <Exec Command='cmd.exe /c "set"'/>
     <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_NuGetVersion) -NoPackageAnalysis -NonInteractive' />
   </Target>
 
