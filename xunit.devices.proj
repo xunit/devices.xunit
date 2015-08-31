@@ -95,7 +95,11 @@
   </Target>
 
   <Target Name='Packages'>
-    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_NuGetVersion) -NoPackageAnalysis -NonInteractive' />
+    <PropertyGroup>
+      <NuGetPaddedBuild>$(GitVersion_BuildMetaData.PadLeft(5, '0'))</NuGetPaddedBuild>
+    </PropertyGroup>
+    
+    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_LegacySemVer)-build$(NuGetPaddedBuild) -NoPackageAnalysis -NonInteractive' />
   </Target>
 
   <Target Name='ZipArtifacts'>
