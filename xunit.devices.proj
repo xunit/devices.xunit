@@ -95,6 +95,7 @@
   </Target>
 
   <Target Name='Packages'>
+    <Exec Command='cmd.exe /c "set"'/>
     <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_NuGetVersion) -NoPackageAnalysis -NonInteractive' />
   </Target>
 
