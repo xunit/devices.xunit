@@ -1,10 +1,2 @@
-major-version-bump-message: '\+semver:\s?(breaking|major)'
-minor-version-bump-message: '\+semver:\s?(feature|minor)'
-patch-version-bump-message: '\+semver:\s?(fix|patch)'
-commit-message-incrementing: Enabled
+assembly-versioning-scheme: MajorMinorPatch 
 next-version: 1.2.1
-branches:
-  (features)[/-]:
-    tag: use-branch-name-as-tag
-    increment: Inherit
-    
