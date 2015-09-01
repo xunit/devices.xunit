@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		build.ps1 = build.ps1
+		GitVersionConfig.yaml = GitVersionConfig.yaml
 		README.md = README.md
 		xunit.devices.proj = xunit.devices.proj
 		src\build\xunit.runner.devices.targets = src\build\xunit.runner.devices.targets
