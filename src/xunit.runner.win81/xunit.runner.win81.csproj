@@ -110,6 +110,7 @@
     <Compile Include="..\xunit.runner.wpa81\RunnerApplication.cs">
       <Link>RunnerApplication.cs</Link>
     </Compile>
+    <Compile Include="PlatformHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultListener.cs" />
     <Compile Include="RunnerPage.cs" />

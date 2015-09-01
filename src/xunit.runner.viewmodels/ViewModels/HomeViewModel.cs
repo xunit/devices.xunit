@@ -15,13 +15,6 @@ using Xamarin.Forms;
 using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 
-#if __IOS__ && !__UNIFIED__
-using MonoTouch.ObjCRuntime;
-using MonoTouch.UIKit;
-#elif __IOS__ && __UNIFIED__
-using ObjCRuntime;
-using UIKit;
-#endif
 
 namespace Xunit.Runners.ViewModels
 {
@@ -135,39 +128,10 @@ namespace Xunit.Runners.ViewModels
                 await Run();
 
                 if (RunnerOptions.Current.TerminateAfterExecution)
-                    TerminateWithSuccess();
+                    PlatformHelpers.TerminateWithSuccess();
             }
         }
 
-#if __IOS__
-        private static void TerminateWithSuccess()
-        {
-            var selector = new Selector("terminateWithSuccess");
-            UIApplication.SharedApplication.PerformSelector(selector, UIApplication.SharedApplication, 0);
-        }
-#endif
-
-#if ANDROID
-        private static void TerminateWithSuccess()
-        {
-            Environment.Exit(0);
-        }
-#endif
-
-
-#if WINDOWS_PHONE
-        private static void TerminateWithSuccess()
-        {
-            System.Windows.Application.Current.Terminate();   
-        }
-#endif
-
-#if NETFX_CORE
-        private static void TerminateWithSuccess()
-        {
-            Windows.UI.Xaml.Application.Current.Exit();
-        }
-#endif
         private Task Run()
         {
             return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
@@ -185,13 +149,7 @@ namespace Xunit.Runners.ViewModels
                     foreach (var assm in runner.TestAssemblies)
                     {
                         // Xunit needs the file name
-#if __UNIFIED__
-                        var fileName = assm.Location;
-#elif !WINDOWS_PHONE && !NETFX_CORE
-                        var fileName = Path.GetFileName(assm.Location);
-#else
                         var fileName = assm.GetName().Name + ".dll";
-#endif
 
                         try
                         {
