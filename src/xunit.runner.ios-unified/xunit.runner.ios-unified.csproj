@@ -83,7 +83,8 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <Import Project="..\xunit.runner.devices\xunit.runner.devices.projitems" Label="Shared" Condition="Exists('..\xunit.runner.devices\xunit.runner.devices.projitems')" />
+  <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />
+  <Import Project="..\xunit.runner.xamarin\xunit.runner.viewmodels.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

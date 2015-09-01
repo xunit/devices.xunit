@@ -141,7 +141,8 @@
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
-  <Import Project="..\xunit.runner.devices\xunit.runner.devices.projitems" Label="Shared" Condition="Exists('..\xunit.runner.devices\xunit.runner.devices.projitems')" />
+  <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />
+  <Import Project="..\xunit.runner.xamarin\xunit.runner.viewmodels.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <ProjectExtensions />

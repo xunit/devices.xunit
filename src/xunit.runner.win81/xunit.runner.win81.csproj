@@ -146,7 +146,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\xunit.runner.devices\xunit.runner.devices.projitems" Label="Shared" />
+  <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />
+  <Import Project="..\xunit.runner.xamarin\xunit.runner.viewmodels.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
