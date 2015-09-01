@@ -17,8 +17,8 @@ namespace Xunit.Runners.ViewModels
     {
         private readonly INavigation navigation;
         private readonly ITestRunner runner;
-        private readonly Command runAllTestsCommand;
-        private readonly Command runFilteredTestsCommand;
+        private readonly DelegateCommand runAllTestsCommand;
+        private readonly DelegateCommand runFilteredTestsCommand;
         private string detailText;
         private Color displayColor;
         private string displayName;
@@ -35,8 +35,8 @@ namespace Xunit.Runners.ViewModels
             this.navigation = navigation;
             this.runner = runner;
 
-            runAllTestsCommand = new Command(RunAllTests, () => !isBusy);
-            runFilteredTestsCommand = new Command(RunFilteredTests, () => !isBusy);
+            runAllTestsCommand = new DelegateCommand(RunAllTests, () => !isBusy);
+            runFilteredTestsCommand = new DelegateCommand(RunFilteredTests, () => !isBusy);
 
             DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
 
@@ -185,8 +185,8 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref isBusy, value))
                 {
-                    this.runAllTestsCommand.ChangeCanExecute();
-                    this.runFilteredTestsCommand.ChangeCanExecute();
+                    this.runAllTestsCommand.RaiseCanExecuteChanged();
+                    this.runFilteredTestsCommand.RaiseCanExecuteChanged();
         }
             }
         }

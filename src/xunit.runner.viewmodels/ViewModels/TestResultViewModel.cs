@@ -9,15 +9,15 @@ namespace Xunit.Runners
 {
     public class TestResultViewModel : ViewModelBase
     {
-        private TimeSpan duration;
-        private string errorMessage;
-        private string errorStackTrace;
-        private TestCaseViewModel testCase;
-        private ITestResultMessage testResultMessage;
+        TimeSpan duration;
+        string errorMessage;
+        string errorStackTrace;
+        TestCaseViewModel testCase;
+        ITestResultMessage testResultMessage;
 
         public TestResultViewModel(TestCaseViewModel testCase, ITestResultMessage testResult)
         {
-            if (testCase == null) throw new ArgumentNullException("testCase");
+            if (testCase == null) throw new ArgumentNullException(nameof(testCase));
             TestCase = testCase;
             TestResultMessage = testResult;
 
@@ -42,9 +42,9 @@ namespace Xunit.Runners
             get { return duration; }
             set 
             {
-                if (Set(ref duration, value) && testCase != null)
+                if (Set(ref duration, value))
                 {
-                    testCase.UpdateTestState(this);
+                    testCase?.UpdateTestState(this);
                 }
             }
         }

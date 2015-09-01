@@ -22,7 +22,7 @@ namespace Xunit.Runners.ViewModels
     {
         private readonly INavigation navigation;
         private readonly ITestRunner runner;
-        private readonly Command runEverythingCommand;
+        private readonly DelegateCommand runEverythingCommand;
 
         public event EventHandler ScanComplete;
         private ManualResetEventSlim mre = new ManualResetEventSlim(false);
@@ -34,10 +34,10 @@ namespace Xunit.Runners.ViewModels
             this.runner = runner;
             TestAssemblies = new ObservableCollection<TestAssemblyViewModel>();
 
-            OptionsCommand = new Command(OptionsExecute);
-            CreditsCommand = new Command(CreditsExecute);
-            runEverythingCommand = new Command(RunEverythingExecute, () => !isBusy);
-            NavigateToTestAssemblyCommand = new Command(async vm => await navigation.PushAsync(new AssemblyTestListPage()
+            OptionsCommand = new DelegateCommand(OptionsExecute);
+            CreditsCommand = new DelegateCommand(CreditsExecute);
+            runEverythingCommand = new DelegateCommand(RunEverythingExecute, () => !isBusy);
+            NavigateToTestAssemblyCommand = new DelegateCommand<object>(async vm => await navigation.PushAsync(new AssemblyTestListPage()
             {
                 BindingContext = vm
             }));
@@ -91,7 +91,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref isBusy, value))
                 {
-                    runEverythingCommand.ChangeCanExecute();
+                    runEverythingCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -111,8 +111,7 @@ namespace Xunit.Runners.ViewModels
                 }
 
                 var evt = ScanComplete;
-                if (evt != null)
-                    evt(this, EventArgs.Empty);
+                evt?.Invoke(this, EventArgs.Empty);
 
                 mre.Set();
 

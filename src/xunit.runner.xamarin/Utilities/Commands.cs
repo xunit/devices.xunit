@@ -12,7 +12,7 @@ namespace Xunit.Runners.Utilities
     {
         static Commands()
         {
-            LaunchUrl = new Command<string>(OnLaunchUrl);
+            LaunchUrl = new DelegateCommand<string>(OnLaunchUrl);
         }
 
         public static ICommand LaunchUrl { get; private set; }

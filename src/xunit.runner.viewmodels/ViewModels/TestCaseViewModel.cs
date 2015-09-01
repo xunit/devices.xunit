@@ -12,22 +12,22 @@ namespace Xunit.Runners
 {
     public class TestCaseViewModel : ViewModelBase
     {
-        private readonly INavigation navigation;
-        private readonly ITestRunner runner;
+        readonly INavigation navigation;
+        readonly ITestRunner runner;
 
         public ICommand NavigateToResultCommand { get; private set; }
 
-        private readonly string fqTestMethodName;
-        private ITestCase testCase;
-        private string assemblyFileName;
-        private TestResultViewModel testResult;
-        private string uniqueName;
-        private TestState result;
-        private string message;
-        private string output;
-        private string stackTrace;
-        private Color detailColor;
-        private string detailText;
+        readonly string fqTestMethodName;
+        ITestCase testCase;
+        string assemblyFileName;
+        TestResultViewModel testResult;
+        string uniqueName;
+        TestState result;
+        string message;
+        string output;
+        string stackTrace;
+        Color detailColor;
+        string detailText;
 
         public string AssemblyFileName
         {
@@ -63,14 +63,14 @@ namespace Xunit.Runners
 
         internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames, INavigation navigation, ITestRunner runner)
         {
-            if (assemblyFileName == null) throw new ArgumentNullException("assemblyFileName");
-            if (testCase == null) throw new ArgumentNullException("testCase");
+            if (assemblyFileName == null) throw new ArgumentNullException(nameof(assemblyFileName));
+            if (testCase == null) throw new ArgumentNullException(nameof(testCase));
             
             this.navigation = navigation;
             this.runner = runner;
 
-            fqTestMethodName = String.Format("{0}.{1}", testCase.TestMethod.TestClass.Class.Name, testCase.TestMethod.Method.Name);
-            UniqueName = forceUniqueNames ? String.Format("{0} ({1})", fqTestMethodName, testCase.UniqueID) : fqTestMethodName;
+            fqTestMethodName = $"{testCase.TestMethod.TestClass.Class.Name}.{testCase.TestMethod.Method.Name}";
+            UniqueName = forceUniqueNames ? $"{fqTestMethodName} ({testCase.UniqueID})" : fqTestMethodName;
             AssemblyFileName = assemblyFileName;
             TestCase = testCase;
 
@@ -80,10 +80,10 @@ namespace Xunit.Runners
             // Create an initial result representing not run
             TestResult = new TestResultViewModel(this, null);
 
-            NavigateToResultCommand = new Command(NavigateToResultsPage);
+            NavigateToResultCommand = new DelegateCommand(NavigateToResultsPage);
         }
 
-        private async void NavigateToResultsPage(){
+        async void NavigateToResultsPage(){
             // run again
             await runner.Run(this);
 
@@ -121,7 +121,7 @@ namespace Xunit.Runners
             if (message.TestResultMessage is ITestPassed)
             {
                 Result = TestState.Passed;
-                Message = String.Format("Success! {0} ms", TestResult.Duration.TotalMilliseconds);
+                Message = $"Success! {TestResult.Duration.TotalMilliseconds} ms";
                 DetailColor = Color.Green;
             }
             if (message.TestResultMessage is ITestFailed)
