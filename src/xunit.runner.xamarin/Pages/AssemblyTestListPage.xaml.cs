@@ -8,7 +8,7 @@ using Xunit.Runners.ViewModels;
 
 namespace Xunit.Runners.Pages
 {
-	public partial class AssemblyTestListPage
+	public partial class AssemblyTestListPage : ContentPage
 	{
 		public AssemblyTestListPage ()
 		{
