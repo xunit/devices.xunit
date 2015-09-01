@@ -2,7 +2,7 @@ assembly-versioning-scheme: MajorMinorPatch
 next-version: 1.2.1
 branches:
   features[/-]:
-    mode: ContinuousDelivery
+    mode: ContinuousDeployment
     tag: useBranchName
     increment: Inherit
     prevent-increment-of-merged-branch-version: false
