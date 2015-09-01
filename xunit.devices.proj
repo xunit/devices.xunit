@@ -69,7 +69,7 @@
 
   <Target Name='Packages'>
     <!-- If build metadata is empty, we're in Continuous Deploy mode so we'll always get incrementing versions -->
-    <PropertyGroup Condition="'$(GitVersion_BuildMetaData) != ''">
+    <PropertyGroup Condition="'$(GitVersion_BuildMetaData)' != ''">
       <NuGetPaddedBuild>$(GitVersion_BuildMetaData.PadLeft(5, '0'))</NuGetPaddedBuild>
       <NuGetPackageVersion>$(GitVersion_LegacySemVer)-build$(NuGetPaddedBuild)</NuGetPackageVersion>
     </PropertyGroup>
