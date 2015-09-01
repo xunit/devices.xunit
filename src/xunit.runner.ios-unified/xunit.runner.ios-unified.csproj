@@ -46,6 +46,7 @@
     <Compile Include="..\xunit.runner.ios\RunnerAppDelegate.cs">
       <Link>RunnerAppDelegate.cs</Link>
     </Compile>
+    <Compile Include="ResultListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

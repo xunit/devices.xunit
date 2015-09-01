@@ -22,7 +22,8 @@ using System.Net.Sockets;
 
 namespace Xunit.Runners.UI {
 
-	public class TcpTextWriter : TextWriter {
+	public class TcpTextWriter : TextWriter
+    {
 		
 		//private TcpClient client;
 		private StreamWriter writer;

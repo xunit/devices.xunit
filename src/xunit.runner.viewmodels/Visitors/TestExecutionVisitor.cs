@@ -32,23 +32,23 @@ namespace Xunit.Runners.Visitors
 
         protected override bool Visit(ITestFailed testFailed)
         {
-            MakeMonoTestResult(testFailed, TestState.Failed);
+            MakeTestResultViewModel(testFailed, TestState.Failed);
             return !cancelledThunk();
         }
 
         protected override bool Visit(ITestPassed testPassed)
         {
-            MakeMonoTestResult(testPassed, TestState.Passed);
+            MakeTestResultViewModel(testPassed, TestState.Passed);
             return !cancelledThunk();
         }
 
         protected override bool Visit(ITestSkipped testSkipped)
         {
-            MakeMonoTestResult(testSkipped, TestState.Skipped);
+            MakeTestResultViewModel(testSkipped, TestState.Skipped);
             return !cancelledThunk();
         }
 
-        private async void MakeMonoTestResult(ITestResultMessage testResult, TestState outcome)
+        private async void MakeTestResultViewModel(ITestResultMessage testResult, TestState outcome)
         {
             var tcs = new TaskCompletionSource<TestResultViewModel>();
             var testCase = testCases[testResult.TestCase];

@@ -99,6 +99,7 @@
     <Compile Include="Concurrent\PopResult.cs" />
     <Compile Include="Concurrent\SplitOrderedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultListener.cs" />
     <Compile Include="RunnerApplicationPage.cs" />
   </ItemGroup>
   <ItemGroup>

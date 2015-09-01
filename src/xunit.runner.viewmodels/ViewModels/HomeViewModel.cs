@@ -28,7 +28,6 @@ namespace Xunit.Runners.ViewModels
     public class HomeViewModel : ViewModelBase
     {
         private readonly INavigation navigation;
-        private readonly IReadOnlyCollection<Assembly> testAssemblies;
         private readonly ITestRunner runner;
         private readonly Command runEverythingCommand;
 
@@ -36,10 +35,9 @@ namespace Xunit.Runners.ViewModels
         private ManualResetEventSlim mre = new ManualResetEventSlim(false);
         private bool isBusy;
 
-        internal HomeViewModel(INavigation navigation, IReadOnlyCollection<Assembly> testAssemblies, ITestRunner runner)
+        internal HomeViewModel(INavigation navigation, ITestRunner runner)
         {
             this.navigation = navigation;
-            this.testAssemblies = testAssemblies;
             this.runner = runner;
             TestAssemblies = new ObservableCollection<TestAssemblyViewModel>();
 
@@ -131,12 +129,12 @@ namespace Xunit.Runners.ViewModels
                 IsBusy = false;
             }
 
-            if (runner.AutoStart)
+            if (RunnerOptions.Current.AutoStart)
             {
                 await Task.Run(() => mre.Wait());
                 await Run();
 
-                if (runner.TerminateAfterExecution)
+                if (RunnerOptions.Current.TerminateAfterExecution)
                     TerminateWithSuccess();
             }
         }
@@ -184,7 +182,7 @@ namespace Xunit.Runners.ViewModels
             {
                 using (AssemblyHelper.SubscribeResolve())
                 {
-                    foreach (var assm in testAssemblies)
+                    foreach (var assm in runner.TestAssemblies)
                     {
                         // Xunit needs the file name
 #if __UNIFIED__

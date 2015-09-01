@@ -9,6 +9,8 @@
     <Import_RootNamespace>Xunit.Runners</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceRunner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IResultChannel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RunnerOptions.cs" />
@@ -24,7 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestCaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestResultViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Visitors\MonoTestExecutionVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestExecutionVisitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestDiscoveryVisitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\XmlTestExecutionVisitor.cs" />
   </ItemGroup>
