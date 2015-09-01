@@ -68,12 +68,15 @@
   </Target>
 
   <Target Name='Packages'>
-    <PropertyGroup>
-      <!-- Temp hack to start version at 2k to be higher than existing versions -->
+    <!-- If build metadata is empty, we're in Continuous Deploy mode so we'll always get incrementing versions -->
+    <PropertyGroup Condition="'$(GitVersion_BuildMetaData) != ''">
       <NuGetPaddedBuild>$(GitVersion_BuildMetaData.PadLeft(5, '0'))</NuGetPaddedBuild>
+      <NuGetPackageVersion>$(GitVersion_LegacySemVer)-build$(NuGetPaddedBuild)</NuGetPackageVersion>
     </PropertyGroup>
-    
-    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(GitVersion_LegacySemVer)-build$(NuGetPaddedBuild) -NoPackageAnalysis -NonInteractive' />
+    <PropertyGroup Condition="'$(NuGetPackageVersion)' == ''">
+      <NuGetPackageVersion>$(GitVersion_NuGetVersion)</NuGetPackageVersion>
+    </PropertyGroup>
+    <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(NuGetPackageVersion) -NoPackageAnalysis -NonInteractive' />
   </Target>
 
   <Target Name='ZipArtifacts'>
