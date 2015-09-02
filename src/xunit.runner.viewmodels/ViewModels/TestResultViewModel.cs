@@ -7,6 +7,9 @@ using Xunit.Abstractions;
 
 namespace Xunit.Runners
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TestResultViewModel : ViewModelBase
     {
         TimeSpan duration;
@@ -15,6 +18,11 @@ namespace Xunit.Runners
         TestCaseViewModel testCase;
         ITestResultMessage testResultMessage;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="testCase"></param>
+        /// <param name="testResult"></param>
         public TestResultViewModel(TestCaseViewModel testCase, ITestResultMessage testResult)
         {
             if (testCase == null) throw new ArgumentNullException(nameof(testCase));
@@ -25,22 +33,13 @@ namespace Xunit.Runners
                 testCase.UpdateTestState(this);
         }
 
-        public TestCaseViewModel TestCase
-        {
-            get { return testCase; }
-            private set { Set(ref testCase, value); }
-        }
-
-        public ITestResultMessage TestResultMessage
-        {
-            get { return testResultMessage; }
-            private set { Set(ref testResultMessage, value); }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public TimeSpan Duration
         {
             get { return duration; }
-            set 
+            set
             {
                 if (Set(ref duration, value))
                 {
@@ -49,17 +48,40 @@ namespace Xunit.Runners
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ErrorMessage
         {
             get { return errorMessage; }
             set { Set(ref errorMessage, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ErrorStackTrace
         {
             get { return errorStackTrace; }
             set { Set(ref errorStackTrace, value); }
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TestCaseViewModel TestCase
+        {
+            get { return testCase; }
+            private set { Set(ref testCase, value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITestResultMessage TestResultMessage
+        {
+            get { return testResultMessage; }
+            private set { Set(ref testResultMessage, value); }
+        }
     }
 }

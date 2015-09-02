@@ -85,6 +85,9 @@
     <Compile Include="..\common\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\xunit.runner.ios-unified\ThreadPoolHelper.cs">
+      <Link>ThreadPoolHelper.cs</Link>
+    </Compile>
     <Compile Include="Activities\RunnerActivity.cs" />
     <Compile Include="PlatformHelpers.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

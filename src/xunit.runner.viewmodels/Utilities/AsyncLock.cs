@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Xunit.Runners.Utilities
 {
-    internal class AsyncLock
+    class AsyncLock
     {
-        private readonly SemaphoreSlim semaphore;
-        private readonly Task<Releaser> releaser;
+        readonly SemaphoreSlim semaphore;
+        readonly Task<Releaser> releaser;
 
         public AsyncLock()
         {
@@ -22,9 +22,12 @@ namespace Xunit.Runners.Utilities
 
         public struct Releaser : IDisposable
         {
-            private readonly AsyncLock toRelease;
+            readonly AsyncLock toRelease;
 
-            internal Releaser(AsyncLock toRelease) { this.toRelease = toRelease; }
+            internal Releaser(AsyncLock toRelease)
+            {
+                this.toRelease = toRelease;
+            }
 
             public void Dispose()
             {
@@ -44,12 +47,10 @@ namespace Xunit.Runners.Utilities
             var wait = semaphore.WaitAsync();
 
             return wait.IsCompleted ?
-                releaser :
-                wait.ContinueWith((_, state) => new Releaser((AsyncLock)state),
-                    this, CancellationToken.None,
-                    TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+                       releaser :
+                       wait.ContinueWith((_, state) => new Releaser((AsyncLock)state),
+                                         this, CancellationToken.None,
+                                         TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
-
     }
-
 }

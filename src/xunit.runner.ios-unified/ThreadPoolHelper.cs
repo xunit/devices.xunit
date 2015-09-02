@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Xunit.Runners
 {
-    static class Extensions
+    static class ThreadPoolHelper
     {
-        public static void ForEach<T>(this IEnumerable<T> This, Action<T> action)
+        public static void RunAsync(Action action)
         {
-            foreach (var item in This)
-                action(item);
+            ThreadPool.QueueUserWorkItem(_ => action(), null);
         }
     }
 }

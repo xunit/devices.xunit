@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Xunit.Runners;
-using Xunit.Runners.UI;
-
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Xunit.Runners.UI;
 
 namespace Xunit.Runners
 {
     class ResultListener : IResultChannel
     {
-        TextWriter writer;
         int failed;
-        int skipped;
         int passed;
+        int skipped;
+        TextWriter writer;
 
         public ResultListener(TextWriter writer)
         {
@@ -63,7 +61,7 @@ namespace Xunit.Runners
             var stacktrace = result.ErrorStackTrace;
             if (!string.IsNullOrEmpty(result.ErrorStackTrace))
             {
-                var lines = stacktrace.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = stacktrace.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var line in lines)
                     writer.WriteLine("\t\t{0}", line);
             }
@@ -104,7 +102,7 @@ namespace Xunit.Runners
                     catch (SocketException)
                     {
                         var msg = $"Cannot connect to {RunnerOptions.Current.HostName}:{RunnerOptions.Current.HostPort}. Start network service or disable network option";
-                        Toast.MakeText(Android.App.Application.Context, msg, ToastLength.Long)
+                        Toast.MakeText(Application.Context, msg, ToastLength.Long)
                              .Show();
                         return false;
                     }
@@ -166,31 +164,31 @@ namespace Xunit.Runners
                 {
                     var name = names[i];
                     Task.Run(() =>
-                    {
-                        try
-                        {
-                            var client = new TcpClient(name, port);
-                            using (var writer = new StreamWriter(client.GetStream()))
-                            {
-                                writer.WriteLine("ping");
-                            }
-                            lock (lock_obj)
-                            {
-                                if (result == null)
-                                    result = name;
-                            }
-                            evt.Set();
-                        }
-                        catch (Exception)
-                        {
-                            lock (lock_obj)
-                            {
-                                failures++;
-                                if (failures == names.Count)
-                                    evt.Set();
-                            }
-                        }
-                    });
+                             {
+                                 try
+                                 {
+                                     var client = new TcpClient(name, port);
+                                     using (var writer = new StreamWriter(client.GetStream()))
+                                     {
+                                         writer.WriteLine("ping");
+                                     }
+                                     lock (lock_obj)
+                                     {
+                                         if (result == null)
+                                             result = name;
+                                     }
+                                     evt.Set();
+                                 }
+                                 catch (Exception)
+                                 {
+                                     lock (lock_obj)
+                                     {
+                                         failures++;
+                                         if (failures == names.Count)
+                                             evt.Set();
+                                     }
+                                 }
+                             });
                 }
 
                 // Wait for 1 success or all failures

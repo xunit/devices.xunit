@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Xunit.Runners
 {
-    public class DelegateCommand : ICommand
+    class DelegateCommand : ICommand
     {
-        readonly Action execute;
         readonly Func<bool> canExecute;
-        public event EventHandler CanExecuteChanged;
+        readonly Action execute;
 
         public DelegateCommand(Action execute, Func<bool> canexecute = null)
         {
@@ -18,11 +20,19 @@ namespace Xunit.Runners
             canExecute = canexecute ?? (() => true);
         }
 
+        public event EventHandler CanExecuteChanged;
+
         [DebuggerStepThrough]
         public bool CanExecute(object p)
         {
-            try { return canExecute(); }
-            catch { return false; }
+            try
+            {
+                return canExecute();
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void Execute(object p)
@@ -39,11 +49,10 @@ namespace Xunit.Runners
     }
 
 
-    public class DelegateCommand<T> : ICommand
+    class DelegateCommand<T> : ICommand
     {
-        readonly Action<T> execute;
         readonly Func<T, bool> canExecute;
-        public event EventHandler CanExecuteChanged;
+        readonly Action<T> execute;
 
         public DelegateCommand(Action<T> execute, Func<T, bool> canexecute = null)
         {
@@ -52,6 +61,8 @@ namespace Xunit.Runners
             this.execute = execute;
             canExecute = canexecute ?? (e => true);
         }
+
+        public event EventHandler CanExecuteChanged;
 
         [DebuggerStepThrough]
         public bool CanExecute(object p)
@@ -64,7 +75,10 @@ namespace Xunit.Runners
                 }
                 return canExecute?.Invoke((T)p) ?? true;
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
         public void Execute(object p)
@@ -84,7 +98,4 @@ namespace Xunit.Runners
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
-
-
 }
-

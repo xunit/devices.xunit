@@ -1,20 +1,4 @@
-﻿//
-// Copyright 2011-2012 Xamarin Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,14 +10,14 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xunit.Runners.UI
 {
-    public class RunnerActivity : FormsApplicationActivity
+    public abstract class RunnerActivity : FormsApplicationActivity
     {
-        private readonly List<Assembly> testAssemblies = new List<Assembly>();
+        readonly List<Assembly> testAssemblies = new List<Assembly>();
 
-        private FormsRunner runner;
+        FormsRunner runner;
 
 
-        private Assembly executionAssembly;
+        Assembly executionAssembly;
         protected bool Initialized { get; private set; }
 
         protected bool TerminateAfterExecution { get; set; }
@@ -58,7 +42,7 @@ namespace Xunit.Runners.UI
 
         protected void AddExecutionAssembly(Assembly assembly)
         {
-            if (assembly == null) throw new ArgumentNullException("assembly");
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
             if (!Initialized)
             {
@@ -68,7 +52,7 @@ namespace Xunit.Runners.UI
 
         protected void AddTestAssembly(Assembly assembly)
         {
-            if (assembly == null) throw new ArgumentNullException("assembly");
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
             if (!Initialized)
             {

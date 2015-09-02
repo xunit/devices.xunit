@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Xunit.Runners.Pages
 {
-	public partial class HomePage : ContentPage
+	partial class HomePage : ContentPage
 	{
         readonly static IValueConverter AssemblyRunStatusConverter = new RunStatusToColorConverter();
 	    private HomeViewModel viewModel;

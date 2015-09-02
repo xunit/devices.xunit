@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Xunit.Runners
 {
-    interface INavigation
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface INavigation
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="dataContext"></param>
+        /// <returns></returns>
         Task NavigateTo(NavigationPage page, object dataContext = null);
     }
 
-    enum NavigationPage
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum NavigationPage
     {
         Home,
         AssemblyTestList,

@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Xunit.Runners.Pages
 {
-	public partial class AssemblyTestListPage : ContentPage
+	partial class AssemblyTestListPage : ContentPage
 	{
 		public AssemblyTestListPage ()
 		{

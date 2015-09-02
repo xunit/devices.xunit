@@ -91,6 +91,9 @@
     <Compile Include="..\xunit.runner.win81\ResultListener.cs">
       <Link>ResultListener.cs</Link>
     </Compile>
+    <Compile Include="..\xunit.runner.win81\ThreadPoolHelper.cs">
+      <Link>ThreadPoolHelper.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunnerApplication.cs" />
     <Compile Include="RunnerPage.cs" />

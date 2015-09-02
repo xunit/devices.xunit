@@ -1,34 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using Xunit.Runners.Utilities;
 
 namespace Xunit.Runners
 {
     public class TestAssemblyViewModel : ViewModelBase
     {
-        
-        readonly ITestRunner runner;
+        readonly ObservableCollection<TestCaseViewModel> allTests;
+        readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
         readonly DelegateCommand runAllTestsCommand;
         readonly DelegateCommand runFilteredTestsCommand;
+
+        readonly ITestRunner runner;
         string detailText;
-        RunStatus runStatus;
         string displayName;
-        TestState result;
-        bool isBusy;
-        string searchQuery;
-        TestState resultFilter;
-        readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
-        readonly ObservableCollection<TestCaseViewModel> allTests; 
         CancellationTokenSource filterCancellationTokenSource;
+        bool isBusy;
+        TestState result;
+        TestState resultFilter;
+        RunStatus runStatus;
+        string searchQuery;
 
         internal TestAssemblyViewModel(AssemblyRunInfo runInfo, ITestRunner runner)
         {
@@ -57,63 +55,91 @@ namespace Xunit.Runners
             RunStatus = RunStatus.Ok;
 
             UpdateCaption();
-
         }
 
-        internal AssemblyRunInfo RunInfo { get; private set; }
-        void UpdateCaption()
+        public ICommand RunAllTestsCommand => runAllTestsCommand;
+
+        public ICommand RunFilteredTestsCommand => runFilteredTestsCommand;
+
+
+        public IList<TestCaseViewModel> TestCases => filteredTests;
+
+        public string DetailText
         {
-            var count = allTests.Count;
-            
-            if (count == 0)
+            get { return detailText; }
+            private set { Set(ref detailText, value); }
+        }
+
+        public string DisplayName
+        {
+            get { return displayName; }
+            private set { Set(ref displayName, value); }
+        }
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            private set
             {
-                DetailText = "no test was found inside this assembly";
-
-                RunStatus = RunStatus.NoTests;
-            }
-            else
-            {
-                var outcomes = allTests.GroupBy(r => r.Result);
-
-                var results = outcomes.ToDictionary(k => k.Key, v => v.Count());
-
-                int positive;
-                results.TryGetValue(TestState.Passed, out positive);
-
-                int failure;
-                results.TryGetValue(TestState.Failed, out failure);
-
-                int skipped;
-                results.TryGetValue(TestState.Skipped, out skipped);
-
-                int notRun;
-                results.TryGetValue(TestState.NotRun, out notRun);
-
-                // No failures and all run
-                if (failure == 0 && notRun == 0)
+                if (Set(ref isBusy, value))
                 {
-                    DetailText = $"Success! {positive} test{(positive == 1 ? string.Empty : "s")}";
-                    RunStatus = RunStatus.Ok;
-
-                    Result = TestState.Passed;
-
-                }
-                else if (failure > 0 || (notRun > 0 && notRun < count))
-                {
-                    // we either have failures or some of the tests are not run
-                    DetailText = $"{positive} success, {failure} failure{(failure > 1 ? "s" : String.Empty)}, {skipped} skip{(skipped > 1 ? "s" : String.Empty)}, {notRun} not run";
-
-                    RunStatus = RunStatus.Failed;
-
-                    Result = TestState.Failed;
-                }
-                else if (Result == TestState.NotRun)
-                {
-                    DetailText = $"{count} test case{(count == 1 ? String.Empty : "s")}, {Result}";
-                    RunStatus = RunStatus.Ok;
+                    runAllTestsCommand.RaiseCanExecuteChanged();
+                    runFilteredTestsCommand.RaiseCanExecuteChanged();
                 }
             }
-            
+        }
+
+        public TestState Result
+        {
+            get { return result; }
+            set { Set(ref result, value); }
+        }
+
+        public TestState ResultFilter
+        {
+            get { return resultFilter; }
+            set
+            {
+                if (Set(ref resultFilter, value))
+                {
+                    FilterAfterDelay();
+                }
+            }
+        }
+
+        public RunStatus RunStatus
+        {
+            get { return runStatus; }
+            private set { Set(ref runStatus, value); }
+        }
+
+        public string SearchQuery
+        {
+            get { return searchQuery; }
+            set
+            {
+                if (Set(ref searchQuery, value))
+                {
+                    FilterAfterDelay();
+                }
+            }
+        }
+
+        internal AssemblyRunInfo RunInfo { get; }
+
+        void FilterAfterDelay()
+        {
+            filterCancellationTokenSource?.Cancel();
+
+            filterCancellationTokenSource = new CancellationTokenSource();
+            var token = filterCancellationTokenSource.Token;
+
+            Task.Delay(500, token)
+                .ContinueWith(
+                    x => { filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter); },
+                    token,
+                    TaskContinuationOptions.None,
+                    TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         static bool IsTestFilterMatch(TestCaseViewModel test, Tuple<string, TestState> query)
@@ -152,74 +178,6 @@ namespace Xunit.Runners
             return string.IsNullOrWhiteSpace(pattern) || test.DisplayName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
-        public string SearchQuery
-        {
-            get { return searchQuery; }
-            set
-            {
-                if (Set(ref searchQuery, value))
-                {
-                    FilterAfterDelay();
-                }
-            }
-        }
-        
-        public TestState ResultFilter
-        {
-            get { return resultFilter; }
-            set
-            {
-                if (Set(ref resultFilter, value))
-                {
-                    FilterAfterDelay();
-                }
-            }
-        }
-
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            private set 
-            {
-                if (Set(ref isBusy, value))
-                {
-                    runAllTestsCommand.RaiseCanExecuteChanged();
-                    runFilteredTestsCommand.RaiseCanExecuteChanged();
-        }
-            }
-        }
-
-        public TestState Result
-        {
-            get { return result; }
-            set { Set(ref result, value); }
-        }
-
-        public string DisplayName
-        {
-            get { return displayName; }
-            private set { Set(ref displayName, value); }
-        }
-
-        public RunStatus RunStatus
-        {
-            get { return runStatus; }
-            private set { Set(ref runStatus, value); }
-        }
-
-        public string DetailText
-        {
-            get { return detailText; }
-            private set { Set(ref detailText, value); }
-        }
-
-
-        public IList<TestCaseViewModel> TestCases => filteredTests;
-
-        public ICommand RunAllTestsCommand => runAllTestsCommand;
-
-        public ICommand RunFilteredTestsCommand => runFilteredTestsCommand;
-
         async void RunAllTests()
         {
             try
@@ -231,24 +189,6 @@ namespace Xunit.Runners
             {
                 IsBusy = false;
             }
-        }
-
-        void FilterAfterDelay()
-        {
-            filterCancellationTokenSource?.Cancel();
-
-            filterCancellationTokenSource = new CancellationTokenSource();
-            var token = this.filterCancellationTokenSource.Token;
-
-            Task.Delay(500, token)
-                .ContinueWith(
-                    x =>
-                    {
-                        filteredTests.FilterArgument = Tuple.Create(SearchQuery, ResultFilter);
-                    },
-                    token,
-                    TaskContinuationOptions.None,
-                    TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         async void RunFilteredTests()
@@ -264,14 +204,66 @@ namespace Xunit.Runners
             }
         }
 
+        void UpdateCaption()
+        {
+            var count = allTests.Count;
+
+            if (count == 0)
+            {
+                DetailText = "no test was found inside this assembly";
+
+                RunStatus = RunStatus.NoTests;
+            }
+            else
+            {
+                var outcomes = allTests.GroupBy(r => r.Result);
+
+                var results = outcomes.ToDictionary(k => k.Key, v => v.Count());
+
+                int positive;
+                results.TryGetValue(TestState.Passed, out positive);
+
+                int failure;
+                results.TryGetValue(TestState.Failed, out failure);
+
+                int skipped;
+                results.TryGetValue(TestState.Skipped, out skipped);
+
+                int notRun;
+                results.TryGetValue(TestState.NotRun, out notRun);
+
+                // No failures and all run
+                if (failure == 0 && notRun == 0)
+                {
+                    DetailText = $"Success! {positive} test{(positive == 1 ? string.Empty : "s")}";
+                    RunStatus = RunStatus.Ok;
+
+                    Result = TestState.Passed;
+                }
+                else if (failure > 0 || (notRun > 0 && notRun < count))
+                {
+                    // we either have failures or some of the tests are not run
+                    DetailText = $"{positive} success, {failure} failure{(failure > 1 ? "s" : string.Empty)}, {skipped} skip{(skipped > 1 ? "s" : string.Empty)}, {notRun} not run";
+
+                    RunStatus = RunStatus.Failed;
+
+                    Result = TestState.Failed;
+                }
+                else if (Result == TestState.NotRun)
+                {
+                    DetailText = $"{count} test case{(count == 1 ? string.Empty : "s")}, {Result}";
+                    RunStatus = RunStatus.Ok;
+                }
+            }
+        }
+
         class TestComparer : IComparer<TestCaseViewModel>
         {
             public int Compare(TestCaseViewModel x, TestCaseViewModel y)
             {
                 var compare = string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase);
 
-                return compare; 
-                
+                return compare;
             }
         }
     }

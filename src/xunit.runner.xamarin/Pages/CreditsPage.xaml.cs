@@ -9,8 +9,7 @@ using Xamarin.Forms;
 
 namespace Xunit.Runners.Pages
 {
-    
-    public partial class CreditsPage : ContentPage
+    partial class CreditsPage : ContentPage
     {
         public CreditsPage()
         {

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Xunit.Runners;
 using Xunit.Runners.UI;
 #if __IOS__ && !__UNIFIED__
 using MonoTouch;
 using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using MonoTouch.UIKit;
+
 #elif __IOS__ && __UNIFIED__
 using Foundation;
 using ObjCRuntime;
@@ -23,14 +24,25 @@ namespace Xunit.Runners
 {
     class ResultListener : IResultChannel
     {
-        TextWriter writer;
         int failed;
-        int skipped;
         int passed;
+        int skipped;
+        TextWriter writer;
 
         public ResultListener(TextWriter writer)
         {
             this.writer = writer;
+        }
+
+        static string UniqueIdentifier
+        {
+            get
+            {
+                var handle = UIDevice.CurrentDevice.Handle;
+                if (UIDevice.CurrentDevice.RespondsToSelector(new Selector("uniqueIdentifier")))
+                    return NSString.FromHandle(objc_msgSend(handle, Selector.GetHandle("uniqueIdentifier")));
+                return "unknown";
+            }
         }
 
         public void RecordResult(TestResultViewModel result)
@@ -69,7 +81,7 @@ namespace Xunit.Runners
             var stacktrace = result.ErrorStackTrace;
             if (!string.IsNullOrEmpty(result.ErrorStackTrace))
             {
-                var lines = stacktrace.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = stacktrace.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var line in lines)
                     writer.WriteLine("\t\t{0}", line);
             }
@@ -93,8 +105,11 @@ namespace Xunit.Runners
             return Task.FromResult(true);
         }
 
+        [DllImport("/usr/lib/libobjc.dylib")]
+        static extern IntPtr objc_msgSend(IntPtr receiver, IntPtr selector);
 
-        private bool OpenWriter(string message)
+
+        bool OpenWriter(string message)
         {
             var options = RunnerOptions.Current;
             var now = DateTime.Now;
@@ -115,13 +130,10 @@ namespace Xunit.Runners
                         catch (SocketException)
                         {
                             var alert = new UIAlertView("Network Error",
-                                                                $"Cannot connect to {hostname}:{options.HostPort}. Continue on console ?",
-                                null, "Cancel", "Continue");
-                            int button = -1;
-                            alert.Clicked += delegate (object sender, UIButtonEventArgs e)
-                            {
-                                button = (int)e.ButtonIndex;
-                            };
+                                                        $"Cannot connect to {hostname}:{options.HostPort}. Continue on console ?",
+                                                        null, "Cancel", "Continue");
+                            var button = -1;
+                            alert.Clicked += delegate(object sender, UIButtonEventArgs e) { button = (int)e.ButtonIndex; };
                             alert.Show();
                             while (button == -1)
                                 NSRunLoop.Current.RunUntil(NSDate.FromTimeIntervalSinceNow(0.5));
@@ -129,7 +141,6 @@ namespace Xunit.Runners
                             Console.WriteLine("[Host unreachable: {0}]", button == 0 ? "Execution cancelled" : "Switching to console output");
                             if (button == 0)
                                 return false;
-                            
                         }
                     }
                 }
@@ -142,7 +153,7 @@ namespace Xunit.Runners
             writer.WriteLine("[MonoTouch Version:\t{0}]", Constants.Version);
             //Writer.WriteLine("[GC:\t{0}{1}]", GC.MaxGeneration == 0 ? "Boehm" : "sgen",
             //    NSObject.IsNewRefcountEnabled() ? "+NewRefCount" : String.Empty);
-            UIDevice device = UIDevice.CurrentDevice;
+            var device = UIDevice.CurrentDevice;
             writer.WriteLine("[{0}:\t{1} v{2}]", device.Model, device.SystemName, device.SystemVersion);
             writer.WriteLine("[Device Name:\t{0}]", device.Name);
             writer.WriteLine("[Device UDID:\t{0}]", UniqueIdentifier);
@@ -155,20 +166,6 @@ namespace Xunit.Runners
             skipped = 0;
             failed = 0;
             return true;
-        }
-
-        [DllImport("/usr/lib/libobjc.dylib")]
-        static extern IntPtr objc_msgSend(IntPtr receiver, IntPtr selector);
-
-        static string UniqueIdentifier
-        {
-            get
-            {
-                var handle = UIDevice.CurrentDevice.Handle;
-                if (UIDevice.CurrentDevice.RespondsToSelector(new Selector("uniqueIdentifier")))
-                    return NSString.FromHandle(objc_msgSend(handle, Selector.GetHandle("uniqueIdentifier")));
-                return "unknown";
-            }
         }
 
         static string SelectHostName(IReadOnlyList<string> names, int port)
@@ -189,31 +186,31 @@ namespace Xunit.Runners
                 {
                     var name = names[i];
                     Task.Run(() =>
-                    {
-                        try
-                        {
-                            var client = new TcpClient(name, port);
-                            using (var writer = new StreamWriter(client.GetStream()))
-                            {
-                                writer.WriteLine("ping");
-                            }
-                            lock (lock_obj)
-                            {
-                                if (result == null)
-                                    result = name;
-                            }
-                            evt.Set();
-                        }
-                        catch (Exception)
-                        {
-                            lock (lock_obj)
-                            {
-                                failures++;
-                                if (failures == names.Count)
-                                    evt.Set();
-                            }
-                        }
-                    });
+                             {
+                                 try
+                                 {
+                                     var client = new TcpClient(name, port);
+                                     using (var writer = new StreamWriter(client.GetStream()))
+                                     {
+                                         writer.WriteLine("ping");
+                                     }
+                                     lock (lock_obj)
+                                     {
+                                         if (result == null)
+                                             result = name;
+                                     }
+                                     evt.Set();
+                                 }
+                                 catch (Exception)
+                                 {
+                                     lock (lock_obj)
+                                     {
+                                         failures++;
+                                         if (failures == names.Count)
+                                             evt.Set();
+                                     }
+                                 }
+                             });
                 }
 
                 // Wait for 1 success or all failures

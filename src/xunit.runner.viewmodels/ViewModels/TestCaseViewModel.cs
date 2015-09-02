@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xunit.Abstractions;
-using Xunit.Runners.UI;
 
 namespace Xunit.Runners
 {
@@ -12,20 +12,78 @@ namespace Xunit.Runners
     {
         readonly INavigation navigation;
         readonly ITestRunner runner;
+        string message;
+        string output;
 
-        public ICommand NavigateToResultCommand { get; private set; }
-        
+        TestState result;
+        RunStatus runStatus;
+        string stackTrace;
+
         ITestCase testCase;
         TestResultViewModel testResult;
 
-        TestState result;
-        string message;
-        string output;
-        string stackTrace;
-        RunStatus runStatus;
+
+        internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, INavigation navigation, ITestRunner runner)
+        {
+            if (assemblyFileName == null) throw new ArgumentNullException(nameof(assemblyFileName));
+            if (testCase == null) throw new ArgumentNullException(nameof(testCase));
+
+            this.navigation = navigation;
+            this.runner = runner;
+
+            AssemblyFileName = assemblyFileName;
+            TestCase = testCase;
+
+
+            Result = TestState.NotRun;
+            RunStatus = RunStatus.NotRun;
+            Message = "not run";
+
+            // Create an initial result representing not run
+            TestResult = new TestResultViewModel(this, null);
+
+            NavigateToResultCommand = new DelegateCommand(NavigateToResultsPage);
+        }
 
 
         public string AssemblyFileName { get; }
+        public string DisplayName => TestCase.DisplayName;
+
+        // This should be raised on a UI thread as listeners will likely be
+        // UI elements
+
+
+        public string Message
+        {
+            get { return message; }
+            private set { Set(ref message, value); }
+        }
+
+        public ICommand NavigateToResultCommand { get; private set; }
+
+        public string Output
+        {
+            get { return output; }
+            private set { Set(ref output, value); }
+        }
+
+        public TestState Result
+        {
+            get { return result; }
+            private set { Set(ref result, value); }
+        }
+
+        public RunStatus RunStatus
+        {
+            get { return runStatus; }
+            set { Set(ref runStatus, value); }
+        }
+
+        public string StackTrace
+        {
+            get { return stackTrace; }
+            private set { Set(ref stackTrace, value); }
+        }
 
         public ITestCase TestCase
         {
@@ -43,54 +101,6 @@ namespace Xunit.Runners
         {
             get { return testResult; }
             private set { Set(ref testResult, value); }
-        }
-        public string DisplayName => TestCase.DisplayName;
-
-
-        internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, INavigation navigation, ITestRunner runner)
-        {
-            if (assemblyFileName == null) throw new ArgumentNullException(nameof(assemblyFileName));
-            if (testCase == null) throw new ArgumentNullException(nameof(testCase));
-            
-            this.navigation = navigation;
-            this.runner = runner;
-
-            AssemblyFileName = assemblyFileName;
-            TestCase = testCase;
-            
-            
-
-            Result = TestState.NotRun;
-            RunStatus = RunStatus.NotRun;
-            Message = "not run";
-
-            // Create an initial result representing not run
-            TestResult = new TestResultViewModel(this, null);
-
-            NavigateToResultCommand = new DelegateCommand(NavigateToResultsPage);
-        }
-
-        async void NavigateToResultsPage(){
-            // run again
-            await runner.Run(this);
-
-            if (Result == TestState.Failed)
-            {
-                await navigation.NavigateTo(NavigationPage.TestResult, TestResult);
-            }
-
-        }
-
-        public RunStatus RunStatus
-        {
-            get { return runStatus; }
-            set { Set(ref runStatus, value); }
-        }
-
-        public TestState Result
-        {
-            get { return result; }
-            private set { Set(ref result, value); }
         }
 
 
@@ -126,26 +136,15 @@ namespace Xunit.Runners
             }
         }
 
-        // This should be raised on a UI thread as listeners will likely be
-        // UI elements
-   
-
-        public string Message
+        async void NavigateToResultsPage()
         {
-            get { return message; }
-            private set { Set(ref message, value); }
-        }
+            // run again
+            await runner.Run(this);
 
-        public string Output
-        {
-            get { return output; }
-            private set { Set(ref output, value); }
-        }
-
-        public string StackTrace
-        {
-            get { return stackTrace; }
-            private set { Set(ref stackTrace, value); }
+            if (Result == TestState.Failed)
+            {
+                await navigation.NavigateTo(NavigationPage.TestResult, TestResult);
+            }
         }
     }
 }

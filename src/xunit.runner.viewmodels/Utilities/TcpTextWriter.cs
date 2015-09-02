@@ -2,9 +2,11 @@
 // overrides and with network-activity UI enhancement
 
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 #if __IOS__ || MAC
 #if __UNIFIED__
 using UIKit;
@@ -12,40 +14,40 @@ using UIKit;
 using MonoTouch.UIKit;
 #endif
 #endif
-
 #if WINDOWS_PHONE || NETFX_CORE
+using System.Globalization;
 using Windows.Networking;
 using Windows.Networking.Sockets;
 #else
 using System.Net.Sockets;
+
 #endif
 
-namespace Xunit.Runners.UI {
-
-	public class TcpTextWriter : TextWriter
+namespace Xunit.Runners.UI
+{
+    public class TcpTextWriter : TextWriter
     {
-		
-		//private TcpClient client;
-		private StreamWriter writer;
+        //private TcpClient client;
+        StreamWriter writer;
 
-		public TcpTextWriter (string hostName, int port)
-		{
-			if (hostName == null)
-				throw new ArgumentNullException ("hostName");
-			if ((port < 0) || (port > UInt16.MaxValue))
-				throw new ArgumentException ("port");
-			
-			HostName = hostName;
-			Port = port;
-			
+        public TcpTextWriter(string hostName, int port)
+        {
+            if (hostName == null)
+                throw new ArgumentNullException(nameof(hostName));
+            if ((port < 0) || (port > ushort.MaxValue))
+                throw new ArgumentException("port");
+
+            HostName = hostName;
+            Port = port;
+
 #if __IOS__ || MAC
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 #endif
-			try {
-
+            try
+            {
 #if __IOS__ || MAC || ANDROID
-				var client = new TcpClient (hostName, port);
-				writer = new StreamWriter (client.GetStream ());
+                var client = new TcpClient(hostName, port);
+                writer = new StreamWriter(client.GetStream());
 #elif WINDOWS_PHONE || NETFX_CORE
                
                 var socket = new StreamSocket();
@@ -53,66 +55,68 @@ namespace Xunit.Runners.UI {
                     .AsTask()
                     .ContinueWith( _ => writer = new StreamWriter(socket.OutputStream.AsStreamForWrite()));
 #endif
-			}
-			catch {
+            }
+            catch
+            {
 #if __IOS__ || MAC
                 UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 #endif
-				throw;
-			}
-		}
-		
-		public string HostName { get; private set; }
-		
-		public int Port { get; private set; }
+                throw;
+            }
+        }
 
-		// we override everything that StreamWriter overrides from TextWriter
-		
-		public override System.Text.Encoding Encoding {
-			// hardcoded to UTF8 so make it easier on the server side
-			get { return System.Text.Encoding.UTF8; }
-		}
+        // we override everything that StreamWriter overrides from TextWriter
 
-		protected override void Dispose (bool disposing)
-		{
+        public override Encoding Encoding
+        {
+            // hardcoded to UTF8 so make it easier on the server side
+            get { return Encoding.UTF8; }
+        }
+
+        public string HostName { get; private set; }
+
+        public int Port { get; private set; }
+
+        public override void Flush()
+        {
+            writer.Flush();
+        }
+
+        // minimum to override - see http://msdn.microsoft.com/en-us/library/system.io.textwriter.aspx
+        public override void Write(char value)
+        {
+            writer.Write(value);
+        }
+
+        public override void Write(char[] buffer)
+        {
+            writer.Write(buffer);
+        }
+
+        public override void Write(char[] buffer, int index, int count)
+        {
+            writer.Write(buffer, index, count);
+        }
+
+        public override void Write(string value)
+        {
+            writer.Write(value);
+        }
+
+        // special extra override to ensure we flush data regularly
+
+        public override void WriteLine()
+        {
+            writer.WriteLine();
+            writer.Flush();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
 #if __IOS__ || MAC
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 #endif
-            writer.Dispose ();
-		}
-
-		public override void Flush ()
-		{
-			writer.Flush ();
-		}
-
-		// minimum to override - see http://msdn.microsoft.com/en-us/library/system.io.textwriter.aspx
-		public override void Write (char value)
-		{
-			writer.Write (value);
-		}
-		
-		public override void Write (char[] buffer)
-		{
-			 writer.Write (buffer);
-		}
-		
-		public override void Write (char[] buffer, int index, int count)
-		{
-			writer.Write (buffer, index, count);
-		}
-
-		public override void Write (string value)
-		{
-			writer.Write (value);
-		}
-		
-		// special extra override to ensure we flush data regularly
-
-		public override void WriteLine ()
-		{
-			writer.WriteLine ();
-			writer.Flush ();
-		}
-	}
+            writer.Dispose();
+        }
+    }
 }

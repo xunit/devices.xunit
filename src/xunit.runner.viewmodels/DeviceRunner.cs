@@ -7,22 +7,31 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Xunit.Runners.UI;
 using Xunit.Runners.Utilities;
 using Xunit.Runners.Visitors;
 
 namespace Xunit.Runners
 {
-    class DeviceRunner : ITestListener, ITestRunner
+    /// <summary>
+    /// 
+    /// </summary>
+    public class DeviceRunner : ITestListener, ITestRunner
     {
+        readonly SynchronizationContext context = SynchronizationContext.Current;
         readonly Assembly executionAssembly;
+        readonly AsyncLock executionLock = new AsyncLock();
         readonly INavigation navigation;
         readonly IResultChannel resultChannel;
-        readonly SynchronizationContext context = SynchronizationContext.Current;
-        readonly AsyncLock executionLock = new AsyncLock();
-        
+
         volatile bool cancelled;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="executionAssembly"></param>
+        /// <param name="testAssemblies"></param>
+        /// <param name="navigation"></param>
+        /// <param name="resultChannel"></param>
         public DeviceRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, INavigation navigation, IResultChannel resultChannel)
         {
             this.executionAssembly = executionAssembly;
@@ -31,16 +40,38 @@ namespace Xunit.Runners
             this.resultChannel = resultChannel;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyCollection<Assembly> TestAssemblies { get; }
 
-
-        public Task Run(TestCaseViewModel test)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="result"></param>
+        public void RecordResult(TestResultViewModel result)
         {
-            return Run(new[] { test });
+            resultChannel.RecordResult(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns></returns>
+        public Task Run(TestCaseViewModel test)
+        {
+            return Run(new[] {test});
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tests"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public Task Run(IEnumerable<TestCaseViewModel> tests, string message = null)
         {
-
             var groups =
                 tests.GroupBy(t => t.AssemblyFileName)
                      .Select(g => new AssemblyRunInfo
@@ -53,19 +84,25 @@ namespace Xunit.Runners
 
 
             return Run(groups, message);
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="runInfos"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task Run(IReadOnlyList<AssemblyRunInfo> runInfos, string message = null)
         {
             using (await executionLock.LockAsync())
             {
                 if (message == null)
-                    message = runInfos.Count > 1 || runInfos.FirstOrDefault()?.TestCases.Count > 1 ? "Run Multiple Tests" : 
-                                                                                                     runInfos.FirstOrDefault()?.
-                                                                                                     TestCases.FirstOrDefault()?.
-                                                                                                     DisplayName;
-                                                                              
+                    message = runInfos.Count > 1 || runInfos.FirstOrDefault()
+                                                           ?.TestCases.Count > 1 ? "Run Multiple Tests" :
+                                  runInfos.FirstOrDefault()
+                                         ?.TestCases.FirstOrDefault()
+                                         ?.DisplayName;
+
 
                 if (!await resultChannel.OpenChannel(message))
                     return;
@@ -80,17 +117,19 @@ namespace Xunit.Runners
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Task<IReadOnlyList<TestAssemblyViewModel>> Discover()
         {
             return Task.Run<IReadOnlyList<TestAssemblyViewModel>>(() =>
-                            {
-                                var runInfos = DiscoverTestsInAssemblies();
-                                return runInfos.Select(ri => new TestAssemblyViewModel(ri, this)).ToList();
-                            });
-            
+                                                                  {
+                                                                      var runInfos = DiscoverTestsInAssemblies();
+                                                                      return runInfos.Select(ri => new TestAssemblyViewModel(ri, this))
+                                                                                     .ToList();
+                                                                  });
         }
-
-        public IReadOnlyCollection<Assembly> TestAssemblies { get; }
 
 
         IEnumerable<AssemblyRunInfo> DiscoverTestsInAssemblies()
@@ -104,23 +143,21 @@ namespace Xunit.Runners
                     foreach (var assm in TestAssemblies)
                     {
                         // Xunit needs the file name
-                        var assemblyFileName = assm.GetName().Name + ".dll";
-                        var assembly = new XunitProjectAssembly { AssemblyFilename = assemblyFileName };
+                        var assemblyFileName = assm.GetName()
+                                                   .Name + ".dll";
+                    
                         var configuration = ConfigReader.Load(assemblyFileName);
-                        var fileName = Path.GetFileNameWithoutExtension(assemblyFileName);
-
                         var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
 
                         try
                         {
-
                             if (cancelled)
                                 break;
 
-                            using (var framework = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName: assemblyFileName, configFileName: null, shadowCopy: false))
+                            using (var framework = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName, null, false))
                             using (var sink = new TestDiscoveryVisitor())
                             {
-                                framework.Find(includeSourceInformation: true, messageSink: sink, discoveryOptions: discoveryOptions);
+                                framework.Find(true, sink, discoveryOptions);
                                 sink.Finished.WaitOne();
 
 
@@ -128,9 +165,9 @@ namespace Xunit.Runners
                                 {
                                     AssemblyFileName = assemblyFileName,
                                     Configuration = configuration,
-                                    TestCases = sink.TestCases.Select(tc => new TestCaseViewModel(assemblyFileName, tc, navigation, this)).ToList()
+                                    TestCases = sink.TestCases.Select(tc => new TestCaseViewModel(assemblyFileName, tc, navigation, this))
+                                                    .ToList()
                                 });
-
                             }
                         }
                         catch (Exception e)
@@ -144,7 +181,7 @@ namespace Xunit.Runners
             {
                 Debug.WriteLine(e);
             }
-            
+
 
             return result;
         }
@@ -154,80 +191,50 @@ namespace Xunit.Runners
             var tcs = new TaskCompletionSource<object>(null);
 
             Action handler = () =>
-            {
-                var toDispose = new List<IDisposable>();
+                             {
+                                 var toDispose = new List<IDisposable>();
 
-                try
-                {
-                    cancelled = false;
-                    var assemblies = testCaseAccessor();
-                    var parallelizeAssemblies = assemblies.All(runInfo => runInfo.Configuration.ParallelizeAssemblyOrDefault);
+                                 try
+                                 {
+                                     cancelled = false;
+                                     var assemblies = testCaseAccessor();
+                                     var parallelizeAssemblies = assemblies.All(runInfo => runInfo.Configuration.ParallelizeAssemblyOrDefault);
 
 
-                    using (AssemblyHelper.SubscribeResolve())
-                    {
-                        if (parallelizeAssemblies)
-                            assemblies
-                                .Select(runInfo => RunTestsInAssemblyAsync(toDispose, runInfo))
-                                .ToList()
-                                .ForEach(@event => @event.WaitOne());
-                        else
-                            assemblies
-                                .ForEach(runInfo => RunTestsInAssembly(toDispose, runInfo));
-                    }
-                        
-                }
-                catch (Exception e)
-                {
-                    tcs.SetException(e);
-                }
-                finally
-                {
-                    toDispose.ForEach(disposable => disposable.Dispose());
-                    //    OnTestRunCompleted();
-                    tcs.SetResult(null);
-                }
-            };
+                                     using (AssemblyHelper.SubscribeResolve())
+                                     {
+                                         if (parallelizeAssemblies)
+                                             assemblies
+                                                 .Select(runInfo => RunTestsInAssemblyAsync(toDispose, runInfo))
+                                                 .ToList()
+                                                 .ForEach(@event => @event.WaitOne());
+                                         else
+                                             assemblies
+                                                 .ForEach(runInfo => RunTestsInAssembly(toDispose, runInfo));
+                                     }
+                                 }
+                                 catch (Exception e)
+                                 {
+                                     tcs.SetException(e);
+                                 }
+                                 finally
+                                 {
+                                     toDispose.ForEach(disposable => disposable.Dispose());
+                                     //    OnTestRunCompleted();
+                                     tcs.SetResult(null);
+                                 }
+                             };
 
-#if WINDOWS_APP || WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_UWP
-            var fireAndForget = Windows.System.Threading.ThreadPool.RunAsync(_ => handler());
-#else
-            ThreadPool.QueueUserWorkItem(_ => handler());
-#endif
+            ThreadPoolHelper.RunAsync(handler);
 
             return tcs.Task;
-        }
-
-        ManualResetEvent RunTestsInAssemblyAsync(List<IDisposable> toDispose, AssemblyRunInfo runInfo)
-        {
-            var @event = new ManualResetEvent(initialState: false);
-
-            Action handler = () =>
-            {
-                try
-                {
-                    RunTestsInAssembly(toDispose, runInfo);
-                }
-                finally
-                {
-                    @event.Set();
-                }
-            };
-
-#if WINDOWS_APP || WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_UWP
-            var fireAndForget = Windows.System.Threading.ThreadPool.RunAsync(_ => handler());
-#else
-            ThreadPool.QueueUserWorkItem(_ => handler());
-#endif
-
-            return @event;
         }
 
         void RunTestsInAssembly(List<IDisposable> toDispose, AssemblyRunInfo runInfo)
         {
             if (cancelled)
                 return;
-            
+
             var assemblyFileName = runInfo.AssemblyFileName;
 
             var controller = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName);
@@ -236,10 +243,13 @@ namespace Xunit.Runners
                 toDispose.Add(controller);
 
 
-
-            var xunitTestCases = runInfo.TestCases.Select(tc => new { vm = tc, xunit = tc.TestCase })
-                                                  .Where(tc => tc.xunit != null)
-                                                  .ToDictionary(tc => tc.xunit, tc => tc.vm);
+            var xunitTestCases = runInfo.TestCases.Select(tc => new
+                                                                {
+                                                                    vm = tc,
+                                                                    xunit = tc.TestCase
+                                                                })
+                                        .Where(tc => tc.xunit != null)
+                                        .ToDictionary(tc => tc.xunit, tc => tc.vm);
             var executionOptions = TestFrameworkOptions.ForExecution(runInfo.Configuration);
 
 
@@ -250,9 +260,25 @@ namespace Xunit.Runners
             }
         }
 
-        public void RecordResult(TestResultViewModel result)
+        ManualResetEvent RunTestsInAssemblyAsync(List<IDisposable> toDispose, AssemblyRunInfo runInfo)
         {
-            resultChannel.RecordResult(result);
+            var @event = new ManualResetEvent(false);
+
+            Action handler = () =>
+                             {
+                                 try
+                                 {
+                                     RunTestsInAssembly(toDispose, runInfo);
+                                 }
+                                 finally
+                                 {
+                                     @event.Set();
+                                 }
+                             };
+
+            ThreadPoolHelper.RunAsync(handler);
+
+            return @event;
         }
     }
 }

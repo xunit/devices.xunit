@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Xunit.Runners
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var evt = PropertyChanged;
+            if (evt != null)
+            {
+                evt(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         protected bool Set<T>(ref T destination, T value, [CallerMemberName] string propertyName = null)
         {
@@ -22,16 +32,6 @@ namespace Xunit.Runners
                 return true;
             }
             return false;
-        }
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var evt = PropertyChanged;
-            if (evt != null)
-            {
-                evt(this, new PropertyChangedEventArgs(propertyName));
-            }
-
         }
     }
 }

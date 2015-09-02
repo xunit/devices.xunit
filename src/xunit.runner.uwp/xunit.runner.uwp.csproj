@@ -57,6 +57,9 @@
     <Compile Include="..\xunit.runner.win81\ResultListener.cs">
       <Link>ResultListener.cs</Link>
     </Compile>
+    <Compile Include="..\xunit.runner.win81\ThreadPoolHelper.cs">
+      <Link>ThreadPoolHelper.cs</Link>
+    </Compile>
     <Compile Include="Navigator.cs" />
     <Compile Include="Pages\AssemblyTestListPage.xaml.cs">
       <DependentUpon>AssemblyTestListPage.xaml</DependentUpon>

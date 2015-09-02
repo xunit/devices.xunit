@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace Xunit.Runners.Utilities
 {
-
     class FilteredCollectionView<T, TFilterArg> : IList<T>, IList, INotifyCollectionChanged, IDisposable
     {
         readonly ObservableCollection<T> dataSource;
-        readonly SortedList<T> filteredList;
         readonly Func<T, TFilterArg, bool> filter;
+        readonly SortedList<T> filteredList;
+
+        TFilterArg filterArgument;
 
         public FilteredCollectionView(ObservableCollection<T> dataSource, Func<T, TFilterArg, bool> filter, TFilterArg filterArgument, IComparer<T> sort)
         {
@@ -36,21 +37,6 @@ namespace Xunit.Runners.Utilities
             }
         }
 
-        /// <summary>
-        /// Raised when one of the items selected by the filter is changed.
-        /// </summary>
-        /// <remarks>
-        /// The sender is reported to be the item changed.
-        /// </remarks>
-        public event EventHandler<PropertyChangedEventArgs> ItemChanged;
-
-        protected virtual void OnItemChanged(T sender, PropertyChangedEventArgs args)
-        {
-            var itemChanged = ItemChanged;
-            itemChanged?.Invoke(sender, args);
-        }
-
-        TFilterArg filterArgument;
         public TFilterArg FilterArgument
         {
             get { return filterArgument; }
@@ -59,112 +45,6 @@ namespace Xunit.Runners.Utilities
                 filterArgument = value;
                 RefreshFilter();
             }
-        }
-
-        void RefreshFilter()
-        {
-            filteredList.Clear();
-
-            foreach (var item in dataSource)
-            {
-                if (filter(item, filterArgument))
-                {
-                    filteredList.Add(item);
-                }
-            }
-
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
-
-        void dataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    foreach (T item in e.NewItems)
-                    {
-                        OnAdded(item);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (T item in e.OldItems)
-                    {
-                        OnRemoved(item);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (T item in e.OldItems)
-                    {
-                        OnRemoved(item);
-                    }
-
-                    foreach (T item in e.NewItems)
-                    {
-                        OnAdded(item);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    throw new NotSupportedException();
-            }
-        }
-
-        void OnAdded(T item)
-        {
-            if (filter(item, filterArgument))
-            {
-                var index = filteredList.IndexOf(item);
-                if (index < 0)
-                {
-                    filteredList.Insert(~index, item);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
-                }
-            }
-
-            var observable = item as INotifyPropertyChanged;
-            if (observable != null)
-            {
-                observable.PropertyChanged += dataSource_ItemChanged;
-            }
-        }
-
-        void OnRemoved(T item)
-        {
-            var observable = item as INotifyPropertyChanged;
-            if (observable != null)
-            {
-                observable.PropertyChanged -= dataSource_ItemChanged;
-            }
-
-            int index = filteredList.IndexOf(item);
-            if (index >= 0)
-            {
-                filteredList.RemoveAt(index);
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
-            }
-        }
-
-        void dataSource_ItemChanged(object sender, PropertyChangedEventArgs e)
-        {
-            var item = (T)sender;
-            var index = filteredList.IndexOf(item);
-            if (filter(item, FilterArgument))
-            {
-                if (index < 0)
-                {
-                    filteredList.Insert(~index, item);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
-                }
-            }
-            else if (index >= 0)
-            {
-                filteredList.RemoveAt(index);
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
-            }
-
-            OnItemChanged(item, e);
         }
 
         public void Dispose()
@@ -179,13 +59,57 @@ namespace Xunit.Runners.Utilities
             filteredList.Clear();
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
+        int IList.Add(object value)
         {
-            var collectionChanged = CollectionChanged;
-            collectionChanged?.Invoke(this, args);
+            throw new NotSupportedException();
         }
+
+        void IList.Clear()
+        {
+            throw new NotSupportedException();
+        }
+
+        bool IList.Contains(object value)
+        {
+            return Contains((T)value);
+        }
+
+        int IList.IndexOf(object value)
+        {
+            return IndexOf((T)value);
+        }
+
+        void IList.Insert(int index, object value)
+        {
+            throw new NotSupportedException();
+        }
+
+        bool IList.IsFixedSize => false;
+
+        void IList.Remove(object value)
+        {
+            throw new NotSupportedException();
+        }
+
+        void IList.RemoveAt(int index)
+        {
+            throw new NotSupportedException();
+        }
+
+        object IList.this[int index]
+        {
+            get { return this[index]; }
+            set { throw new NotSupportedException(); }
+        }
+
+        void ICollection.CopyTo(Array array, int index)
+        {
+            filteredList.CopyTo((T[])array, index);
+        }
+
+        bool ICollection.IsSynchronized => false;
+
+        object ICollection.SyncRoot => this;
 
         public void Add(T item)
         {
@@ -243,67 +167,136 @@ namespace Xunit.Runners.Utilities
 
         public T this[int index]
         {
-            get
-            {
-                return filteredList[index];
-            }
-            set
-            {
-                throw new NotSupportedException();
-            }
-        }
-
-        int IList.Add(object value)
-        {
-            throw new NotSupportedException();
-        }
-
-        void IList.Clear()
-        {
-            throw new NotSupportedException();
-        }
-
-        bool IList.Contains(object value)
-        {
-            return Contains((T)value);
-        }
-
-        int IList.IndexOf(object value)
-        {
-            return IndexOf((T)value);
-        }
-
-        void IList.Insert(int index, object value)
-        {
-            throw new NotSupportedException();
-        }
-
-        bool IList.IsFixedSize => false;
-
-        void IList.Remove(object value)
-        {
-            throw new NotSupportedException();
-        }
-
-        void IList.RemoveAt(int index)
-        {
-            throw new NotSupportedException();
-        }
-
-        object IList.this[int index]
-        {
-            get { return this[index]; }
+            get { return filteredList[index]; }
             set { throw new NotSupportedException(); }
         }
 
-        void ICollection.CopyTo(Array array, int index)
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        /// <summary>
+        ///     Raised when one of the items selected by the filter is changed.
+        /// </summary>
+        /// <remarks>
+        ///     The sender is reported to be the item changed.
+        /// </remarks>
+        public event EventHandler<PropertyChangedEventArgs> ItemChanged;
+
+        protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
-            filteredList.CopyTo((T[])array, index);
+            var collectionChanged = CollectionChanged;
+            collectionChanged?.Invoke(this, args);
         }
 
-        bool ICollection.IsSynchronized => false;
+        protected virtual void OnItemChanged(T sender, PropertyChangedEventArgs args)
+        {
+            var itemChanged = ItemChanged;
+            itemChanged?.Invoke(sender, args);
+        }
 
-        object ICollection.SyncRoot => this;
+        void dataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (T item in e.NewItems)
+                    {
+                        OnAdded(item);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (T item in e.OldItems)
+                    {
+                        OnRemoved(item);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (T item in e.OldItems)
+                    {
+                        OnRemoved(item);
+                    }
+
+                    foreach (T item in e.NewItems)
+                    {
+                        OnAdded(item);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    throw new NotSupportedException();
+            }
+        }
+
+        void dataSource_ItemChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var item = (T)sender;
+            var index = filteredList.IndexOf(item);
+            if (filter(item, FilterArgument))
+            {
+                if (index < 0)
+                {
+                    filteredList.Insert(~index, item);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
+                }
+            }
+            else if (index >= 0)
+            {
+                filteredList.RemoveAt(index);
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+            }
+
+            OnItemChanged(item, e);
+        }
+
+        void OnAdded(T item)
+        {
+            if (filter(item, filterArgument))
+            {
+                var index = filteredList.IndexOf(item);
+                if (index < 0)
+                {
+                    filteredList.Insert(~index, item);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
+                }
+            }
+
+            var observable = item as INotifyPropertyChanged;
+            if (observable != null)
+            {
+                observable.PropertyChanged += dataSource_ItemChanged;
+            }
+        }
+
+        void OnRemoved(T item)
+        {
+            var observable = item as INotifyPropertyChanged;
+            if (observable != null)
+            {
+                observable.PropertyChanged -= dataSource_ItemChanged;
+            }
+
+            var index = filteredList.IndexOf(item);
+            if (index >= 0)
+            {
+                filteredList.RemoveAt(index);
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+            }
+        }
+
+        void RefreshFilter()
+        {
+            filteredList.Clear();
+
+            foreach (var item in dataSource)
+            {
+                if (filter(item, filterArgument))
+                {
+                    filteredList.Add(item);
+                }
+            }
+
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
     }
-
 }

@@ -30,6 +30,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestExecutionVisitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestDiscoveryVisitor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Visitors\XmlTestExecutionVisitor.cs" />
   </ItemGroup>
 </Project>

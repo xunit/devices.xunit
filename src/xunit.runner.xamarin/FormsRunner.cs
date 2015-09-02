@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xunit.Runners.Pages;
-using Xunit.Runners.UI;
 
 namespace Xunit.Runners
 {
-    class FormsRunner : Xamarin.Forms.Application
+    class FormsRunner : Application
     {
         readonly Assembly executionAssembly;
         readonly IReadOnlyCollection<Assembly> testAssemblies;
@@ -25,17 +25,17 @@ namespace Xunit.Runners
             MainPage = GetMainPage();
         }
 
-        
+
         Page GetMainPage()
         {
             var hp = new HomePage();
             var nav = new Navigator(hp.Navigation);
 
             var runner = new DeviceRunner(executionAssembly, testAssemblies, nav, new ResultListener(writer));
-            
+
             var vm = new HomeViewModel(nav, runner);
-            
-            
+
+
             hp.BindingContext = vm;
 
             return new Xamarin.Forms.NavigationPage(hp);

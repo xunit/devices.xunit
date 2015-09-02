@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Xunit.Runners
 {
-    internal interface IResultChannel : ITestListener
+    public interface IResultChannel : ITestListener
     {
-        Task<bool> OpenChannel(string message = null);
-
         Task CloseChannel();
-        
-
+        Task<bool> OpenChannel(string message = null);
     }
 }
