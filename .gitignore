@@ -23,3 +23,9 @@ Index.dat
 Storage.dat
 
 *.ide/
+.vs/
+
+*.nuget.targets
+*.nuget.props
+
+project.lock.json
