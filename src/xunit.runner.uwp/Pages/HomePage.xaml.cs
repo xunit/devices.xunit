@@ -20,11 +20,23 @@ namespace Xunit.Runners.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class HomePage : Page
+    sealed partial class HomePage : Page
     {
         public HomePage()
         {
             this.InitializeComponent();
+            DataContextChanged += (sender, args) => { ViewModel = DataContext as HomeViewModel; };
+        }
+
+        public HomeViewModel ViewModel { get; set; }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var vm = e.AddedItems.Cast<TestAssemblyViewModel>().FirstOrDefault();
+            if (vm != null)
+            {
+                ViewModel.NavigateToTestAssemblyCommand.Execute(vm);
+            }
         }
     }
 }

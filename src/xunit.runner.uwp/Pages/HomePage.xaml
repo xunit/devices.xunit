@@ -5,9 +5,34 @@
     xmlns:local="using:Xunit.Runners.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:runners="using:Xunit.Runners"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ProgressBar Height="10" IsIndeterminate="True" IsEnabled="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+        <TextBlock Text="Test Assemblies" Grid.Row="1"/>
+        <ListView Grid.Row="2" SelectionMode="Single"
+                  ItemsSource="{x:Bind ViewModel.TestAssemblies}" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="runners:TestAssemblyViewModel">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind DisplayName}" />
+                        <TextBlock Text="{x:Bind DetailText, Mode=OneWay}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Row="3">
+            <Button Content="Run Everything"
+                    Command="{x:Bind ViewModel.RunEverythingCommand}"
+                    />
+        </StackPanel>
     </Grid>
 </Page>

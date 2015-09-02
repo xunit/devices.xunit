@@ -40,7 +40,7 @@ namespace Xunit.Runners
         }
 
 
-        public ObservableCollection<TestAssemblyViewModel> TestAssemblies { get; private set; }
+        public ObservableCollection<TestAssemblyViewModel> TestAssemblies { get; }
 
 
         void OptionsExecute()

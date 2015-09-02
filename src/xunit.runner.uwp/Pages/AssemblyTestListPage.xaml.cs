@@ -25,6 +25,10 @@ namespace Xunit.Runners.Pages
         public AssemblyTestListPage()
         {
             this.InitializeComponent();
+
+            DataContextChanged += (sender, args) => { ViewModel = DataContext as TestAssemblyViewModel; };
         }
+
+        public TestAssemblyViewModel ViewModel { get; set; }
     }
 }

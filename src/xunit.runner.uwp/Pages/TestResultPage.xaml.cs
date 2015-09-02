@@ -20,11 +20,15 @@ namespace Xunit.Runners.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TestResultPage : Page
+    sealed partial class TestResultPage : Page
     {
         public TestResultPage()
         {
             this.InitializeComponent();
+
+            DataContextChanged += (sender, args) => { ViewModel = DataContext as TestCaseViewModel; };
         }
+
+        public TestCaseViewModel ViewModel { get; set; }
     }
 }
