@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 
-namespace test.xunit.runner.wpwin81
+namespace test.xunit.runner.win81
 {
     public class WP8RunnerTests
     {

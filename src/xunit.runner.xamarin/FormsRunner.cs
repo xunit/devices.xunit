@@ -49,12 +49,12 @@ namespace Xunit.Runners
 
         Page GetMainPage()
         {
-
-
-            var runner = new DeviceRunner(executionAssembly, testAssemblies, new ResultListener(() => Writer));
-
             var hp = new HomePage();
-            var vm = new HomeViewModel(new Navigator(hp.Navigation), runner);
+            var nav = new Navigator(hp.Navigation);
+
+            var runner = new DeviceRunner(executionAssembly, testAssemblies, nav, new ResultListener(() => Writer));
+            
+            var vm = new HomeViewModel(nav, runner);
             
             
             hp.BindingContext = vm;

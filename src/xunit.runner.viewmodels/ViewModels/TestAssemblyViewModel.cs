@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 using Xunit.Runners.Utilities;
 
-namespace Xunit.Runners.ViewModels
+namespace Xunit.Runners
 {
     public class TestAssemblyViewModel : ViewModelBase
     {
@@ -28,17 +28,19 @@ namespace Xunit.Runners.ViewModels
         readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
         readonly ObservableCollection<TestCaseViewModel> allTests; 
         CancellationTokenSource filterCancellationTokenSource;
+        readonly TestAssemblyConfiguration configuration;
 
-        internal TestAssemblyViewModel(IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
+        internal TestAssemblyViewModel(AssemblyRunInfo runInfo, ITestRunner runner)
         {
             this.runner = runner;
 
             runAllTestsCommand = new DelegateCommand(RunAllTests, () => !isBusy);
             runFilteredTestsCommand = new DelegateCommand(RunFilteredTests, () => !isBusy);
 
-            DisplayName = Path.GetFileNameWithoutExtension(@group.Key);
+            DisplayName = Path.GetFileNameWithoutExtension(runInfo.AssemblyFileName);
 
-            allTests = new ObservableCollection<TestCaseViewModel>(@group);
+            allTests = new ObservableCollection<TestCaseViewModel>(runInfo.TestCases);
+            configuration = runInfo.Configuration;
 
             filteredTests = new FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>>(
                 allTests,
@@ -145,7 +147,7 @@ namespace Xunit.Runners.ViewModels
             }
 
             var pattern = query.Item1;
-            return string.IsNullOrWhiteSpace(pattern) || test.UniqueName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
+            return string.IsNullOrWhiteSpace(pattern) || test.DisplayName.IndexOf(pattern.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         public string SearchQuery
@@ -265,12 +267,9 @@ namespace Xunit.Runners.ViewModels
             public int Compare(TestCaseViewModel x, TestCaseViewModel y)
             {
                 var compare = string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase);
-                if (compare != 0)
-                {
-                    return compare;
-                }
 
-                return string.Compare(x.UniqueName, y.UniqueName, StringComparison.OrdinalIgnoreCase);
+                return compare; 
+                
             }
         }
     }

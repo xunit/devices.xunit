@@ -12,20 +12,26 @@ namespace Xunit.Runners.Visitors
 {
     class TestExecutionVisitor : TestMessageVisitor<ITestAssemblyFinished>
     {
-        private readonly Dictionary<ITestCase, TestCaseViewModel> testCases;
-        private readonly ITestListener listener;
-        private readonly Func<bool> cancelledThunk;
+        readonly Dictionary<ITestCase, TestCaseViewModel> testCases;
+        readonly ITestListener listener;
+        readonly ITestFrameworkExecutionOptions executionOptions;
+        readonly Func<bool> cancelledThunk;
 
-        private readonly SynchronizationContext context;
+        readonly SynchronizationContext context;
 
-        public TestExecutionVisitor(Dictionary<ITestCase, TestCaseViewModel> testCases, ITestListener listener, Func<bool> cancelledThunk, SynchronizationContext context)
+        public TestExecutionVisitor(Dictionary<ITestCase, TestCaseViewModel> testCases, 
+                                    ITestListener listener, 
+                                    ITestFrameworkExecutionOptions executionOptions,
+                                    Func<bool> cancelledThunk, 
+                                    SynchronizationContext context)
         {
-            if (testCases == null) throw new ArgumentNullException("testCases");
-            if (listener == null) throw new ArgumentNullException("listener");
-            if (cancelledThunk == null) throw new ArgumentNullException("cancelledThunk");
+            if (testCases == null) throw new ArgumentNullException(nameof(testCases));
+            if (listener == null) throw new ArgumentNullException(nameof(listener));
+            if (cancelledThunk == null) throw new ArgumentNullException(nameof(cancelledThunk));
 
             this.testCases = testCases;
             this.listener = listener;
+            this.executionOptions = executionOptions;
             this.cancelledThunk = cancelledThunk;
             this.context = context;
         }
@@ -48,14 +54,11 @@ namespace Xunit.Runners.Visitors
             return !cancelledThunk();
         }
 
-        private async void MakeTestResultViewModel(ITestResultMessage testResult, TestState outcome)
+        async void MakeTestResultViewModel(ITestResultMessage testResult, TestState outcome)
         {
             var tcs = new TaskCompletionSource<TestResultViewModel>();
             var testCase = testCases[testResult.TestCase];
-            var fqTestMethodName = String.Format("{0}.{1}", testResult.TestMethod.TestClass.Class.Name, testResult.TestMethod.Method.Name);
-            var displayName = RunnerOptions.Current.GetDisplayName(testResult.Test.DisplayName, testResult.TestCase.TestMethod.Method.Name, fqTestMethodName);
-
-
+    
             // Create the result VM on the UI thread as it updates properties
             context.Post(_ =>
             {
@@ -64,10 +67,7 @@ namespace Xunit.Runners.Visitors
                     Duration = TimeSpan.FromSeconds((double)testResult.ExecutionTime),
                 };
 
-                // Work around VS considering a test "not run" when the duration is 0
-                if (result.Duration.TotalMilliseconds == 0)
-                    result.Duration = TimeSpan.FromMilliseconds(1);
-
+ 
                 if (outcome == TestState.Failed)
                 {
                     result.ErrorMessage = ExceptionUtility.CombineMessages((ITestFailed)testResult);

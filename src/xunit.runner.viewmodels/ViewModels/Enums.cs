@@ -22,11 +22,4 @@ namespace Xunit.Runners
         Skipped,
         NotRun
     }
-
-
-    public enum NameDisplay
-    {
-        Short = 1,
-        Full = 2,
-    }
 }

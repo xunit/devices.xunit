@@ -14,24 +14,18 @@ namespace Xunit.Runners
         readonly ITestRunner runner;
 
         public ICommand NavigateToResultCommand { get; private set; }
-
-        readonly string fqTestMethodName;
+        
         ITestCase testCase;
-        string assemblyFileName;
         TestResultViewModel testResult;
-        string uniqueName;
+
         TestState result;
         string message;
         string output;
         string stackTrace;
         RunStatus runStatus;
-        string detailText;
 
-        public string AssemblyFileName
-        {
-            get { return assemblyFileName; }
-            private set { Set(ref assemblyFileName, value); }
-        }
+
+        public string AssemblyFileName { get; }
 
         public ITestCase TestCase
         {
@@ -50,16 +44,10 @@ namespace Xunit.Runners
             get { return testResult; }
             private set { Set(ref testResult, value); }
         }
-        public string DisplayName { get { return RunnerOptions.Current.GetDisplayName(TestCase.DisplayName, TestCase.TestMethod.Method.Name, fqTestMethodName); } }
+        public string DisplayName => TestCase.DisplayName;
 
 
-        public string UniqueName
-        {
-            get { return uniqueName; }
-            private set { Set(ref uniqueName, value); }
-        }
-
-        internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, bool forceUniqueNames, INavigation navigation, ITestRunner runner)
+        internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, INavigation navigation, ITestRunner runner)
         {
             if (assemblyFileName == null) throw new ArgumentNullException(nameof(assemblyFileName));
             if (testCase == null) throw new ArgumentNullException(nameof(testCase));
@@ -67,10 +55,10 @@ namespace Xunit.Runners
             this.navigation = navigation;
             this.runner = runner;
 
-            fqTestMethodName = $"{testCase.TestMethod.TestClass.Class.Name}.{testCase.TestMethod.Method.Name}";
-            UniqueName = forceUniqueNames ? $"{fqTestMethodName} ({testCase.UniqueID})" : fqTestMethodName;
             AssemblyFileName = assemblyFileName;
             TestCase = testCase;
+            
+            
 
             Result = TestState.NotRun;
             RunStatus = RunStatus.NotRun;

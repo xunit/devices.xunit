@@ -117,6 +117,9 @@
     </AppxManifest>
     <None Include="packages.config" />
     <None Include="test.xunit.runner.win81_TemporaryKey.pfx" />
+    <Content Include="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

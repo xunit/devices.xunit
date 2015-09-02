@@ -92,12 +92,11 @@ namespace Xunit.Runners.ViewModels
             IsBusy = true;
             try
             {
-                var allTests = await Task.Run(() => DiscoverTestsInAssemblies());
+                var allTests = await runner.Discover();
 
                 // Back on UI thread
-                foreach (var group in allTests)
+                foreach (var vm in allTests)
                 {
-                    var vm = new TestAssemblyViewModel(group, runner);
                     TestAssemblies.Add(vm);
                 }
 
@@ -127,57 +126,7 @@ namespace Xunit.Runners.ViewModels
             return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
         }
 
-        private IEnumerable<IGrouping<string, TestCaseViewModel>> DiscoverTestsInAssemblies()
-        {
-            var stopwatch = Stopwatch.StartNew();
-            var result = new List<IGrouping<string, TestCaseViewModel>>();
-
-            try
-            {
-                using (AssemblyHelper.SubscribeResolve())
-                {
-                    foreach (var assm in runner.TestAssemblies)
-                    {
-                        // Xunit needs the file name
-                        var fileName = assm.GetName().Name + ".dll";
-
-                        try
-                        {
-                            using (var framework = new XunitFrontController(AppDomainSupport.Denied, fileName))
-                            using (var sink = new TestDiscoveryVisitor())
-                            {
-                                framework.Find(includeSourceInformation: true, messageSink: sink, discoveryOptions: TestFrameworkOptions.ForDiscovery());
-                                sink.Finished.WaitOne();
-
-                                result.Add(
-                                    new Grouping<string, TestCaseViewModel>(
-                                        fileName,
-                                        sink.TestCases
-                                            .GroupBy(tc => String.Format("{0}.{1}", tc.TestMethod.TestClass.Class.Name, tc.TestMethod.Method.Name))
-                                            .SelectMany(group =>
-                                                        group.Select(testCase =>
-                                                                     new TestCaseViewModel(fileName, testCase, forceUniqueNames: group.Count() > 1, navigation: navigation, runner: runner)))
-                                            .ToList()
-                                        )
-                                    );
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-            }
-
-            stopwatch.Stop();
-
-            return result;
-        }
+   
 
 
 

@@ -9,6 +9,7 @@
     <Import_RootNamespace>Xunit.Runners</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyRunInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INavigation.cs" />
