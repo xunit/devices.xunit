@@ -27,6 +27,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)RunStatusToColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FormsRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\AssemblyTestListPage.xaml.cs">

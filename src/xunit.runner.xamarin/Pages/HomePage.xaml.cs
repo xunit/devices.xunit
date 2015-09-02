@@ -13,6 +13,7 @@ namespace Xunit.Runners.Pages
 {
 	public partial class HomePage : ContentPage
 	{
+        readonly static IValueConverter AssemblyRunStatusConverter = new RunStatusToColorConverter();
 	    private HomeViewModel viewModel;
 		public HomePage ()
 		{
@@ -50,7 +51,7 @@ namespace Xunit.Runners.Pages
 	            var ts = new TextCell {BindingContext = ta};
 	            ts.SetBinding(TextCell.TextProperty, "DisplayName");
 	            ts.SetBinding(TextCell.DetailProperty, "DetailText");
-	            ts.SetBinding(TextCell.DetailColorProperty, "DetailColor");
+	            ts.SetBinding(TextCell.DetailColorProperty, "RunStatus", converter: AssemblyRunStatusConverter);
 
 	            ts.Command = viewModel.NavigateToTestAssemblyCommand;
 	            ts.CommandParameter = ts.BindingContext;

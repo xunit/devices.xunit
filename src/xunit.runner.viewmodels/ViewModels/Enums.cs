@@ -14,6 +14,15 @@ namespace Xunit.Runners
         NotRun
     }
 
+    public enum RunStatus
+    {
+        Ok,
+        Failed,
+        NoTests,
+        Skipped,
+        NotRun
+    }
+
 
     public enum NameDisplay
     {

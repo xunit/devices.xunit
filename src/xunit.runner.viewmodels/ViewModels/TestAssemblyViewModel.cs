@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
+
 using Xunit.Runners.Utilities;
 
 namespace Xunit.Runners.ViewModels
@@ -19,7 +19,7 @@ namespace Xunit.Runners.ViewModels
         readonly DelegateCommand runAllTestsCommand;
         readonly DelegateCommand runFilteredTestsCommand;
         string detailText;
-        Color displayColor;
+        RunStatus runStatus;
         string displayName;
         TestState result;
         bool isBusy;
@@ -51,7 +51,7 @@ namespace Xunit.Runners.ViewModels
             filteredTests.CollectionChanged += (sender, args) => UpdateCaption();
 
             Result = TestState.NotRun;
-
+            RunStatus = RunStatus.Ok;
 
             UpdateCaption();
 
@@ -64,7 +64,8 @@ namespace Xunit.Runners.ViewModels
             if (count == 0)
             {
                 DetailText = "no test was found inside this assembly";
-                DetailColor = Color.FromHex("#ff7f00");
+
+                RunStatus = RunStatus.NoTests;
             }
             else
             {
@@ -88,7 +89,7 @@ namespace Xunit.Runners.ViewModels
                 if (failure == 0 && notRun == 0)
                 {
                     DetailText = $"Success! {positive} test{(positive == 1 ? string.Empty : "s")}";
-                    DetailColor = Color.Green;
+                    RunStatus = RunStatus.Ok;
 
                     Result = TestState.Passed;
 
@@ -98,14 +99,14 @@ namespace Xunit.Runners.ViewModels
                     // we either have failures or some of the tests are not run
                     DetailText = $"{positive} success, {failure} failure{(failure > 1 ? "s" : String.Empty)}, {skipped} skip{(skipped > 1 ? "s" : String.Empty)}, {notRun} not run";
 
-                    DetailColor = Color.Red;
+                    RunStatus = RunStatus.Failed;
 
                     Result = TestState.Failed;
                 }
                 else if (Result == TestState.NotRun)
                 {
                     DetailText = $"{count} test case{(count == 1 ? String.Empty : "s")}, {Result}";
-                    DetailColor = Color.Green;
+                    RunStatus = RunStatus.Ok;
                 }
             }
             
@@ -196,10 +197,10 @@ namespace Xunit.Runners.ViewModels
             private set { Set(ref displayName, value); }
         }
 
-        public Color DetailColor
+        public RunStatus RunStatus
         {
-            get { return displayColor; }
-            private set { Set(ref displayColor, value); }
+            get { return runStatus; }
+            private set { Set(ref runStatus, value); }
         }
 
         public string DetailText

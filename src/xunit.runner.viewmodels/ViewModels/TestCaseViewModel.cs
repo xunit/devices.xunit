@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 using Xunit.Abstractions;
 using Xunit.Runners.UI;
 
@@ -25,7 +24,7 @@ namespace Xunit.Runners
         string message;
         string output;
         string stackTrace;
-        Color detailColor;
+        RunStatus runStatus;
         string detailText;
 
         public string AssemblyFileName
@@ -74,6 +73,7 @@ namespace Xunit.Runners
             TestCase = testCase;
 
             Result = TestState.NotRun;
+            RunStatus = RunStatus.NotRun;
             Message = "not run";
 
             // Create an initial result representing not run
@@ -93,10 +93,10 @@ namespace Xunit.Runners
 
         }
 
-        public Color DetailColor
+        public RunStatus RunStatus
         {
-            get { return detailColor; }
-            set { Set(ref detailColor, value); }
+            get { return runStatus; }
+            set { Set(ref runStatus, value); }
         }
 
         public TestState Result
@@ -118,7 +118,7 @@ namespace Xunit.Runners
             {
                 Result = TestState.Passed;
                 Message = $"Success! {TestResult.Duration.TotalMilliseconds} ms";
-                DetailColor = Color.Green;
+                RunStatus = RunStatus.Ok;
             }
             if (message.TestResultMessage is ITestFailed)
             {
@@ -126,7 +126,7 @@ namespace Xunit.Runners
                 var failedMessage = (ITestFailed)(message.TestResultMessage);
                 Message = ExceptionUtility.CombineMessages(failedMessage);
                 StackTrace = ExceptionUtility.CombineStackTraces(failedMessage);
-                DetailColor = Color.Red;
+                RunStatus = RunStatus.Failed;
             }
             if (message.TestResultMessage is ITestSkipped)
             {
@@ -134,7 +134,7 @@ namespace Xunit.Runners
 
                 var skipped = (ITestSkipped)(message.TestResultMessage);
                 Message = skipped.Reason;
-                DetailColor = Color.FromHex("#FF7700");
+                RunStatus = RunStatus.Skipped;
             }
         }
 

@@ -2,7 +2,13 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:runners="clr-namespace:Xunit.Runners;assembly=xunit.runner.devices"
              x:Class="Xunit.Runners.Pages.AssemblyTestListPage" Title="{Binding DisplayName}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <runners:RunStatusToColorConverter x:Key="RunStatusToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,7 +33,7 @@
                     <DataTemplate>
                         <TextCell Text="{Binding DisplayName}"
                                   Detail="{Binding Message}"
-                                  DetailColor="{Binding DetailColor}"
+                                  DetailColor="{Binding RunStatus, Converter={StaticResource RunStatusToColorConverter}}"
                                   Command="{Binding NavigateToResultCommand}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
