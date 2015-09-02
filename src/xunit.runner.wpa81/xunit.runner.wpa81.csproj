@@ -9,7 +9,7 @@
     <ProjectGuid>{E7AD2705-EB5E-4C6E-B8DC-ED11BA069B75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xunit.Runner.Wpa81</RootNamespace>
+    <RootNamespace>Xunit.Runners</RootNamespace>
     <AssemblyName>xunit.runner.devices</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
