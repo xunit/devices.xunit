@@ -10,7 +10,7 @@ using System.Windows.Input;
 using Xunit.Runners.UI;
 
 
-namespace Xunit.Runners.ViewModels
+namespace Xunit.Runners
 {
     public class HomeViewModel : ViewModelBase
     {
@@ -63,16 +63,15 @@ namespace Xunit.Runners.ViewModels
             finally
             {
                 IsBusy = false;
-            }                       
+            }
         }
 
 
         public ICommand OptionsCommand { get; private set; }
-        public ICommand	CreditsCommand { get; private set; }
-        public ICommand RunEverythingCommand
-        {
-            get { return runEverythingCommand; }
-        }
+        public ICommand CreditsCommand { get; private set; }
+
+        public ICommand RunEverythingCommand => runEverythingCommand;
+
         public ICommand NavigateToTestAssemblyCommand { get; private set; }
 
         public bool IsBusy
@@ -121,36 +120,9 @@ namespace Xunit.Runners.ViewModels
             }
         }
 
-        private Task Run()
+        Task Run()
         {
-            return runner.Run(TestAssemblies.SelectMany(t => t.TestCases), "Run Everything");
-        }
-
-   
-
-
-
-        private class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
-        {
-            private readonly IEnumerable<TElement> elements;
-
-            public Grouping(TKey key, IEnumerable<TElement> elements)
-            {
-                Key = key;
-                this.elements = elements;
-            }
-
-            public TKey Key { get; private set; }
-
-            public IEnumerator<TElement> GetEnumerator()
-            {
-                return elements.GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return elements.GetEnumerator();
-            }
+            return runner.Run(TestAssemblies.Select(t => t.RunInfo).ToList(), "Run Everything");
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Xunit.Runners
 {
     public class TestAssemblyViewModel : ViewModelBase
     {
+        
         readonly ITestRunner runner;
         readonly DelegateCommand runAllTestsCommand;
         readonly DelegateCommand runFilteredTestsCommand;
@@ -28,10 +29,11 @@ namespace Xunit.Runners
         readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
         readonly ObservableCollection<TestCaseViewModel> allTests; 
         CancellationTokenSource filterCancellationTokenSource;
-        readonly TestAssemblyConfiguration configuration;
 
         internal TestAssemblyViewModel(AssemblyRunInfo runInfo, ITestRunner runner)
         {
+            RunInfo = runInfo;
+            ;
             this.runner = runner;
 
             runAllTestsCommand = new DelegateCommand(RunAllTests, () => !isBusy);
@@ -40,7 +42,6 @@ namespace Xunit.Runners
             DisplayName = Path.GetFileNameWithoutExtension(runInfo.AssemblyFileName);
 
             allTests = new ObservableCollection<TestCaseViewModel>(runInfo.TestCases);
-            configuration = runInfo.Configuration;
 
             filteredTests = new FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>>(
                 allTests,
@@ -58,7 +59,8 @@ namespace Xunit.Runners
             UpdateCaption();
 
         }
-   
+
+        internal AssemblyRunInfo RunInfo { get; private set; }
         void UpdateCaption()
         {
             var count = allTests.Count;
@@ -218,12 +220,12 @@ namespace Xunit.Runners
 
         public ICommand RunFilteredTestsCommand => runFilteredTestsCommand;
 
-        private async void RunAllTests()
+        async void RunAllTests()
         {
             try
             {
                 IsBusy = true;
-                await runner.Run(allTests);
+                await runner.Run(new[] {RunInfo});
             }
             finally
             {
@@ -231,7 +233,7 @@ namespace Xunit.Runners
             }
         }
 
-        private void FilterAfterDelay()
+        void FilterAfterDelay()
         {
             filterCancellationTokenSource?.Cancel();
 

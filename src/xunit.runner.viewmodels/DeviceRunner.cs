@@ -21,10 +21,6 @@ namespace Xunit.Runners
         readonly SynchronizationContext context = SynchronizationContext.Current;
         readonly AsyncLock executionLock = new AsyncLock();
         
-
-        int failed;
-        int skipped;
-        int passed;
         volatile bool cancelled;
 
         public DeviceRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, INavigation navigation, IResultChannel resultChannel)
@@ -42,10 +38,10 @@ namespace Xunit.Runners
             return Run(new[] { test });
         }
 
-        public async Task Run(IEnumerable<TestCaseViewModel> tests, string message = null)
+        public Task Run(IEnumerable<TestCaseViewModel> tests, string message = null)
         {
 
-            Func<List<AssemblyRunInfo>> groups = () => 
+            var groups =
                 tests.GroupBy(t => t.AssemblyFileName)
                      .Select(g => new AssemblyRunInfo
                      {
@@ -56,24 +52,32 @@ namespace Xunit.Runners
                      .ToList();
 
 
+            return Run(groups, message);
+
+        }
+
+        public async Task Run(IReadOnlyList<AssemblyRunInfo> runInfos, string message = null)
+        {
             using (await executionLock.LockAsync())
             {
                 if (message == null)
-                    message = tests.Count() > 1 ? "Run Multiple Tests" : tests.First()
-                                                                              .DisplayName;
+                    message = runInfos.Count > 1 || runInfos.FirstOrDefault()?.TestCases.Count > 1 ? "Run Multiple Tests" : 
+                                                                                                     runInfos.FirstOrDefault()?.
+                                                                                                     TestCases.FirstOrDefault()?.
+                                                                                                     DisplayName;
+                                                                              
 
-                if (! await resultChannel.OpenChannel(message))
+                if (!await resultChannel.OpenChannel(message))
                     return;
                 try
                 {
-                    await RunTests(groups);
+                    await RunTests(() => runInfos);
                 }
                 finally
                 {
                     await resultChannel.CloseChannel();
                 }
             }
-;
         }
 
         public Task<IReadOnlyList<TestAssemblyViewModel>> Discover()
@@ -145,7 +149,7 @@ namespace Xunit.Runners
             return result;
         }
 
-        Task RunTests(Func<List<AssemblyRunInfo>> testCaseAccessor)
+        Task RunTests(Func<IReadOnlyList<AssemblyRunInfo>> testCaseAccessor)
         {
             var tcs = new TaskCompletionSource<object>(null);
 
@@ -185,7 +189,7 @@ namespace Xunit.Runners
                 }
             };
 
-#if WINDOWS_APP || WINDOWS_PHONE || WINDOWS_PHONE_APP
+#if WINDOWS_APP || WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_UWP
             var fireAndForget = Windows.System.Threading.ThreadPool.RunAsync(_ => handler());
 #else
             ThreadPool.QueueUserWorkItem(_ => handler());
@@ -210,7 +214,7 @@ namespace Xunit.Runners
                 }
             };
 
-#if WINDOWS_APP || WINDOWS_PHONE || WINDOWS_PHONE_APP
+#if WINDOWS_APP || WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_UWP
             var fireAndForget = Windows.System.Threading.ThreadPool.RunAsync(_ => handler());
 #else
             ThreadPool.QueueUserWorkItem(_ => handler());

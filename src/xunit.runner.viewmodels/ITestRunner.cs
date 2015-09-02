@@ -10,9 +10,8 @@ namespace Xunit.Runners
     {
         Task Run(TestCaseViewModel test);
         Task Run(IEnumerable<TestCaseViewModel> tests, string message = null);
+        Task Run(IReadOnlyList<AssemblyRunInfo> runInfos, string message = null);
 
         Task<IReadOnlyList<TestAssemblyViewModel>> Discover();
-
-        IReadOnlyCollection<Assembly> TestAssemblies { get; }
     }
 }
