@@ -6,8 +6,6 @@ using System.Reflection;
 using Xamarin.Forms;
 using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
-using Xunit.Runners.ViewModels;
-
 
 namespace Xunit.Runners
 {
