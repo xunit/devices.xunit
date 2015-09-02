@@ -57,7 +57,7 @@ namespace Xunit.Runners.ViewModels
 
         }
    
-        private void UpdateCaption()
+        void UpdateCaption()
         {
             var count = allTests.Count;
             
@@ -155,7 +155,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref searchQuery, value))
                 {
-                    this.FilterAfterDelay();
+                    FilterAfterDelay();
                 }
             }
         }
@@ -167,7 +167,7 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref resultFilter, value))
                 {
-                    this.FilterAfterDelay();
+                    FilterAfterDelay();
                 }
             }
         }
@@ -179,8 +179,8 @@ namespace Xunit.Runners.ViewModels
             {
                 if (Set(ref isBusy, value))
                 {
-                    this.runAllTestsCommand.RaiseCanExecuteChanged();
-                    this.runFilteredTestsCommand.RaiseCanExecuteChanged();
+                    runAllTestsCommand.RaiseCanExecuteChanged();
+                    runFilteredTestsCommand.RaiseCanExecuteChanged();
         }
             }
         }
@@ -231,16 +231,12 @@ namespace Xunit.Runners.ViewModels
 
         private void FilterAfterDelay()
         {
-            if (this.filterCancellationTokenSource != null)
-            {
-                this.filterCancellationTokenSource.Cancel();
-            }
+            filterCancellationTokenSource?.Cancel();
 
-            this.filterCancellationTokenSource = new CancellationTokenSource();
+            filterCancellationTokenSource = new CancellationTokenSource();
             var token = this.filterCancellationTokenSource.Token;
 
-            Task
-                .Delay(500, token)
+            Task.Delay(500, token)
                 .ContinueWith(
                     x =>
                     {
@@ -251,7 +247,7 @@ namespace Xunit.Runners.ViewModels
                     TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        private async void RunFilteredTests()
+        async void RunFilteredTests()
         {
             try
             {
@@ -264,11 +260,11 @@ namespace Xunit.Runners.ViewModels
             }
         }
 
-        private class TestComparer : IComparer<TestCaseViewModel>
+        class TestComparer : IComparer<TestCaseViewModel>
         {
             public int Compare(TestCaseViewModel x, TestCaseViewModel y)
             {
-                int compare = string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase);
+                var compare = string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase);
                 if (compare != 0)
                 {
                     return compare;

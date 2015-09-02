@@ -11,28 +11,28 @@ using System.Threading.Tasks;
 namespace Xunit.Runners.Utilities
 {
 
-    internal class FilteredCollectionView<T, TFilterArg> : IList<T>, IList, INotifyCollectionChanged, IDisposable
+    class FilteredCollectionView<T, TFilterArg> : IList<T>, IList, INotifyCollectionChanged, IDisposable
     {
-        private readonly ObservableCollection<T> dataSource;
-        private readonly SortedList<T> filteredList;
-        private readonly Func<T, TFilterArg, bool> filter;
+        readonly ObservableCollection<T> dataSource;
+        readonly SortedList<T> filteredList;
+        readonly Func<T, TFilterArg, bool> filter;
 
         public FilteredCollectionView(ObservableCollection<T> dataSource, Func<T, TFilterArg, bool> filter, TFilterArg filterArgument, IComparer<T> sort)
         {
-            if (dataSource == null) throw new ArgumentNullException("dataSource");
-            if (filter == null) throw new ArgumentNullException("filter");
-            if (sort == null) throw new ArgumentNullException("sort");
+            if (dataSource == null) throw new ArgumentNullException(nameof(dataSource));
+            if (filter == null) throw new ArgumentNullException(nameof(filter));
+            if (sort == null) throw new ArgumentNullException(nameof(sort));
 
             this.dataSource = dataSource;
             this.filter = filter;
             this.filterArgument = filterArgument;
-            this.filteredList = new SortedList<T>(sort);
+            filteredList = new SortedList<T>(sort);
 
-            this.dataSource.CollectionChanged += this.dataSource_CollectionChanged;
+            this.dataSource.CollectionChanged += dataSource_CollectionChanged;
 
             foreach (var item in this.dataSource)
             {
-                this.OnAdded(item);
+                OnAdded(item);
             }
         }
 
@@ -46,153 +46,145 @@ namespace Xunit.Runners.Utilities
 
         protected virtual void OnItemChanged(T sender, PropertyChangedEventArgs args)
         {
-            var itemChanged = this.ItemChanged;
-            if (itemChanged != null)
-            {
-                itemChanged(sender, args);
-            }
+            var itemChanged = ItemChanged;
+            itemChanged?.Invoke(sender, args);
         }
 
-        private TFilterArg filterArgument;
+        TFilterArg filterArgument;
         public TFilterArg FilterArgument
         {
-            get { return this.filterArgument; }
+            get { return filterArgument; }
             set
             {
-                this.filterArgument = value;
-                this.RefreshFilter();
+                filterArgument = value;
+                RefreshFilter();
             }
         }
 
-        private void RefreshFilter()
+        void RefreshFilter()
         {
-            this.filteredList.Clear();
+            filteredList.Clear();
 
-            foreach (var item in this.dataSource)
+            foreach (var item in dataSource)
             {
-                if (this.filter(item, this.filterArgument))
+                if (filter(item, filterArgument))
                 {
-                    this.filteredList.Add(item);
+                    filteredList.Add(item);
                 }
             }
 
-            this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        private void dataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void dataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (T item in e.NewItems)
                     {
-                        this.OnAdded(item);
+                        OnAdded(item);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (T item in e.OldItems)
                     {
-                        this.OnRemoved(item);
+                        OnRemoved(item);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     foreach (T item in e.OldItems)
                     {
-                        this.OnRemoved(item);
+                        OnRemoved(item);
                     }
 
                     foreach (T item in e.NewItems)
                     {
-                        this.OnAdded(item);
+                        OnAdded(item);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     throw new NotSupportedException();
-                default:
-                    break;
             }
         }
 
-        private void OnAdded(T item)
+        void OnAdded(T item)
         {
-            if (this.filter(item, this.filterArgument))
+            if (filter(item, filterArgument))
             {
-                int index = this.filteredList.IndexOf(item);
+                var index = filteredList.IndexOf(item);
                 if (index < 0)
                 {
-                    this.filteredList.Insert(~index, item);
-                    this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
+                    filteredList.Insert(~index, item);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
                 }
             }
 
             var observable = item as INotifyPropertyChanged;
             if (observable != null)
             {
-                observable.PropertyChanged += this.dataSource_ItemChanged;
+                observable.PropertyChanged += dataSource_ItemChanged;
             }
         }
 
-        private void OnRemoved(T item)
+        void OnRemoved(T item)
         {
             var observable = item as INotifyPropertyChanged;
             if (observable != null)
             {
-                observable.PropertyChanged -= this.dataSource_ItemChanged;
+                observable.PropertyChanged -= dataSource_ItemChanged;
             }
 
-            int index = this.filteredList.IndexOf(item);
+            int index = filteredList.IndexOf(item);
             if (index >= 0)
             {
-                this.filteredList.RemoveAt(index);
-                this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+                filteredList.RemoveAt(index);
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
             }
         }
 
-        private void dataSource_ItemChanged(object sender, PropertyChangedEventArgs e)
+        void dataSource_ItemChanged(object sender, PropertyChangedEventArgs e)
         {
             var item = (T)sender;
-            int index = this.filteredList.IndexOf(item);
-            if (this.filter(item, this.FilterArgument))
+            var index = filteredList.IndexOf(item);
+            if (filter(item, FilterArgument))
             {
                 if (index < 0)
                 {
-                    this.filteredList.Insert(~index, item);
-                    this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
+                    filteredList.Insert(~index, item);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, ~index));
                 }
             }
             else if (index >= 0)
             {
-                this.filteredList.RemoveAt(index);
-                this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+                filteredList.RemoveAt(index);
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
             }
 
-            this.OnItemChanged(item, e);
+            OnItemChanged(item, e);
         }
 
         public void Dispose()
         {
-            this.dataSource.CollectionChanged -= this.dataSource_CollectionChanged;
+            dataSource.CollectionChanged -= dataSource_CollectionChanged;
 
-            foreach (var item in this.dataSource.OfType<INotifyPropertyChanged>())
+            foreach (var item in dataSource.OfType<INotifyPropertyChanged>())
             {
-                item.PropertyChanged -= this.dataSource_ItemChanged;
+                item.PropertyChanged -= dataSource_ItemChanged;
             }
 
-            this.filteredList.Clear();
+            filteredList.Clear();
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
-            var collectionChanged = this.CollectionChanged;
-            if (collectionChanged != null)
-            {
-                collectionChanged(this, args);
-            }
+            var collectionChanged = CollectionChanged;
+            collectionChanged?.Invoke(this, args);
         }
 
         public void Add(T item)
@@ -207,23 +199,17 @@ namespace Xunit.Runners.Utilities
 
         public bool Contains(T item)
         {
-            return this.filteredList.Contains(item);
+            return filteredList.Contains(item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            this.filteredList.CopyTo(array, arrayIndex);
+            filteredList.CopyTo(array, arrayIndex);
         }
 
-        public int Count
-        {
-            get { return this.filteredList.Count; }
-        }
+        public int Count => filteredList.Count;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(T item)
         {
@@ -232,17 +218,17 @@ namespace Xunit.Runners.Utilities
 
         public IEnumerator<T> GetEnumerator()
         {
-            return this.filteredList.GetEnumerator();
+            return filteredList.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public int IndexOf(T item)
         {
-            return this.filteredList.IndexOf(item);
+            return filteredList.IndexOf(item);
         }
 
         public void Insert(int index, T item)
@@ -259,7 +245,7 @@ namespace Xunit.Runners.Utilities
         {
             get
             {
-                return this.filteredList[index];
+                return filteredList[index];
             }
             set
             {
@@ -279,12 +265,12 @@ namespace Xunit.Runners.Utilities
 
         bool IList.Contains(object value)
         {
-            return this.Contains((T)value);
+            return Contains((T)value);
         }
 
         int IList.IndexOf(object value)
         {
-            return this.IndexOf((T)value);
+            return IndexOf((T)value);
         }
 
         void IList.Insert(int index, object value)
@@ -292,10 +278,7 @@ namespace Xunit.Runners.Utilities
             throw new NotSupportedException();
         }
 
-        bool IList.IsFixedSize
-        {
-            get { return false; }
-        }
+        bool IList.IsFixedSize => false;
 
         void IList.Remove(object value)
         {
@@ -315,18 +298,12 @@ namespace Xunit.Runners.Utilities
 
         void ICollection.CopyTo(Array array, int index)
         {
-            this.filteredList.CopyTo((T[])array, index);
+            filteredList.CopyTo((T[])array, index);
         }
 
-        bool ICollection.IsSynchronized
-        {
-            get { return false; }
-        }
+        bool ICollection.IsSynchronized => false;
 
-        object ICollection.SyncRoot
-        {
-            get { return this; }
-        }
+        object ICollection.SyncRoot => this;
     }
 
 }
