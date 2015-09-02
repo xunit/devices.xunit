@@ -5,9 +5,53 @@
     xmlns:local="using:Xunit.Runners.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:runners="using:Xunit.Runners"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <RelativePanel>
+            <SearchBox RelativePanel.AlignLeftWithPanel="True"
+                       RelativePanel.LeftOf="resultFilter"
+                PlaceholderText="filter" QueryText="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
+            <ComboBox x:Name="resultFilter" RelativePanel.AlignRightWithPanel="True"
+                      Width="100" SelectedIndex="0" SelectionChanged="resultFilter_SelectionChanged"
+                >
+                <ComboBoxItem Content="All"/>
+                <ComboBoxItem Content="Passed"/>
+                <ComboBoxItem Content="Failed"/>
+                <ComboBoxItem Content="Skipped"/>
+                <ComboBoxItem Content="Not Run"/>
+            </ComboBox>
+        </RelativePanel>
+        <ListView Grid.Row="1"
+                  SelectionMode="Single"
+            ItemsSource="{x:Bind ViewModel.TestCases}" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="runners:TestCaseViewModel">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind DisplayName}" />
+                        <TextBlock Text="{x:Bind Message, Mode=OneWay}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <RelativePanel Grid.Row="2">
+            <Button 
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.LeftOf="allButton"
+                Content="Run Filtered"
+                Command="{x:Bind ViewModel.RunFilteredTestsCommand}"
+                />
+            <Button x:Name="allButton"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Command="{x:Bind ViewModel.RunAllTestsCommand}"
+                    Content="Run All" />
+        </RelativePanel>
     </Grid>
 </Page>

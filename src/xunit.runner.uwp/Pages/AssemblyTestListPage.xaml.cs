@@ -30,5 +30,46 @@ namespace Xunit.Runners.Pages
         }
 
         public TestAssemblyViewModel ViewModel { get; set; }
+
+        void resultFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var i = resultFilter.SelectedIndex;
+
+            var state = TestState.All;
+
+
+            switch (i)
+            {
+                case 0:
+                    state = TestState.All;
+                    break;
+
+                case 1:
+                    state = TestState.Passed;
+                    break;
+
+                case 2:
+                    state = TestState.Failed;
+                    break;
+
+                case 3:
+                    state = TestState.Skipped;
+                    break;
+
+                case 4:
+                    state = TestState.NotRun;
+                    break;
+
+            }
+
+            if (ViewModel != null)
+                ViewModel.ResultFilter = state;
+        }
+
+        void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var vm = e.AddedItems.Cast<TestCaseViewModel>().FirstOrDefault();
+            vm?.NavigateToResultCommand.Execute(null);
+        }
     }
 }

@@ -26,9 +26,9 @@ namespace Xunit.Runners.Pages
         {
             this.InitializeComponent();
 
-            DataContextChanged += (sender, args) => { ViewModel = DataContext as TestCaseViewModel; };
+            DataContextChanged += (sender, args) => { ViewModel = DataContext as TestResultViewModel; };
         }
 
-        public TestCaseViewModel ViewModel { get; set; }
+        public TestResultViewModel ViewModel { get; set; }
     }
 }
