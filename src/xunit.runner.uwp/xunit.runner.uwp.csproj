@@ -107,7 +107,15 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <DocumentationFile>bin\x86\Release\xunit.runner.devices.XML</DocumentationFile>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- example NuSpec file that must be specified -->
+    <NuSpecFile Include="$(SolutionDir)src\xunit.runner.devices.nuspec">
+      <Visible>False</Visible>
+    </NuSpecFile>
+  </ItemGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />

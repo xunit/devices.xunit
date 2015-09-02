@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
     <id>xunit.runner.devices</id>
     <version>1.2.0-rc3</version>
-    <title>xUnit.net for Devices [Xamarin iOS/Android/WP8/Win8.1 Runner]</title>
+    <title>xUnit.net for Devices [UWP/Xamarin iOS/Android/WP8/Win8.1 Runner]</title>
     <authors>Oren Novotny</authors>
     <owners />
-    <description>Includes support for running xUnit.net v2 tests on iOS, Android, WP8 and Win 8.1 devices</description>
-    <summary>Xamarin xUnit.net runner components for iOS, Android, WP8 and Win 8.1</summary>
-    <tags>xunit xamarin android ios monoandroid monotouch wp8 wpa81 win81 uwp tdd unit test</tags>
+    <description>Includes support for running xUnit.net v2 tests on iOS, Android, WP8, Win 8.1 and UWP devices</description>
+    <summary>Xamarin xUnit.net runner components for iOS, Android, WP8, Win 8.1 and UWP</summary>
+    <tags>xunit uwp xamarin android ios monoandroid monotouch wp8 wpa81 win81 tdd unit test</tags>
     <language>en-US</language>
     <projectUrl>https://github.com/xunit/devices.xunit</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</iconUrl>
@@ -20,6 +20,28 @@
         <dependency id="xunit.runner.utility" version="2.1.0-rc1-build3141" />
         <dependency id="Xamarin.Forms" version="1.4.4.6392" />
       </group>
+      <group targetFramework="uap10.0">
+        <dependency id="System.Collections" version="4.0.10" />
+        <dependency id="System.Collections.Concurrent" version="4.0.10" />
+        <dependency id="System.Diagnostics.Debug" version="4.0.10" />
+        <dependency id="System.Diagnostics.Tools" version="4.0.0" />
+        <dependency id="System.Globalization" version="4.0.10" />
+        <dependency id="System.IO" version="4.0.10" />
+        <dependency id="System.Linq" version="4.0.0" />
+        <dependency id="System.ObjectModel" version="4.0.10" />
+        <dependency id="System.Reflection" version="4.0.10" />
+        <dependency id="System.Runtime" version="4.0.20" />
+        <dependency id="System.Runtime.Extensions" version="4.0.10" />
+        <dependency id="System.Runtime.InteropServices.WindowsRuntime" version="4.0.0" />
+        <dependency id="System.Runtime.WindowsRuntime" version="4.0.10" />
+        <dependency id="System.Text.Encoding" version="4.0.10" />
+        <dependency id="System.Threading" version="4.0.10" />
+        <dependency id="System.Threading.Tasks" version="4.0.10" />
+        <dependency id="System.Xml.XDocument" version="4.0.10" />
+        <dependency id="xunit.abstractions" version="2.0.0" />
+        <dependency id="xunit.runner.utility" version="2.1.0-rc1-build3141" />
+        <dependency id="xunit.core" version="2.1.0-rc1-build3141" />
+      </group>
     </dependencies>
   </metadata>
   <files>
@@ -27,46 +49,40 @@
     <file src="xunit.runner.android\bin\Release\xunit.runner.devices.dll" target="lib\MonoAndroid\xunit.runner.devices.dll" />
     <file src="xunit.runner.android\bin\Release\xunit.runner.devices.pdb" target="lib\MonoAndroid\xunit.runner.devices.pdb" />
     <file src="xunit.runner.android\bin\Release\xunit.runner.devices.xml" target="lib\MonoAndroid\xunit.runner.devices.xml" />
-
     <file src="build\xunit.runner.devices.targets" target="build\MonoTouch\xunit.runner.devices.targets" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.devices.dll" target="lib\MonoTouch\xunit.runner.devices.dll" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.devices.pdb" target="lib\MonoTouch\xunit.runner.devices.pdb" />
     <file src="xunit.runner.ios\bin\iPhone\Release\xunit.runner.devices.xml" target="lib\MonoTouch\xunit.runner.devices.xml" />
-    
     <file src="build\xunit.runner.devices.targets" target="build\Xamarin.iOS\xunit.runner.devices.targets" />
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.devices.dll" target="lib\Xamarin.iOS\xunit.runner.devices.dll" />
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.devices.pdb" target="lib\Xamarin.iOS\xunit.runner.devices.pdb" />
     <file src="xunit.runner.ios-unified\bin\iPhone\Release\xunit.runner.devices.xml" target="lib\Xamarin.iOS\xunit.runner.devices.xml" />
-
     <file src="build\xunit.runner.devices.targets" target="build\wp8\xunit.runner.devices.targets" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.dll" target="lib\wp8\xunit.runner.devices.dll" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.pdb" target="lib\wp8\xunit.runner.devices.pdb" />
     <file src="xunit.runner.wp8\bin\Release\xunit.runner.devices.xml" target="lib\wp8\xunit.runner.devices.xml" />
-
     <file src="build\xunit.runner.devices.targets" target="build\wpa81\xunit.runner.devices.targets" />
     <file src="xunit.runner.wpa81\bin\Release\xunit.runner.devices.dll" target="lib\wpa81\xunit.runner.devices.dll" />
     <file src="xunit.runner.wpa81\bin\Release\xunit.runner.devices.pdb" target="lib\wpa81\xunit.runner.devices.pdb" />
     <file src="xunit.runner.wpa81\bin\Release\xunit.runner.devices.xml" target="lib\wpa81\xunit.runner.devices.xml" />
     <file src="xunit.runner.wpa81\bin\Release\xunit.runner.devices.pri" target="lib\wpa81\xunit.runner.devices.pri" />
-
     <file src="build\xunit.runner.devices.targets" target="build\win81\xunit.runner.devices.targets" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.dll" target="lib\win81\xunit.runner.devices.dll" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.pdb" target="lib\win81\xunit.runner.devices.pdb" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.xml" target="lib\win81\xunit.runner.devices.xml" />
     <file src="xunit.runner.win81\bin\Release\xunit.runner.devices.pri" target="lib\win81\xunit.runner.devices.pri" />
-
-    
+    <file src="build\xunit.runner.devices.targets" target="build\uap10.0\xunit.runner.devices.targets" />
+    <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.dll" target="lib\uap10.0\xunit.runner.devices.dll" />
+    <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.pdb" target="lib\uap10.0\xunit.runner.devices.pdb" />
+    <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.xml" target="lib\uap10.0\xunit.runner.devices.xml" />
+    <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.pri" target="lib\uap10.0\xunit.runner.devices.pri" />
     <file src="xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp" target="content\MonoTouch\AppDelegate.cs.txt.pp" />
     <file src="xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp" target="content\Xamarin.iOS\AppDelegate.cs.txt.pp" />
-    
     <file src="xunit.runner.android\NuGet\MainActivity.cs.txt.pp" target="content\MonoAndroid\MainActivity.cs.txt.pp" />
-    
     <file src="xunit.runner.wp8\NuGet\MainPage.xaml.cs.txt.pp" target="content\wp8\MainPage.xaml.cs.txt.pp" />
     <file src="xunit.runner.wp8\NuGet\MainPage.xaml.txt.pp" target="content\wp8\MainPage.xaml.txt.pp" />
-
     <file src="xunit.runner.wpa81\NuGet\App.xaml.cs.txt.pp" target="content\wpa81\App.xaml.cs.txt.pp" />
     <file src="xunit.runner.wpa81\NuGet\App.xaml.txt.pp" target="content\wpa81\App.xaml.txt.pp" />
-
     <file src="xunit.runner.wpa81\NuGet\App.xaml.cs.txt.pp" target="content\win81\App.xaml.cs.txt.pp" />
     <file src="xunit.runner.wpa81\NuGet\App.xaml.txt.pp" target="content\win81\App.xaml.txt.pp" />
   </files>
