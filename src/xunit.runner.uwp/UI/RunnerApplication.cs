@@ -6,7 +6,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Xunit.Runners.UI
 {
@@ -51,16 +54,14 @@ namespace Xunit.Runners.UI
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
-            var rootFrame = Window.Current.Content ;
+            var rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
             {
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // TODO: Load state from previously suspended application
-                }
+                rootFrame = new Frame();
+                rootFrame.Navigated += OnNavigated;
 
                 // Place the frame in the current Window
 
@@ -68,21 +69,45 @@ namespace Xunit.Runners.UI
 
                 Initialized = true;
 
-                //var runner = new FormsRunner(executionAssembly, testAssemblies)
-                //{
-                //    TerminateAfterExecution = TerminateAfterExecution,
-                //    Writer = Writer,
-                //    AutoStart = AutoStart,
-                //};
+                RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
+                RunnerOptions.Current.AutoStart = AutoStart;
 
-            //    var page = new RunnerPage(runner);
+                var nav = new Navigator(rootFrame);
 
-              //  Window.Current.Content = page;
+                var runner = new DeviceRunner(executionAssembly, testAssemblies, nav, new ResultListener(Writer));
+                var hvm = new HomeViewModel(nav, runner);
+
+                nav.NavigateTo(NavigationPage.Home, hvm);
+
+              
+
+                Window.Current.Content = rootFrame;
             }
 
             // Ensure the current window is active
             Window.Current.Activate();
+            // Hook up the default Back handler
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
+            {
+                if (rootFrame.CanGoBack)
+                {
+                    args.Handled = true;
+                    rootFrame.GoBack();
+                }
+            };
+        }
 
+        void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            // Each time a navigation event occurs, update the Back button's visibility
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ((Frame)sender).CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+
+            var page = e.Content as Page;
+            if(page != null)
+                page.DataContext = e.Parameter;
         }
     }
 }

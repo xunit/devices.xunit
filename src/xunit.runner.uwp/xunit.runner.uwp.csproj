@@ -122,9 +122,40 @@
     <Compile Include="..\xunit.runner.win81\ResultListener.cs">
       <Link>ResultListener.cs</Link>
     </Compile>
+    <Compile Include="Navigator.cs" />
+    <Compile Include="Pages\AssemblyTestListPage.xaml.cs">
+      <DependentUpon>AssemblyTestListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CreditsPage.xaml.cs">
+      <DependentUpon>CreditsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TestResultPage.xaml.cs">
+      <DependentUpon>TestResultPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\RunnerApplication.cs" />
     <Content Include="Properties\xunit.runner.uwp.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Pages\AssemblyTestListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CreditsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TestResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
