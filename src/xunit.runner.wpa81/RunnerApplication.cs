@@ -71,12 +71,10 @@ namespace Xunit.Runners.UI
 
                 Initialized = true;
 
-                var runner = new FormsRunner(executionAssembly, testAssemblies)
-                {
-                    TerminateAfterExecution = TerminateAfterExecution,
-                    Writer = Writer,
-                    AutoStart = AutoStart,
-                };
+                RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
+                RunnerOptions.Current.AutoStart = AutoStart;
+
+                var runner = new FormsRunner(executionAssembly, testAssemblies, Writer);
 
                 var page = new RunnerPage(runner);
 

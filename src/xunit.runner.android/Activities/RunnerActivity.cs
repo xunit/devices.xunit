@@ -46,13 +46,10 @@ namespace Xunit.Runners.UI
 
             Forms.Init(this, bundle);
 
-            
-            runner = new FormsRunner(executionAssembly, testAssemblies)
-            {
-                TerminateAfterExecution = TerminateAfterExecution,
-                Writer = Writer,
-                AutoStart = AutoStart
-            };
+            RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
+            RunnerOptions.Current.AutoStart = AutoStart;
+
+            runner = new FormsRunner(executionAssembly, testAssemblies, Writer);
 
             Initialized = true;
 

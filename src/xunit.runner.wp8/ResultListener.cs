@@ -12,16 +12,14 @@ namespace Xunit.Runners
 {
     class ResultListener : IResultChannel
     {
-        readonly Func<TextWriter> writerFunc;
         TextWriter writer;
         int failed;
         int skipped;
         int passed;
 
-        public ResultListener(Func<TextWriter> writerFunc)
+        public ResultListener(TextWriter writer)
         {
-            if (writerFunc == null) throw new ArgumentNullException(nameof(writerFunc));
-            this.writerFunc = writerFunc;
+            this.writer = writer;
         }
 
         public void RecordResult(TestResultViewModel result)
@@ -68,7 +66,6 @@ namespace Xunit.Runners
 
         public Task<bool> OpenChannel(string message = null)
         {
-            writer = writerFunc();
             var r = OpenWriter(message);
 
             return Task.FromResult(r);

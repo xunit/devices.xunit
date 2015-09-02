@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Xunit.Runners.Utilities
 {
-    internal static class Commands
+    static class Commands
     {
         static Commands()
         {
@@ -17,7 +17,7 @@ namespace Xunit.Runners.Utilities
 
         public static ICommand LaunchUrl { get; private set; }
 
-        private static void OnLaunchUrl(string str)
+        static void OnLaunchUrl(string str)
         {
             Device.OpenUri(new Uri(str));
         }
