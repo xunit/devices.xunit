@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceRunner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INavigation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IResultChannel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestRunner.cs" />

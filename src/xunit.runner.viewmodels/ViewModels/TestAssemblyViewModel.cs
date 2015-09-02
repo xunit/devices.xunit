@@ -15,24 +15,22 @@ namespace Xunit.Runners.ViewModels
 {
     public class TestAssemblyViewModel : ViewModelBase
     {
-        private readonly INavigation navigation;
-        private readonly ITestRunner runner;
-        private readonly DelegateCommand runAllTestsCommand;
-        private readonly DelegateCommand runFilteredTestsCommand;
-        private string detailText;
-        private Color displayColor;
-        private string displayName;
-        private TestState result;
-        private bool isBusy;
-        private string searchQuery;
-        private TestState resultFilter;
-        private readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
-        private readonly ObservableCollection<TestCaseViewModel> allTests; 
-        private CancellationTokenSource filterCancellationTokenSource;
+        readonly ITestRunner runner;
+        readonly DelegateCommand runAllTestsCommand;
+        readonly DelegateCommand runFilteredTestsCommand;
+        string detailText;
+        Color displayColor;
+        string displayName;
+        TestState result;
+        bool isBusy;
+        string searchQuery;
+        TestState resultFilter;
+        readonly FilteredCollectionView<TestCaseViewModel, Tuple<string, TestState>> filteredTests;
+        readonly ObservableCollection<TestCaseViewModel> allTests; 
+        CancellationTokenSource filterCancellationTokenSource;
 
-        internal TestAssemblyViewModel(INavigation navigation, IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
+        internal TestAssemblyViewModel(IGrouping<string, TestCaseViewModel> @group, ITestRunner runner)
         {
-            this.navigation = navigation;
             this.runner = runner;
 
             runAllTestsCommand = new DelegateCommand(RunAllTests, () => !isBusy);
@@ -89,8 +87,7 @@ namespace Xunit.Runners.ViewModels
                 // No failures and all run
                 if (failure == 0 && notRun == 0)
                 {
-                    DetailText = string.Format("Success! {0} test{1}",
-                                             positive, positive == 1 ? string.Empty : "s");
+                    DetailText = $"Success! {positive} test{(positive == 1 ? string.Empty : "s")}";
                     DetailColor = Color.Green;
 
                     Result = TestState.Passed;
@@ -99,10 +96,7 @@ namespace Xunit.Runners.ViewModels
                 else if (failure > 0 || (notRun > 0 && notRun < count))
                 {
                     // we either have failures or some of the tests are not run
-                    DetailText = string.Format("{0} success, {1} failure{2}, {3} skip{4}, {5} not run",
-                                             positive, failure, failure > 1 ? "s" : String.Empty,
-                                             skipped, skipped > 1 ? "s" : String.Empty,
-                                             notRun);
+                    DetailText = $"{positive} success, {failure} failure{(failure > 1 ? "s" : String.Empty)}, {skipped} skip{(skipped > 1 ? "s" : String.Empty)}, {notRun} not run";
 
                     DetailColor = Color.Red;
 
@@ -110,18 +104,17 @@ namespace Xunit.Runners.ViewModels
                 }
                 else if (Result == TestState.NotRun)
                 {
-                    DetailText = string.Format("{0} test case{1}, {2}",
-                        count, count == 1 ? String.Empty : "s", Result);
+                    DetailText = $"{count} test case{(count == 1 ? String.Empty : "s")}, {Result}";
                     DetailColor = Color.Green;
                 }
             }
             
         }
 
-        private static bool IsTestFilterMatch(TestCaseViewModel test, Tuple<string, TestState> query)
+        static bool IsTestFilterMatch(TestCaseViewModel test, Tuple<string, TestState> query)
         {
-            if (test == null) throw new ArgumentNullException("test");
-            if (query == null) throw new ArgumentNullException("query");
+            if (test == null) throw new ArgumentNullException(nameof(test));
+            if (query == null) throw new ArgumentNullException(nameof(query));
 
             TestState? requiredTestState;
             switch (query.Item2)
@@ -216,20 +209,11 @@ namespace Xunit.Runners.ViewModels
         }
 
 
-        public IList<TestCaseViewModel> TestCases
-        {
-            get { return filteredTests; }
-        }
+        public IList<TestCaseViewModel> TestCases => filteredTests;
 
-        public ICommand RunAllTestsCommand
-        {
-            get { return runAllTestsCommand; }
-        }
+        public ICommand RunAllTestsCommand => runAllTestsCommand;
 
-        public ICommand RunFilteredTestsCommand
-        {
-            get { return runFilteredTestsCommand; }
-        }
+        public ICommand RunFilteredTestsCommand => runFilteredTestsCommand;
 
         private async void RunAllTests()
         {

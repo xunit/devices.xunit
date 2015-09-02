@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xunit.Abstractions;
-using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 
 namespace Xunit.Runners
@@ -89,10 +88,7 @@ namespace Xunit.Runners
 
             if (Result == TestState.Failed)
             {
-                await navigation.PushAsync(new TestResultPage()
-                {
-                    BindingContext = TestResult
-                });   
+                await navigation.NavigateTo(NavigationPage.TestResult, TestResult);
             }
 
         }

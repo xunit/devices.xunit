@@ -54,12 +54,12 @@ namespace Xunit.Runners
             var runner = new DeviceRunner(executionAssembly, testAssemblies, new ResultListener(() => Writer));
 
             var hp = new HomePage();
-            var vm = new HomeViewModel(hp.Navigation, runner);
+            var vm = new HomeViewModel(new Navigator(hp.Navigation), runner);
             
             
             hp.BindingContext = vm;
 
-            return new NavigationPage(hp);
+            return new Xamarin.Forms.NavigationPage(hp);
         }
     }
 }

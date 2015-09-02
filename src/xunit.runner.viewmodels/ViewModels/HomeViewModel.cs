@@ -3,16 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using Xamarin.Forms;
-using Xunit.Runners.Pages;
 using Xunit.Runners.UI;
 
 
@@ -20,13 +14,13 @@ namespace Xunit.Runners.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        private readonly INavigation navigation;
-        private readonly ITestRunner runner;
-        private readonly DelegateCommand runEverythingCommand;
+        readonly INavigation navigation;
+        readonly ITestRunner runner;
+        readonly DelegateCommand runEverythingCommand;
 
         public event EventHandler ScanComplete;
-        private ManualResetEventSlim mre = new ManualResetEventSlim(false);
-        private bool isBusy;
+        readonly ManualResetEventSlim mre = new ManualResetEventSlim(false);
+        bool isBusy;
 
         internal HomeViewModel(INavigation navigation, ITestRunner runner)
         {
@@ -37,10 +31,7 @@ namespace Xunit.Runners.ViewModels
             OptionsCommand = new DelegateCommand(OptionsExecute);
             CreditsCommand = new DelegateCommand(CreditsExecute);
             runEverythingCommand = new DelegateCommand(RunEverythingExecute, () => !isBusy);
-            NavigateToTestAssemblyCommand = new DelegateCommand<object>(async vm => await navigation.PushAsync(new AssemblyTestListPage()
-            {
-                BindingContext = vm
-            }));
+            NavigateToTestAssemblyCommand = new DelegateCommand<object>(async vm => await navigation.NavigateTo(NavigationPage.AssemblyTestList, vm));
 
 
 
@@ -52,17 +43,17 @@ namespace Xunit.Runners.ViewModels
         public ObservableCollection<TestAssemblyViewModel> TestAssemblies { get; private set; }
 
 
-        private void OptionsExecute()
+        void OptionsExecute()
         {
             Debug.WriteLine("Options");
         }
 
-        private async void CreditsExecute()
+        async void CreditsExecute()
         {
-            await navigation.PushAsync(new CreditsPage());
+            await navigation.NavigateTo(NavigationPage.Credits);
         }
 
-        private async void RunEverythingExecute()
+        async void RunEverythingExecute()
         {
             try
             {
@@ -106,7 +97,7 @@ namespace Xunit.Runners.ViewModels
                 // Back on UI thread
                 foreach (var group in allTests)
                 {
-                    var vm = new TestAssemblyViewModel(navigation, group, runner);
+                    var vm = new TestAssemblyViewModel(group, runner);
                     TestAssemblies.Add(vm);
                 }
 
