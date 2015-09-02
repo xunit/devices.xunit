@@ -3,36 +3,34 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
-using Xamarin.Forms.Platform.WinRT;
 
 namespace Xunit.Runners.UI
 {
-    public abstract class RunnerApplication : Windows.UI.Xaml.Application
+    public abstract class RunnerApplication : Application
     {
-        private TransitionCollection transitions;
-        private Assembly executionAssembly;
-        private readonly List<Assembly> testAssemblies = new List<Assembly>();
+        Assembly executionAssembly;
+        readonly List<Assembly> testAssemblies = new List<Assembly>();
 
         public bool TerminateAfterExecution { get; set; }
         public TextWriter Writer { get; set; }
         public bool AutoStart { get; set; }
         public bool Initialized { get; private set; }
-  
+
         protected abstract void OnInitializeRunner();
 
+        protected void AddExecutionAssembly(Assembly assembly)
+        {
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+
+            if (!Initialized)
+            {
+                executionAssembly = assembly;
+            }
+        }
 
         protected void AddTestAssembly(Assembly assembly)
         {
@@ -42,7 +40,7 @@ namespace Xunit.Runners.UI
                 testAssemblies.Add(assembly);
             }
         }
-        
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -52,9 +50,8 @@ namespace Xunit.Runners.UI
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Xamarin.Forms.Forms.Init(e);
 
-            var rootFrame = Window.Current.Content as RunnerPage;
+            var rootFrame = Window.Current.Content ;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -71,22 +68,21 @@ namespace Xunit.Runners.UI
 
                 Initialized = true;
 
-                var runner = new FormsRunner(executionAssembly, testAssemblies)
-                {
-                    TerminateAfterExecution = TerminateAfterExecution,
-                    Writer = Writer,
-                    AutoStart = AutoStart,
-                };
+                //var runner = new FormsRunner(executionAssembly, testAssemblies)
+                //{
+                //    TerminateAfterExecution = TerminateAfterExecution,
+                //    Writer = Writer,
+                //    AutoStart = AutoStart,
+                //};
 
-                var page = new RunnerPage(runner);
+            //    var page = new RunnerPage(runner);
 
-                Window.Current.Content = page;
+              //  Window.Current.Content = page;
             }
-            
+
             // Ensure the current window is active
             Window.Current.Activate();
 
         }
-        
     }
 }
