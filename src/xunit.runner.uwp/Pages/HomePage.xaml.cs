@@ -24,13 +24,13 @@ namespace Xunit.Runners.Pages
     {
         public HomePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataContextChanged += (sender, args) => { ViewModel = DataContext as HomeViewModel; };
         }
 
         public HomeViewModel ViewModel { get; set; }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var vm = e.AddedItems.Cast<TestAssemblyViewModel>().FirstOrDefault();
             if (vm != null)

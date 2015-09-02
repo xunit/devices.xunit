@@ -26,7 +26,7 @@ namespace Xunit.Runner
         Assembly executionAssembly;
         FormsRunner runner;
         // class-level declarations
-        UIWindow window;
+
         protected bool AutoStart { get; set; }
 
         protected bool Initialized { get; set; }
@@ -41,7 +41,7 @@ namespace Xunit.Runner
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
             Forms.Init();
 
@@ -54,7 +54,7 @@ namespace Xunit.Runner
 
             LoadApplication(runner);
 
-            return base.FinishedLaunching(app, options);
+            return base.FinishedLaunching(uiApplication, launchOptions);
         }
 
         protected void AddExecutionAssembly(Assembly assembly)
