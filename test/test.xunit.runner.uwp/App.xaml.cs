@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using test.xunit.pcltestlib;
+//using test.xunit.pcltestlib;
 using Xunit.Runners.UI;
 using Xunit.Sdk;
 
@@ -33,7 +33,7 @@ namespace test.xunit.runner.uwp
             AddTestAssembly(GetType().GetTypeInfo().Assembly);
             // otherwise you need to ensure that the test assemblies will 
             // become part of the app bundle
-            AddTestAssembly(typeof(PortableTests).GetTypeInfo().Assembly);
+      //      AddTestAssembly(typeof(PortableTests).GetTypeInfo().Assembly);
         }
 
     }
