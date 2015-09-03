@@ -76,8 +76,7 @@
     <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.pdb" target="lib\uap10.0\xunit.runner.devices.pdb" />
     <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.xml" target="lib\uap10.0\xunit.runner.devices.xml" />
     <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.pri" target="lib\uap10.0\xunit.runner.devices.pri" />
-    <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices.pri" target="lib\uap10.0\xunit.runner.devices.xr.xml" />
-    <file src="xunit.runner.uwp\bin\Release\Pages\*.*" target="lib\uap10.0\Pages" />
+    <file src="xunit.runner.uwp\bin\Release\xunit.runner.devices\**\*.*" target="lib\uap10.0\xunit.runner.devices" />    
     <file src="xunit.runner.ios\NuGet\AppDelegate.cs.txt.pp" target="content\MonoTouch\AppDelegate.cs.txt.pp" />
     <file src="xunit.runner.ios-unified\NuGet\AppDelegate-unified.cs.txt.pp" target="content\Xamarin.iOS\AppDelegate.cs.txt.pp" />
     <file src="xunit.runner.android\NuGet\MainActivity.cs.txt.pp" target="content\MonoAndroid\MainActivity.cs.txt.pp" />
