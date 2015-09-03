@@ -28,7 +28,7 @@ namespace test.xunit.runner.uwp
     {
         protected override void OnInitializeRunner()
         {
-            AddExecutionAssembly(typeof(ExtensibilityPointFactory).GetTypeInfo().Assembly);
+         //   AddExecutionAssembly(typeof(ExtensibilityPointFactory).GetTypeInfo().Assembly);
             // tests can be inside the main assembly
             AddTestAssembly(GetType().GetTypeInfo().Assembly);
             // otherwise you need to ensure that the test assemblies will 

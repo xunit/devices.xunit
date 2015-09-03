@@ -61,22 +61,38 @@ namespace Xunit.Runners.Visitors
             // Create the result VM on the UI thread as it updates properties
             context.Post(_ =>
                          {
-                             var result = new TestResultViewModel(testCase, testResult)
+                             TestResultViewModel result = null;
+                             try
                              {
-                                 Duration = TimeSpan.FromSeconds((double)testResult.ExecutionTime)
-                             };
+                                 result = new TestResultViewModel(testCase, testResult)
+                                 {
+                                     Duration = TimeSpan.FromSeconds((double)testResult.ExecutionTime)
+                                 };
 
 
-                             if (outcome == TestState.Failed)
-                             {
-                                 result.ErrorMessage = ExceptionUtility.CombineMessages((ITestFailed)testResult);
-                                 result.ErrorStackTrace = ExceptionUtility.CombineStackTraces((ITestFailed)testResult);
+                                 if (outcome == TestState.Failed)
+                                 {
+                                     result.ErrorMessage = ExceptionUtility.CombineMessages((ITestFailed)testResult);
+                                     result.ErrorStackTrace = ExceptionUtility.CombineStackTraces((ITestFailed)testResult);
+                                 }
                              }
+                             catch (Exception e)
+                             {
+                                 if (result == null)
+                                 {
+                                     throw;
+                                 }
+                                 result.ErrorMessage = "Error creating error message";
+                                 result.ErrorStackTrace = e.StackTrace;
+                             }
+                             
 
                              tcs.TrySetResult(result);
                          }, null);
 
+           
             var r = await tcs.Task;
+     
             listener.RecordResult(r); // bring it back to the threadpool thread
         }
     }

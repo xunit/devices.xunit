@@ -77,7 +77,8 @@ namespace Xunit.Runners
                      .Select(g => new AssemblyRunInfo
                      {
                          AssemblyFileName = g.Key,
-                         Configuration = ConfigReader.Load(g.Key),
+                         //Configuration = ConfigReader.Load(g.Key),
+                         Configuration = new TestAssemblyConfiguration(),
                          TestCases = g.ToList()
                      })
                      .ToList();
@@ -145,8 +146,9 @@ namespace Xunit.Runners
                         // Xunit needs the file name
                         var assemblyFileName = assm.GetName()
                                                    .Name + ".dll";
-                    
-                        var configuration = ConfigReader.Load(assemblyFileName);
+
+                        // var configuration = ConfigReader.Load(assemblyFileName);
+                        var configuration = new TestAssemblyConfiguration();
                         var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
 
                         try
