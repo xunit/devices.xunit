@@ -57,9 +57,9 @@ namespace Xunit.Runners
         {
             try
             {
-                StartAssemblyScan();
+                await StartAssemblyScan();
                 IsBusy = true;
-                //await Run();
+                await Run();
             }
             finally
             {
@@ -87,7 +87,7 @@ namespace Xunit.Runners
             }
         }
 
-        public async void StartAssemblyScan()
+        public async Task StartAssemblyScan()
         {
             IsBusy = true;
             try
