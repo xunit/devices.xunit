@@ -35,6 +35,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <DocumentationFile>bin\iPhone\Release\xunit.runner.devices.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\common\GlobalAssemblyInfo.cs">

@@ -40,6 +40,7 @@
     <DefineConstants>__IOS__;__MOBILE__;LINQ</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
     <DocumentationFile>bin\iPhone\Release\xunit.runner.devices.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\common\GlobalAssemblyInfo.cs">

@@ -37,6 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\xunit.runner.devices.XML</DocumentationFile>
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <!-- example NuSpec file that must be specified -->
