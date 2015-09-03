@@ -145,4 +145,30 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+
+  <!--
+    ============================================================
+                                        PriFilesOutputGroup
+
+    This target performs population of the pri files output group
+    ============================================================
+    -->
+  <Target
+      Name="DebugFilesFilesOutputGroupCustom"
+      BeforeTargets="AssignTargetPaths"
+      Condition="'@(_ReferenceRelatedPaths)' != ''"
+      DependsOnTargets="ResolveReferences"
+     >
+
+    <!-- This item represents dependent pdb file's -->
+    <ItemGroup>
+      <Content Include="@(_ReferenceRelatedPaths->'%(FullPath)')" Condition="'%(Extension)' == '.pdb'">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Visible>False</Visible>
+      </Content>
+    </ItemGroup>
+
+  </Target>
+
+
 </Project>

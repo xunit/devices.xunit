@@ -25,9 +25,15 @@
     http://go.microsoft.com/fwlink/?LinkId=613100
 -->
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Library Name="xunit.runner.uwp">
+  <Library Name="xunit.runner.devices">
 
   	<!-- add directives for your library here -->
 
+    <Assembly Name="xunit.core" Activate="Required All" Browse="Required All" Serialize="Required All" Dynamic="Required All" />
+    <Assembly Name="xunit.execution.dotnet" Activate="Required All" Browse="Required All" Serialize="Required All" Dynamic="Required All" />
+    <Assembly Name="xunit.runner.utility.dotnet" Activate="Required All" Browse="Required All" Serialize="Required All" Dynamic="Required All" />
+
+    <Type Name="System.Threading.ExecutionContext" Dynamic="Required All" Activate="Required All" />
+    <Type Name="System.Threading.ContextCallback" Dynamic="Required All" Activate="Required All" />
   </Library>
 </Directives>
