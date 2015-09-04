@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Android.Content.Res;
-using Android.Media;
 using Stream = System.IO.Stream;
 
 
@@ -22,7 +20,7 @@ namespace Xunit.Runners
             if (assets.Contains($"{assemblyName}.xunit.runner.json"))
                 return Assets.Open($"{assemblyName}.xunit.runner.json");
 
-            if (assets.Contains($"xunit.runner.json"))
+            if (assets.Contains("xunit.runner.json"))
                 return Assets.Open("xunit.runner.json");
 
             return null;
