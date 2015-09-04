@@ -283,6 +283,12 @@ namespace Xunit.Runners
 
         static Stream GetConfigurationStreamForAssembly(string assemblyName)
         {
+#if ANDROID
+            // See if there's a directory with the assm name. this might be the case for appx
+
+            return PlatformHelpers.ReadConfigJson(assemblyName);
+#else
+
             // See if there's a directory with the assm name. this might be the case for appx
             if (Directory.Exists(assemblyName))
             {
@@ -311,6 +317,7 @@ namespace Xunit.Runners
             }
 
             return null;
+#endif
         }
 
         static TestAssemblyConfiguration GetConfiguration(string assemblyName)

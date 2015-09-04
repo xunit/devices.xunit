@@ -28,6 +28,8 @@ namespace Xunit.Runners.UI
         {
             base.OnCreate(bundle);
 
+            PlatformHelpers.Assets = Assets;
+
             Forms.Init(this, bundle);
 
             RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
