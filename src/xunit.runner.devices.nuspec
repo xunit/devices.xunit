@@ -16,12 +16,12 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="xunit.core" version="2.1.0-rc1-build3146" />
-        <dependency id="xunit.runner.utility" version="2.1.0-rc1-build3146" />
+        <dependency id="xunit.core" version="2.1.0-rc1-build3148" />
+        <dependency id="xunit.runner.utility" version="2.1.0-rc1-build3148" />
         <dependency id="Xamarin.Forms" version="1.4.4.6392" />
       </group>
       <group targetFramework="uap10.0">
-        <dependency id="xunit.core" version="2.1.0-rc1-build3146" />
+        <dependency id="xunit.core" version="2.1.0-rc1-build3148" />
         <dependency id="System.Collections.Concurrent" version="4.0.10" />
         <dependency id="System.Xml.XDocument" version="4.0.10" />
         <dependency id="System.Collections" version="4.0.10" />
@@ -29,6 +29,7 @@
         <dependency id="System.Diagnostics.Tools" version="4.0.0" />
         <dependency id="System.Globalization" version="4.0.10" />
         <dependency id="System.IO" version="4.0.10" />
+        <dependency id="System.IO.FileSystem" version="4.0.0" />
         <dependency id="System.Linq" version="4.0.0" />
         <dependency id="System.ObjectModel" version="4.0.10" />
         <dependency id="System.Reflection" version="4.0.10" />

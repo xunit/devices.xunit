@@ -119,6 +119,8 @@
     <Compile Include="ResultListener.cs" />
     <Compile Include="RunnerPage.cs" />
     <Compile Include="ThreadPoolHelper.cs" />
+    <Compile Include="WinRTDirectory.cs" />
+    <Compile Include="WinRTFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">

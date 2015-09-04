@@ -77,8 +77,7 @@ namespace Xunit.Runners
                      .Select(g => new AssemblyRunInfo
                      {
                          AssemblyFileName = g.Key,
-                         //Configuration = ConfigReader.Load(g.Key),
-                         Configuration = new TestAssemblyConfiguration(),
+                         Configuration = GetConfiguration(Path.GetFileNameWithoutExtension(g.Key)),
                          TestCases = g.ToList()
                      })
                      .ToList();
@@ -147,8 +146,7 @@ namespace Xunit.Runners
                         var assemblyFileName = assm.GetName()
                                                    .Name + ".dll";
 
-                        // var configuration = ConfigReader.Load(assemblyFileName);
-                        var configuration = new TestAssemblyConfiguration();
+                        var configuration = GetConfiguration(assm.GetName().Name);
                         var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
 
                         try
@@ -281,6 +279,52 @@ namespace Xunit.Runners
             ThreadPoolHelper.RunAsync(handler);
 
             return @event;
+        }
+
+        static Stream GetConfigurationStreamForAssembly(string assemblyName)
+        {
+            // See if there's a directory with the assm name. this might be the case for appx
+            if (Directory.Exists(assemblyName))
+            {
+                if (File.Exists(Path.Combine(assemblyName, $"{assemblyName}.xunit.runner.json")))
+                {
+                    return File.OpenRead(Path.Combine(assemblyName, $"{assemblyName}.xunit.runner.json"));
+                }
+
+                if (File.Exists(Path.Combine(assemblyName, "xunit.runner.json")))
+                {
+                    return File.OpenRead(Path.Combine(assemblyName, "xunit.runner.json"));
+                }
+            }
+
+            // Fallback to working dir
+
+            // look for a file called assemblyName.xunit.runner.json first 
+            if (File.Exists($"{assemblyName}.xunit.runner.json"))
+            {
+                return File.OpenRead($"{assemblyName}.xunit.runner.json");
+            }
+
+            if (File.Exists("xunit.runner.json"))
+            {
+                return File.OpenRead("xunit.runner.json");
+            }
+
+            return null;
+        }
+
+        static TestAssemblyConfiguration GetConfiguration(string assemblyName)
+        {
+            var stream = GetConfigurationStreamForAssembly(assemblyName);
+            if(stream != null)
+            {
+                using (stream)
+                {
+                    return ConfigReader.Load(stream);
+                }
+            }
+
+            return new TestAssemblyConfiguration();
         }
     }
 }
