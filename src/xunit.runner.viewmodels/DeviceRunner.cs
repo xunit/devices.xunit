@@ -13,7 +13,6 @@ using Xunit.Runners.Visitors;
 namespace Xunit.Runners
 {
     /// <summary>
-    /// 
     /// </summary>
     public class DeviceRunner : ITestListener, ITestRunner
     {
@@ -26,7 +25,6 @@ namespace Xunit.Runners
         volatile bool cancelled;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="executionAssembly"></param>
         /// <param name="testAssemblies"></param>
@@ -41,12 +39,10 @@ namespace Xunit.Runners
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public IReadOnlyCollection<Assembly> TestAssemblies { get; }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="result"></param>
         public void RecordResult(TestResultViewModel result)
@@ -55,7 +51,6 @@ namespace Xunit.Runners
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="test"></param>
         /// <returns></returns>
@@ -65,7 +60,6 @@ namespace Xunit.Runners
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="tests"></param>
         /// <param name="message"></param>
@@ -87,7 +81,6 @@ namespace Xunit.Runners
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="runInfos"></param>
         /// <param name="message"></param>
@@ -98,10 +91,10 @@ namespace Xunit.Runners
             {
                 if (message == null)
                     message = runInfos.Count > 1 || runInfos.FirstOrDefault()
-                                                           ?.TestCases.Count > 1 ? "Run Multiple Tests" :
+                                                        ?.TestCases.Count > 1 ? "Run Multiple Tests" :
                                   runInfos.FirstOrDefault()
-                                         ?.TestCases.FirstOrDefault()
-                                         ?.DisplayName;
+                                      ?.TestCases.FirstOrDefault()
+                                      ?.DisplayName;
 
 
                 if (!await resultChannel.OpenChannel(message))
@@ -118,7 +111,6 @@ namespace Xunit.Runners
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         public Task<IReadOnlyList<TestAssemblyViewModel>> Discover()
@@ -146,7 +138,8 @@ namespace Xunit.Runners
                         var assemblyFileName = assm.GetName()
                                                    .Name + ".dll";
 
-                        var configuration = GetConfiguration(assm.GetName().Name);
+                        var configuration = GetConfiguration(assm.GetName()
+                                                                 .Name);
                         var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
 
                         try
@@ -184,6 +177,58 @@ namespace Xunit.Runners
 
 
             return result;
+        }
+
+        static TestAssemblyConfiguration GetConfiguration(string assemblyName)
+        {
+            var stream = GetConfigurationStreamForAssembly(assemblyName);
+            if (stream != null)
+            {
+                using (stream)
+                {
+                    return ConfigReader.Load(stream);
+                }
+            }
+
+            return new TestAssemblyConfiguration();
+        }
+
+        static Stream GetConfigurationStreamForAssembly(string assemblyName)
+        {
+#if ANDROID
+            // Android needs to read the config from its asset manager
+            return PlatformHelpers.ReadConfigJson(assemblyName);
+#else
+
+            // See if there's a directory with the assm name. this might be the case for appx
+            if (Directory.Exists(assemblyName))
+            {
+                if (File.Exists(Path.Combine(assemblyName, $"{assemblyName}.xunit.runner.json")))
+                {
+                    return File.OpenRead(Path.Combine(assemblyName, $"{assemblyName}.xunit.runner.json"));
+                }
+
+                if (File.Exists(Path.Combine(assemblyName, "xunit.runner.json")))
+                {
+                    return File.OpenRead(Path.Combine(assemblyName, "xunit.runner.json"));
+                }
+            }
+
+            // Fallback to working dir
+
+            // look for a file called assemblyName.xunit.runner.json first 
+            if (File.Exists($"{assemblyName}.xunit.runner.json"))
+            {
+                return File.OpenRead($"{assemblyName}.xunit.runner.json");
+            }
+
+            if (File.Exists("xunit.runner.json"))
+            {
+                return File.OpenRead("xunit.runner.json");
+            }
+
+            return null;
+#endif
         }
 
         Task RunTests(Func<IReadOnlyList<AssemblyRunInfo>> testCaseAccessor)
@@ -244,10 +289,10 @@ namespace Xunit.Runners
 
 
             var xunitTestCases = runInfo.TestCases.Select(tc => new
-                                                                {
-                                                                    vm = tc,
-                                                                    xunit = tc.TestCase
-                                                                })
+            {
+                vm = tc,
+                xunit = tc.TestCase
+            })
                                         .Where(tc => tc.xunit != null)
                                         .ToDictionary(tc => tc.xunit, tc => tc.vm);
             var executionOptions = TestFrameworkOptions.ForExecution(runInfo.Configuration);
@@ -279,59 +324,6 @@ namespace Xunit.Runners
             ThreadPoolHelper.RunAsync(handler);
 
             return @event;
-        }
-
-        static Stream GetConfigurationStreamForAssembly(string assemblyName)
-        {
-#if ANDROID
-            // See if there's a directory with the assm name. this might be the case for appx
-
-            return PlatformHelpers.ReadConfigJson(assemblyName);
-#else
-
-            // See if there's a directory with the assm name. this might be the case for appx
-            if (Directory.Exists(assemblyName))
-            {
-                if (File.Exists(Path.Combine(assemblyName, $"{assemblyName}.xunit.runner.json")))
-                {
-                    return File.OpenRead(Path.Combine(assemblyName, $"{assemblyName}.xunit.runner.json"));
-                }
-
-                if (File.Exists(Path.Combine(assemblyName, "xunit.runner.json")))
-                {
-                    return File.OpenRead(Path.Combine(assemblyName, "xunit.runner.json"));
-                }
-            }
-
-            // Fallback to working dir
-
-            // look for a file called assemblyName.xunit.runner.json first 
-            if (File.Exists($"{assemblyName}.xunit.runner.json"))
-            {
-                return File.OpenRead($"{assemblyName}.xunit.runner.json");
-            }
-
-            if (File.Exists("xunit.runner.json"))
-            {
-                return File.OpenRead("xunit.runner.json");
-            }
-
-            return null;
-#endif
-        }
-
-        static TestAssemblyConfiguration GetConfiguration(string assemblyName)
-        {
-            var stream = GetConfigurationStreamForAssembly(assemblyName);
-            if(stream != null)
-            {
-                using (stream)
-                {
-                    return ConfigReader.Load(stream);
-                }
-            }
-
-            return new TestAssemblyConfiguration();
         }
     }
 }
