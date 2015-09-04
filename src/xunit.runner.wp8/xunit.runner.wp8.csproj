@@ -93,12 +93,6 @@
     <Compile Include="..\xunit.runner.win81\ThreadPoolHelper.cs">
       <Link>ThreadPoolHelper.cs</Link>
     </Compile>
-    <Compile Include="..\xunit.runner.win81\WinRTDirectory.cs">
-      <Link>WinRTDirectory.cs</Link>
-    </Compile>
-    <Compile Include="..\xunit.runner.win81\WinRTFile.cs">
-      <Link>WinRTFile.cs</Link>
-    </Compile>
     <Compile Include="Concurrent\CollectionDebugView.cs" />
     <Compile Include="Concurrent\ConcurrentBag.cs" />
     <Compile Include="Concurrent\ConcurrentDictionary.cs" />
