@@ -40,15 +40,15 @@ public class UWPRunnerTests
         Assert.Equal(10, i);
     }
 
-    //[Theory]
-    //[InlineData(2)]
-    //[InlineData(3)]
-    //[InlineData(4)]
-    //public void TestTheory(int i)
-    //{
-    //    // Will fail twice
-    //    Assert.Equal(0, i%2);
-    //}
+    [Theory]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    public void TestTheory(int i)
+    {
+        // Will fail twice
+        Assert.Equal(0, i % 2);
+    }
 
     [Fact(Skip ="not run")]
     public void SkippedTest()

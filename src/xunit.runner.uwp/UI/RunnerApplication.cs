@@ -15,6 +15,8 @@ namespace Xunit.Runners.UI
 {
     public abstract class RunnerApplication : Application
     {
+
+
         Assembly executionAssembly;
         readonly List<Assembly> testAssemblies = new List<Assembly>();
 
@@ -43,8 +45,7 @@ namespace Xunit.Runners.UI
                 testAssemblies.Add(assembly);
             }
         }
-
-
+        
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
@@ -53,6 +54,7 @@ namespace Xunit.Runners.UI
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Resources.MergedDictionaries.Add(new DeviceResources());
 
             var rootFrame = Window.Current.Content as Frame;
 
