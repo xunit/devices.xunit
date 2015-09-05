@@ -8,14 +8,18 @@
     xmlns:runners="using:Xunit.Runners"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="4">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition/>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <RelativePanel>
+        <TextBlock Text="{x:Bind ViewModel.DisplayName}" Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}"/>
+        <ProgressBar Grid.Row="1" Height="10" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+        <RelativePanel Grid.Row="2">
             <SearchBox RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.LeftOf="resultFilter"
                 PlaceholderText="filter" QueryText="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
@@ -29,19 +33,22 @@
                 <ComboBoxItem Content="Not Run"/>
             </ComboBox>
         </RelativePanel>
-        <ListView Grid.Row="1"
+        <ListView Grid.Row="3"
                   SelectionMode="Single"
-            ItemsSource="{x:Bind ViewModel.TestCases}" SelectionChanged="ListView_SelectionChanged">
+            ItemsSource="{x:Bind ViewModel.TestCases}" SelectionChanged="ListView_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="runners:TestCaseViewModel">
                     <StackPanel>
-                        <TextBlock Text="{x:Bind DisplayName}" />
-                        <TextBlock Text="{x:Bind Message, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind DisplayName}" Style="{StaticResource SubtitleTextBlockStyle}"  />
+                        <TextBlock Text="{x:Bind Message, Mode=OneWay}"
+                                   Foreground="{x:Bind RunStatus, Converter={StaticResource RunStatusToColorConverter}, Mode=OneWay}"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <RelativePanel Grid.Row="2">
+        <RelativePanel Grid.Row="4">
             <Button 
                 RelativePanel.AlignLeftWithPanel="True"
                 RelativePanel.LeftOf="allButton"

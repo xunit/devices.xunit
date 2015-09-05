@@ -8,11 +8,8 @@
     xmlns:runners="using:Xunit.Runners"
     xmlns:utilities="using:Xunit.Runners.Utilities"
     mc:Ignorable="d">
-    <Page.Resources>
-        
-    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="4">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,12 +22,12 @@
         <ProgressBar Grid.Row="1" Height="10" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
         <TextBlock Text="Test Assemblies" Grid.Row="2" Style="{StaticResource SubheaderTextBlockStyle}"/>
         <ListView Grid.Row="3" SelectionMode="Single"
-                  ItemsSource="{x:Bind ViewModel.TestAssemblies}" SelectionChanged="ListView_SelectionChanged" ItemContainerStyle="{StaticResource ListStyle}">
+                  ItemsSource="{x:Bind ViewModel.TestAssemblies}" SelectionChanged="ListView_SelectionChanged" ItemContainerStyle="{StaticResource ListStyle}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="runners:TestAssemblyViewModel">
                     <StackPanel>
                         <TextBlock Text="{x:Bind DisplayName}" Style="{StaticResource SubtitleTextBlockStyle}" />
-                        <TextBlock Text="{x:Bind DetailText, Mode=OneWay}" Foreground="{x:Bind RunStatus, Converter={StaticResource RunStatusToColorConverter}, Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind DetailText, Mode=OneWay}" Foreground="{x:Bind RunStatus, Converter={StaticResource RunStatusToColorConverter}, Mode=OneWay}" Style="{StaticResource BodyTextBlockStyle}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

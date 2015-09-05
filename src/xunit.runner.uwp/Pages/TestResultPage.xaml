@@ -9,8 +9,20 @@
     
     >
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="{x:Bind ViewModel.ErrorMessage}" />
-        <TextBlock Text="{x:Bind ViewModel.ErrorStackTrace}" />
-    </StackPanel>
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto"
+        HorizontalScrollMode="Auto"
+        VerticalScrollMode="Auto"
+        Padding="4"
+                  >
+        <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <TextBlock Text="{x:Bind ViewModel.TestCase.DisplayName}" Style="{StaticResource SubheaderTextBlockStyle}"/>
+            <TextBlock Text="{x:Bind ViewModel.ErrorMessage}" 
+                   Style="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock Text="{x:Bind ViewModel.ErrorStackTrace}"  
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   />
+        </StackPanel>
+    </ScrollViewer>
 </Page>
