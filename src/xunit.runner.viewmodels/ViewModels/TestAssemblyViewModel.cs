@@ -52,7 +52,7 @@ namespace Xunit.Runners
             filteredTests.CollectionChanged += (sender, args) => UpdateCaption();
 
             Result = TestState.NotRun;
-            RunStatus = RunStatus.Ok;
+            RunStatus = RunStatus.NotRun;
 
             UpdateCaption();
         }
@@ -245,14 +245,37 @@ namespace Xunit.Runners
                     // we either have failures or some of the tests are not run
                     DetailText = $"{positive} success, {failure} failure{(failure > 1 ? "s" : string.Empty)}, {skipped} skip{(skipped > 1 ? "s" : string.Empty)}, {notRun} not run";
 
-                    RunStatus = RunStatus.Failed;
-
-                    Result = TestState.Failed;
+                    if (failure > 0) // always show a fail
+                    {
+                        RunStatus = RunStatus.Failed; 
+                        Result = TestState.Failed;
+                    }
+                    else
+                    {
+                        if (positive > 0)
+                        {
+                            RunStatus = RunStatus.Ok;
+                            Result = TestState.Passed;
+                        }
+                        else if (skipped > 0)
+                        {
+                            RunStatus = RunStatus.Skipped;
+                            Result = TestState.Skipped;
+                        }
+                        else
+                        {
+                            // just not run
+                            RunStatus = RunStatus.NotRun;
+                            Result = TestState.NotRun;
+                        }
+                        
+                    }
+                    
                 }
                 else if (Result == TestState.NotRun)
                 {
                     DetailText = $"{count} test case{(count == 1 ? string.Empty : "s")}, {Result}";
-                    RunStatus = RunStatus.Ok;
+                    RunStatus = RunStatus.NotRun;
                 }
             }
         }
