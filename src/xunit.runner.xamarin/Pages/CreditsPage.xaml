@@ -10,7 +10,7 @@
             <TableRoot>
                 <TableSection>
                     <TextCell Text="About xUnit" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="http://xunit.github.io/" />
-                    <TextCell Text="About xUnit for Xamarin" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="https://github.com/xunit/xamarin.xunit" />
+                    <TextCell Text="About xUnit for Devices" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="https://github.com/xunit/devices.xunit" />
                     <TextCell Text="About Xamarin" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="http://xamarin.com" />
                     <TextCell Text="About Xamarin Forms" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="http://xamarin.com/forms" />
                 </TableSection>

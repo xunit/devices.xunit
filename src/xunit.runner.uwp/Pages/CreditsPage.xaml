@@ -7,7 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    <StackPanel Padding="4" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock Text="Credits" Style="{StaticResource HeaderTextBlockStyle}" />
+        <TextBlock Text="xUnit Device Runner"  Style="{StaticResource SubheaderTextBlockStyle}"/>
+        <TextBlock Text="Copyright © 2015 Outercurve Foundation"/>
+        <TextBlock Text="All rights reserved"/>
+        <TextBlock />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Author:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+            <HyperlinkButton NavigateUri="http://oren.codes"
+                Content="Oren Novotny"  VerticalAlignment="Center"/>
+        </StackPanel>
+        <HyperlinkButton Content="About xUnit"
+                         NavigateUri="http://xunit.github.io"/>
+        <HyperlinkButton Content="About xUnit for Devices"
+                         NavigateUri="https://github.com/xunit/devices.xunit"/>
+        
+    </StackPanel>
 </Page>
