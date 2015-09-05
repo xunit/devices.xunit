@@ -17,53 +17,33 @@ namespace Xunit.Runners
     public class DeviceRunner : ITestListener, ITestRunner
     {
         readonly SynchronizationContext context = SynchronizationContext.Current;
-        readonly Assembly executionAssembly;
+   
         readonly AsyncLock executionLock = new AsyncLock();
         readonly INavigation navigation;
         readonly IResultChannel resultChannel;
 
         volatile bool cancelled;
 
-        /// <summary>
-        /// </summary>
-        /// <param name="executionAssembly"></param>
-        /// <param name="testAssemblies"></param>
-        /// <param name="navigation"></param>
-        /// <param name="resultChannel"></param>
-        public DeviceRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, INavigation navigation, IResultChannel resultChannel)
+        public DeviceRunner(IReadOnlyCollection<Assembly> testAssemblies, INavigation navigation, IResultChannel resultChannel)
         {
-            this.executionAssembly = executionAssembly;
             this.navigation = navigation;
             TestAssemblies = testAssemblies;
             this.resultChannel = resultChannel;
         }
 
-        /// <summary>
-        /// </summary>
         public IReadOnlyCollection<Assembly> TestAssemblies { get; }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="result"></param>
+
         public void RecordResult(TestResultViewModel result)
         {
             resultChannel.RecordResult(result);
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="test"></param>
-        /// <returns></returns>
         public Task Run(TestCaseViewModel test)
         {
             return Run(new[] {test});
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="tests"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
         public Task Run(IEnumerable<TestCaseViewModel> tests, string message = null)
         {
             var groups =
@@ -80,11 +60,6 @@ namespace Xunit.Runners
             return Run(groups, message);
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="runInfos"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
         public async Task Run(IReadOnlyList<AssemblyRunInfo> runInfos, string message = null)
         {
             using (await executionLock.LockAsync())
@@ -110,9 +85,6 @@ namespace Xunit.Runners
             }
         }
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
         public Task<IReadOnlyList<TestAssemblyViewModel>> Discover()
         {
             return Task.Run<IReadOnlyList<TestAssemblyViewModel>>(() =>
@@ -122,8 +94,7 @@ namespace Xunit.Runners
                                                                                      .ToList();
                                                                   });
         }
-
-
+        
         IEnumerable<AssemblyRunInfo> DiscoverTestsInAssemblies()
         {
             var result = new List<AssemblyRunInfo>();

@@ -11,6 +11,8 @@ namespace Xunit.Runners
 {
     class FormsRunner : Application
     {
+
+        // ReSharper disable once NotAccessedField.Local
         readonly Assembly executionAssembly;
         readonly IReadOnlyCollection<Assembly> testAssemblies;
         readonly TextWriter writer;
@@ -31,7 +33,7 @@ namespace Xunit.Runners
             var hp = new HomePage();
             var nav = new Navigator(hp.Navigation);
 
-            var runner = new DeviceRunner(executionAssembly, testAssemblies, nav, new ResultListener(writer));
+            var runner = new DeviceRunner(testAssemblies, nav, new ResultListener(writer));
 
             var vm = new HomeViewModel(nav, runner);
 

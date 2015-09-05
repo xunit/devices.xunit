@@ -76,6 +76,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.runner.uwp", "src\xun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.uwp", "test\test.xunit.runner.uwp\test.xunit.runner.uwp.csproj", "{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "integration.uwp", "integration\integration.uwp\integration.uwp.csproj", "{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\xunit.runner.viewmodels\xunit.runner.devices.projitems*{265a64f3-d8c2-47b3-a9e1-7480a586da6b}*SharedItemsImports = 13
@@ -826,6 +828,8 @@ Global
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug .NET Native|x86.Build.0 = Release|x86
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug .NET Native|x86.Deploy.0 = Release|x86
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug|Any CPU.Build.0 = Debug|x86
+		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug|ARM.ActiveCfg = Debug|ARM
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug|ARM.Build.0 = Debug|ARM
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -857,6 +861,58 @@ Global
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Release|x86.ActiveCfg = Release|x86
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Release|x86.Build.0 = Release|x86
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1}.Release|x86.Deploy.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|Any CPU.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|Any CPU.Build.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|Any CPU.Deploy.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|ARM.ActiveCfg = Debug|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|ARM.Build.0 = Debug|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|ARM.Deploy.0 = Debug|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|iPhone.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|iPhone.Build.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|iPhone.Deploy.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|iPhoneSimulator.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|iPhoneSimulator.Build.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|iPhoneSimulator.Deploy.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|Mixed Platforms.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|Mixed Platforms.Build.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|Mixed Platforms.Deploy.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|x64.ActiveCfg = Debug|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|x64.Build.0 = Debug|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|x64.Deploy.0 = Debug|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|x86.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|x86.Build.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug .NET Native|x86.Deploy.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|ARM.ActiveCfg = Debug|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|ARM.Build.0 = Debug|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|ARM.Deploy.0 = Debug|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|iPhone.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|x64.ActiveCfg = Debug|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|x64.Build.0 = Debug|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|x64.Deploy.0 = Debug|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|x86.ActiveCfg = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|x86.Build.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Debug|x86.Deploy.0 = Debug|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|Any CPU.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|Any CPU.Build.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|Any CPU.Deploy.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|ARM.ActiveCfg = Release|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|ARM.Build.0 = Release|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|ARM.Deploy.0 = Release|ARM
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|iPhone.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|iPhoneSimulator.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|Mixed Platforms.Build.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|x64.ActiveCfg = Release|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|x64.Build.0 = Release|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|x64.Deploy.0 = Release|x64
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|x86.ActiveCfg = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|x86.Build.0 = Release|x86
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -884,5 +940,6 @@ Global
 		{265A64F3-D8C2-47B3-A9E1-7480A586DA6B} = {6B0F38C9-7CEE-4181-A47A-D9F4C626E618}
 		{CD8C2C87-0B12-4501-BE45-BEA8554CF548} = {6B0F38C9-7CEE-4181-A47A-D9F4C626E618}
 		{090EE10C-D741-4B6C-BC03-9DF1EDC9B7D1} = {88D90D4D-7706-4419-8177-C21123947D78}
+		{858E05E5-90AE-4DC4-B9C7-CB6540E0B886} = {F8D208A4-217E-46B7-A45B-E3259B0D0B73}
 	EndGlobalSection
 EndGlobal

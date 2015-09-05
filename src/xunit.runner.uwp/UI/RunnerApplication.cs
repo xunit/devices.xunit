@@ -15,9 +15,6 @@ namespace Xunit.Runners.UI
 {
     public abstract class RunnerApplication : Application
     {
-
-
-        Assembly executionAssembly;
         readonly List<Assembly> testAssemblies = new List<Assembly>();
 
         public bool TerminateAfterExecution { get; set; }
@@ -27,15 +24,7 @@ namespace Xunit.Runners.UI
 
         protected abstract void OnInitializeRunner();
 
-        protected void AddExecutionAssembly(Assembly assembly)
-        {
-            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-            if (!Initialized)
-            {
-                executionAssembly = assembly;
-            }
-        }
 
         protected void AddTestAssembly(Assembly assembly)
         {
@@ -76,7 +65,7 @@ namespace Xunit.Runners.UI
 
                 var nav = new Navigator(rootFrame);
 
-                var runner = new DeviceRunner(executionAssembly, testAssemblies, nav, new ResultListener(Writer));
+                var runner = new DeviceRunner(testAssemblies, nav, new ResultListener(Writer));
                 var hvm = new HomeViewModel(nav, runner);
 
                 nav.NavigateTo(NavigationPage.Home, hvm);
