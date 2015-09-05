@@ -35,10 +35,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackPanel Grid.Row="4">
+        <RelativePanel Grid.Row="4">
             <Button Content="Run Everything"
                     Command="{x:Bind ViewModel.RunEverythingCommand}"
                     />
-        </StackPanel>
+            <Button Content="Credits" 
+                    RelativePanel.AlignRightWithPanel="True"
+                    Command="{x:Bind ViewModel.CreditsCommand}"
+                    />
+        </RelativePanel>
     </Grid>
 </Page>
