@@ -91,24 +91,24 @@
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.assert, Version=2.1.0.3148, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.assert.2.1.0-rc1-build3148\lib\dotnet\xunit.assert.dll</HintPath>
+    <Reference Include="xunit.assert, Version=2.1.0.3168, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.assert.2.1.0-rc1-build3168\lib\dotnet\xunit.assert.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.core, Version=2.1.0.3148, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.extensibility.core.2.1.0-rc1-build3148\lib\dotnet\xunit.core.dll</HintPath>
+    <Reference Include="xunit.core, Version=2.1.0.3168, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.extensibility.core.2.1.0-rc1-build3168\lib\dotnet\xunit.core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.execution.dotnet, Version=2.1.0.3148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0-rc1-build3148\lib\monoandroid\xunit.execution.dotnet.dll</HintPath>
+    <Reference Include="xunit.execution.dotnet, Version=2.1.0.3168, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.extensibility.execution.2.1.0-rc1-build3168\lib\monoandroid\xunit.execution.dotnet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.runner.devices, Version=2.0.0.1096, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.runner.devices.1.2.0-rc3-build1096\lib\MonoAndroid\xunit.runner.devices.dll</HintPath>
+    <Reference Include="xunit.runner.devices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.devices.1.2.0-rc3-build2098\lib\MonoAndroid\xunit.runner.devices.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.runner.utility.dotnet, Version=2.1.0.3148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.runner.utility.2.1.0-rc1-build3148\lib\dotnet\xunit.runner.utility.dotnet.dll</HintPath>
+    <Reference Include="xunit.runner.utility.dotnet, Version=2.1.0.3168, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.utility.2.1.0-rc1-build3168\lib\dotnet\xunit.runner.utility.dotnet.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -136,7 +136,7 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MainActivity.cs.txt" />
+    <Content Include="MainActivity.cs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -145,9 +145,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.1.4.4.6392\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
-    <Error Condition="!Exists('..\..\packages\xunit.runner.devices.1.2.0-rc3-build1096\build\MonoAndroid\xunit.runner.devices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.devices.1.2.0-rc3-build1096\build\MonoAndroid\xunit.runner.devices.targets'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.devices.1.2.0-rc3-build2098\build\MonoAndroid\xunit.runner.devices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.devices.1.2.0-rc3-build2098\build\MonoAndroid\xunit.runner.devices.targets'))" />
   </Target>
-  <Import Project="..\..\packages\xunit.runner.devices.1.2.0-rc3-build1096\build\MonoAndroid\xunit.runner.devices.targets" Condition="Exists('..\..\packages\xunit.runner.devices.1.2.0-rc3-build1096\build\MonoAndroid\xunit.runner.devices.targets')" />
+  <Import Project="..\..\packages\xunit.runner.devices.1.2.0-rc3-build2098\build\MonoAndroid\xunit.runner.devices.targets" Condition="Exists('..\..\packages\xunit.runner.devices.1.2.0-rc3-build2098\build\MonoAndroid\xunit.runner.devices.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
