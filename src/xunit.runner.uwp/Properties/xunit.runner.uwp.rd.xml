@@ -28,12 +28,6 @@
   <Library Name="xunit.runner.devices">
 
   	<!-- add directives for your library here -->
-
-    <Assembly Name="xunit.core" Activate="Required All" Browse="Required All" Serialize="Required All" Dynamic="Required All" />
-    <Assembly Name="xunit.execution.dotnet" Activate="Required All" Browse="Required All" Serialize="Required All" Dynamic="Required All" />
-    <Assembly Name="xunit.runner.utility.dotnet" Activate="Required All" Browse="Required All" Serialize="Required All" Dynamic="Required All" />
-
-    <Type Name="System.Threading.ExecutionContext" Dynamic="Required All" Activate="Required All" />
-    <Type Name="System.Threading.ContextCallback" Dynamic="Required All" Activate="Required All" />
+    
   </Library>
 </Directives>
