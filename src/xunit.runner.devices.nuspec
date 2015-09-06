@@ -21,6 +21,7 @@
         <dependency id="Xamarin.Forms" version="1.4.4.6392" />
       </group>
       <group targetFramework="uap10.0">
+        <dependency id="xunit.core" version="2.1.0-rc1-build3168" />
         <dependency id="System.Collections.Concurrent" version="4.0.10" />
         <dependency id="System.Xml.XDocument" version="4.0.10" />
         <dependency id="System.Collections" version="4.0.10" />
