@@ -22,4 +22,21 @@
     </ItemGroup>
     <Message Text="Removing @(__xUnitExecutionLibsToRemove)->%(TargetPath)" />
   </Target>
+  <Target Name="CleanXapPackagerExecLibs" BeforeTargets="XapPackager" Condition="'$(XapOutputs)'=='true'">
+   
+    <ItemGroup>
+
+
+      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.execution.desktop.dll' "/>
+      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.execution.desktop.pdb' "/>
+      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.desktop.dll' "/>
+      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.desktop.pdb' "/>
+      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.dll' "/>
+      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.pdb' "/>
+      
+      <XapFilesInputCollection Remove="@(__xUnitXapExecutionLibsToRemove)" />
+    </ItemGroup>
+
+    <Message Text="Removing from Xap: @(__xUnitXapExecutionLibsToRemove)->%(TargetPath)" />
+  </Target>
 </Project>
