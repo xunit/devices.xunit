@@ -28,6 +28,7 @@
   <Library Name="xunit.runner.devices">
 
   	<!-- add directives for your library here -->
+    <Assembly Name="xunit.runner.devices" Serialize="Required All" />
     
   </Library>
 </Directives>
