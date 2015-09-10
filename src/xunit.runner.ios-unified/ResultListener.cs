@@ -96,6 +96,10 @@ namespace Xunit.Runners
             lock (lockOjb)
             {
                 var r = OpenWriter(message);
+                if (r)
+                {
+                    failed = passed = skipped = 0;
+                }
                 return Task.FromResult(r);
             }
         }
@@ -169,9 +173,7 @@ namespace Xunit.Runners
 
             writer.WriteLine("[Bundle:\t{0}]", NSBundle.MainBundle.BundleIdentifier);
             // FIXME: add data about how the app was compiled (e.g. ARMvX, LLVM, GC and Linker options)
-            passed = 0;
-            skipped = 0;
-            failed = 0;
+
             return true;
         }
 

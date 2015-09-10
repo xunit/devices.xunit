@@ -72,6 +72,10 @@ namespace Xunit.Runners
             lock (lockOjb)
             {
                 var r = OpenWriter(message);
+                if (r)
+                {
+                    failed = passed = skipped = 0;
+                }
                 return Task.FromResult(r);
             }
         }
