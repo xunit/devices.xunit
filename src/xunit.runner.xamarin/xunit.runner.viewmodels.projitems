@@ -45,6 +45,7 @@
       <SubType>Code</SubType>
       <DependentUpon>TestResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UITestCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Commands.cs" />
   </ItemGroup>
 </Project>
