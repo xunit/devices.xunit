@@ -87,12 +87,26 @@ namespace Xunit.Runners
 
         public Task<IReadOnlyList<TestAssemblyViewModel>> Discover()
         {
-            return Task.Run<IReadOnlyList<TestAssemblyViewModel>>(() =>
-                                                                  {
-                                                                      var runInfos = DiscoverTestsInAssemblies();
-                                                                      return runInfos.Select(ri => new TestAssemblyViewModel(ri, this))
-                                                                                     .ToList();
-                                                                  });
+            var tcs = new TaskCompletionSource<IReadOnlyList<TestAssemblyViewModel>>();
+
+            ThreadPoolHelper.RunAsync(() =>
+                                    {
+
+                                        try
+                                        {
+                                            var runInfos = DiscoverTestsInAssemblies();
+                                            var list = runInfos.Select(ri => new TestAssemblyViewModel(ri, this))
+                                                            .ToList();
+
+                                            tcs.SetResult(list);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            tcs.SetException(e);
+                                        }
+                                    });
+
+            return tcs.Task;
         }
         
         IEnumerable<AssemblyRunInfo> DiscoverTestsInAssemblies()
@@ -262,16 +276,16 @@ namespace Xunit.Runners
             var xunitTestCases = runInfo.TestCases.Select(tc => new
             {
                 vm = tc,
-                xunit = tc.TestCase
+                id = tc.TestCase.UniqueID
             })
-                                        .Where(tc => tc.xunit != null)
-                                        .ToDictionary(tc => tc.xunit, tc => tc.vm);
+                                        .Where(tc => tc.id != null)
+                                        .ToDictionary(tc => tc.id, tc => tc.vm);
             var executionOptions = TestFrameworkOptions.ForExecution(runInfo.Configuration);
 
 
             using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, executionOptions, () => cancelled, context))
             {
-                controller.RunTests(xunitTestCases.Keys.ToList(), executionVisitor, executionOptions);
+                controller.RunTests(xunitTestCases.Select(tc => tc.Value.TestCase).ToList(), executionVisitor, executionOptions);
                 executionVisitor.Finished.WaitOne();
             }
         }

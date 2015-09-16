@@ -16,9 +16,9 @@ namespace Xunit.Runners.Visitors
         readonly SynchronizationContext context;
         readonly ITestFrameworkExecutionOptions executionOptions;
         readonly ITestListener listener;
-        readonly Dictionary<ITestCase, TestCaseViewModel> testCases;
+        readonly Dictionary<string, TestCaseViewModel> testCases;
 
-        public TestExecutionVisitor(Dictionary<ITestCase, TestCaseViewModel> testCases,
+        public TestExecutionVisitor(Dictionary<string, TestCaseViewModel> testCases,
                                     ITestListener listener,
                                     ITestFrameworkExecutionOptions executionOptions,
                                     Func<bool> cancelledThunk,
@@ -56,7 +56,7 @@ namespace Xunit.Runners.Visitors
         async void MakeTestResultViewModel(ITestResultMessage testResult, TestState outcome)
         {
             var tcs = new TaskCompletionSource<TestResultViewModel>();
-            var testCase = testCases[testResult.TestCase];
+            var testCase = testCases[testResult.TestCase.UniqueID];
 
             // Create the result VM on the UI thread as it updates properties
             context.Post(_ =>
