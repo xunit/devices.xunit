@@ -18,7 +18,7 @@
       <group>
         <dependency id="xunit.core" version="2.1.0-rc2-build3176" />
         <dependency id="xunit.runner.utility" version="2.1.0-rc2-build3176" />
-        <dependency id="Xamarin.Forms" version="1.4.4.6392" />
+        <dependency id="Xamarin.Forms" version="1.5.0.6446" />
       </group>
       <group targetFramework="uap10.0">
         <dependency id="xunit.core" version="2.1.0-rc2-build3176" />
