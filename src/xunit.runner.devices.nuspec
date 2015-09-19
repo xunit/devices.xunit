@@ -16,12 +16,12 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="xunit.core" version="2.1.0-rc1-build3173" />
-        <dependency id="xunit.runner.utility" version="2.1.0-rc1-build3173" />
+        <dependency id="xunit.core" version="2.1.0-rc2-build3176" />
+        <dependency id="xunit.runner.utility" version="2.1.0-rc2-build3176" />
         <dependency id="Xamarin.Forms" version="1.4.4.6392" />
       </group>
       <group targetFramework="uap10.0">
-        <dependency id="xunit.core" version="2.1.0-rc1-build3173" />
+        <dependency id="xunit.core" version="2.1.0-rc2-build3176" />
         <dependency id="System.Collections.Concurrent" version="4.0.10" />
         <dependency id="System.Xml.XDocument" version="4.0.10" />
         <dependency id="System.Collections" version="4.0.10" />
@@ -41,9 +41,9 @@
         <dependency id="System.Threading" version="4.0.10" />
         <dependency id="System.Threading.Tasks" version="4.0.10" />
         <dependency id="xunit.abstractions" version="2.0.0" />
-        <dependency id="xunit.extensibility.core" version="2.1.0-rc2-build3173" />
-        <dependency id="xunit.extensibility.execution" version="2.1.0-rc2-build3173" />
-        <dependency id="xunit.runner.utility" version="2.1.0-rc2-build3173" />
+        <dependency id="xunit.extensibility.core" version="2.1.0-rc2-build3176" />
+        <dependency id="xunit.extensibility.execution" version="2.1.0-rc2-build3176" />
+        <dependency id="xunit.runner.utility" version="2.1.0-rc2-build3176" />
       </group>
     </dependencies>
   </metadata>
