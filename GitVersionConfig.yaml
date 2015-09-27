@@ -1,5 +1,5 @@
 assembly-versioning-scheme: MajorMinorPatch 
-next-version: 1.2.0-rc4
+next-version: 1.2.0
 branches:
   features[/-]:
     mode: ContinuousDeployment
