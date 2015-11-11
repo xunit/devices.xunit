@@ -251,7 +251,7 @@ namespace Xunit.Runners
                                  {
                                      toDispose.ForEach(disposable => disposable.Dispose());
                                      //    OnTestRunCompleted();
-                                     tcs.SetResult(null);
+                                     tcs.TrySetResult(null);
                                  }
                              };
 
