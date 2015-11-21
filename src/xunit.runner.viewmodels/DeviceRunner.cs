@@ -138,7 +138,6 @@ namespace Xunit.Runners
                                 framework.Find(true, sink, discoveryOptions);
                                 sink.Finished.WaitOne();
 
-
                                 result.Add(new AssemblyRunInfo
                                 {
                                     AssemblyFileName = assemblyFileName,
@@ -276,10 +275,10 @@ namespace Xunit.Runners
             var xunitTestCases = runInfo.TestCases.Select(tc => new
             {
                 vm = tc,
-                id = tc.TestCase.UniqueID
+                tc = tc.TestCase
             })
-                                        .Where(tc => tc.id != null)
-                                        .ToDictionary(tc => tc.id, tc => tc.vm);
+                                        .Where(tc => tc.tc.UniqueID != null)
+                                        .ToDictionary(tc => tc.tc, tc => tc.vm);
             var executionOptions = TestFrameworkOptions.ForExecution(runInfo.Configuration);
 
 
