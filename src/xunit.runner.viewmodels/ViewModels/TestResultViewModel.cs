@@ -13,8 +13,8 @@ namespace Xunit.Runners
     public class TestResultViewModel : ViewModelBase
     {
         TimeSpan duration;
-        string errorMessage;
-        string errorStackTrace;
+        string errorMessage = string.Empty;
+        string errorStackTrace = string.Empty;
         TestCaseViewModel testCase;
         ITestResultMessage testResultMessage;
 
@@ -83,5 +83,9 @@ namespace Xunit.Runners
             get { return testResultMessage; }
             private set { Set(ref testResultMessage, value); }
         }
+
+        public string Output => TestResultMessage?.Output ?? string.Empty;
+
+        public bool HasOutput => !string.IsNullOrWhiteSpace(Output);
     }
 }

@@ -29,3 +29,5 @@ Storage.dat
 *.nuget.props
 
 project.lock.json
+
+TestResults/

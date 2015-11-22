@@ -108,9 +108,9 @@ namespace Xunit.Runners
         {
             TestResult = message;
 
-            Output = message.TestResultMessage.Output;
-            Message = null;
-            StackTrace = null;
+            Output = message.TestResultMessage.Output ?? string.Empty;
+            Message = string.Empty;
+            StackTrace = string.Empty;
 
             if (message.TestResultMessage is ITestPassed)
             {
@@ -141,7 +141,7 @@ namespace Xunit.Runners
             // run again
             await runner.Run(this);
 
-            if (Result == TestState.Failed)
+            if (Result == TestState.Failed || !string.IsNullOrWhiteSpace(Output))
             {
                 await navigation.NavigateTo(NavigationPage.TestResult, TestResult);
             }
