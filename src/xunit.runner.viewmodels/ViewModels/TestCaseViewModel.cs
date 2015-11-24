@@ -147,10 +147,7 @@ namespace Xunit.Runners
             // run again
             await runner.Run(this);
 
-            if (Result == TestState.Failed || !string.IsNullOrWhiteSpace(Output))
-            {
-                await navigation.NavigateTo(NavigationPage.TestResult, TestResult);
-            }
+            await navigation.NavigateTo(NavigationPage.TestResult, TestResult);
         }
     }
 }
