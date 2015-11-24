@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+        "xunit.core": "2.1.0",
+        "xunit.runner.utility": "2.1.0",
+        "Xamarin.Forms": "2.0.0.6484"
+    },
+    "frameworks": {
+        "MonoAndroid,Version=v6.0": { }
+    },
+    "supports": { }
+}
