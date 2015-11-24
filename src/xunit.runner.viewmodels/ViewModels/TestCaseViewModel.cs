@@ -109,31 +109,37 @@ namespace Xunit.Runners
             TestResult = message;
 
             Output = message.TestResultMessage.Output ?? string.Empty;
-            Message = string.Empty;
-            StackTrace = string.Empty;
+
+            var msg = string.Empty;
+            var stackTrace = string.Empty;
+            var rs = Runners.RunStatus.NotRun;
 
             if (message.TestResultMessage is ITestPassed)
             {
                 Result = TestState.Passed;
-                Message = $"Success! {TestResult.Duration.TotalMilliseconds} ms";
-                RunStatus = RunStatus.Ok;
+                msg = $"Success! {TestResult.Duration.TotalMilliseconds} ms";
+                rs = RunStatus.Ok;
             }
             if (message.TestResultMessage is ITestFailed)
             {
                 Result = TestState.Failed;
                 var failedMessage = (ITestFailed)(message.TestResultMessage);
-                Message = ExceptionUtility.CombineMessages(failedMessage);
-                StackTrace = ExceptionUtility.CombineStackTraces(failedMessage);
-                RunStatus = RunStatus.Failed;
+                msg = ExceptionUtility.CombineMessages(failedMessage);
+                stackTrace = ExceptionUtility.CombineStackTraces(failedMessage);
+                rs = RunStatus.Failed;
             }
             if (message.TestResultMessage is ITestSkipped)
             {
                 Result = TestState.Skipped;
 
                 var skipped = (ITestSkipped)(message.TestResultMessage);
-                Message = skipped.Reason;
-                RunStatus = RunStatus.Skipped;
+                msg = skipped.Reason;
+                rs = RunStatus.Skipped;
             }
+
+            Message = msg;
+            StackTrace = stackTrace;
+            RunStatus = rs;
         }
 
         async void NavigateToResultsPage()

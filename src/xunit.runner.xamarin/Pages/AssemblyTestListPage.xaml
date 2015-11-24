@@ -28,9 +28,17 @@
             
         </Grid>
         <StackLayout Grid.Row="1">
-            <ListView ItemsSource="{Binding TestCases}">
+            <ListView ItemsSource="{Binding TestCases}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
+                        <!--<ViewCell Tapped="Cell_OnTapped">
+                            <ViewCell.View>
+                                <StackLayout>
+                                    <Label Text="{Binding DisplayName}" FontSize="16" />
+                                    <Label Text="{Binding Message}" FontSize="10" TextColor="{Binding RunStatus, Converter={StaticResource RunStatusToColorConverter}}" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>-->
                         <TextCell Text="{Binding DisplayName}"
                                   Detail="{Binding Message}"
                                   DetailColor="{Binding RunStatus, Converter={StaticResource RunStatusToColorConverter}}"

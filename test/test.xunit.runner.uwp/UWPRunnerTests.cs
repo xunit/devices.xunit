@@ -18,7 +18,7 @@ public class UWPRunnerTests
     }
 
     [Fact]
-    public void FailingTest()
+    public void FailingTestWithVeryLongNameThatKeepsGoing()
     {
         Assert.True(false);
     }

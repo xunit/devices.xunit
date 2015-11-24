@@ -17,7 +17,7 @@ namespace test.xunit.runner.wp8
         }
 
         [Fact]
-        public void FailingTest()
+        public void FailingTestWithVeryLongNameThatKeepsGoing()
         {
             Assert.True(false);
         }

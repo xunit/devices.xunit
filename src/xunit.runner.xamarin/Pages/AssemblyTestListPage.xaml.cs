@@ -63,5 +63,10 @@ namespace Xunit.Runners.Pages
                 vm.ResultFilter = state;
             
 	    }
+
+	    void Cell_OnTapped(object sender, EventArgs e)
+	    {
+            ((TestCaseViewModel)((ViewCell)sender).BindingContext).NavigateToResultCommand.Execute(null);
+	    }
 	}
 }
