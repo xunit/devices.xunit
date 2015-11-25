@@ -39,6 +39,11 @@ Basic functionality works -- tests are discoverable and runnable. There is a lot
 of the runner apps. Pull Requests are very welcome. One main requirement -- the runner assemblies should be self-contained; 
 they should not pull in additional non-xunit libraries (except Xamarin.Forms).
 
+### Todo
+* Getting data back from runner to listening agent (remote)
+* trait display/filters
+* UI polish
+
 ## Links to Resources
 
 * [Xamarin](http://xamarin.com/)
