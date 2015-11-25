@@ -1,11 +1,11 @@
-﻿{
-  "dependencies": {
-    "Xamarin.Forms": "1.5.1.6471",
-    "xunit.core": "2.1.0",
-    "xunit.runner.utility": "2.1.0"
-  },
-  "frameworks": {
-    "WindowsPhoneApp,Version=v8.1": {}
-  },
-  "supports": {}
+{
+    "dependencies": {
+        "xunit.core": "2.1.0",
+        "xunit.runner.utility": "2.1.0",
+        "Xamarin.Forms": "2.0.0.6484"
+    },
+    "frameworks": {
+        "WindowsPhoneApp,Version=v8.1": { }
+    },
+    "supports": { }
 }
