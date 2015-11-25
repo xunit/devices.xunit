@@ -10,6 +10,7 @@
         "win-arm": { },
         "win-x86": { },
         "win-anycpu": { },
-        "win": { }
+        "win": { },
+        "win-": { }
     }
 }
