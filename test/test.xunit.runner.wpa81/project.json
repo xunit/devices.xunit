@@ -1,0 +1,14 @@
+{
+    "dependencies": {
+        "xunit": "2.1.0"
+    },
+    "frameworks": {
+        "WindowsPhoneApp,Version=v8.1": { }
+    },
+    "supports": { },
+    "runtimes": {
+        "win-arm": { },
+        "win-x86": { },
+        "win": { }
+    }
+}

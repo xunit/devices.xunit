@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "xunit": "2.1.0"
+    },
+    "frameworks": {
+        "MonoTouch,Version=v1.0": { }
+    },
+    "supports": { },    
+    "runtimes": {
+        "win": { }
+    }
+}
