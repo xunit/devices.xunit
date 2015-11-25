@@ -1,0 +1,13 @@
+{
+    "dependencies": {
+        "xunit": "2.1.0",
+        "xunit.runner.devices": "1.2.0"
+    },
+    "frameworks": {
+        "MonoTouch,Version=v1.0": { }
+    },
+    "supports": { },    
+    "runtimes": {
+        "win": { }
+    }
+}

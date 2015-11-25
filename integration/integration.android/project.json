@@ -1,0 +1,13 @@
+{
+    "dependencies": {
+        "xunit": "2.1.0",
+        "xunit.runner.devices" : "1.2.0"
+    },
+    "frameworks": {
+        "MonoAndroid,Version=v6.0": { }
+    },
+    "supports": { },    
+    "runtimes": {
+        "win": { }
+    }
+}

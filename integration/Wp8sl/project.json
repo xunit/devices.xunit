@@ -1,0 +1,16 @@
+{
+    "dependencies": {
+        "xunit": "2.1.0",
+        "xunit.runner.devices": "1.2.0"
+    },
+    "frameworks": {
+        "WindowsPhone,Version=v8.0": { }
+    },
+    "supports": { },
+    "runtimes": {
+        "win-arm": { },
+        "win-x86": { },
+        "win-anycpu": { },
+        "win": { }
+    }
+}
