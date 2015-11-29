@@ -77,7 +77,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondaryView.cs" />
-    <Compile Include="UITestCase.cs" />
     <Compile Include="UI\RunnerApplication.cs" />
     <Compile Include="DeviceResources.cs" />
     <Compile Include="Utilities\RunStatusToColorConverter.cs" />

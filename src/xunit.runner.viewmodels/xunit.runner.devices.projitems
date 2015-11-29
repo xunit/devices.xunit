@@ -17,10 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ITestListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RunnerOptions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Sdk\UIFactAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Sdk\UIFactDiscoverer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Sdk\UITheoryAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Sdk\UITheoryDiscoverer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FilteredCollectionView.cs" />

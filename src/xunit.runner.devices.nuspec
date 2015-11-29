@@ -24,6 +24,8 @@
         <dependency id="xunit.core" version="2.1.0" />
         <dependency id="System.Collections.Concurrent" version="4.0.10" />
         <dependency id="System.Xml.XDocument" version="4.0.10" />
+        <dependency id="xunit.extensibility.core" version="2.1.0" />
+        <dependency id="xunit.extensibility.execution" version="2.1.0" />
         <dependency id="System.Collections" version="4.0.10" />
         <dependency id="System.Diagnostics.Debug" version="4.0.10" />
         <dependency id="System.Diagnostics.Tools" version="4.0.0" />
@@ -41,8 +43,6 @@
         <dependency id="System.Threading" version="4.0.10" />
         <dependency id="System.Threading.Tasks" version="4.0.10" />
         <dependency id="xunit.abstractions" version="2.0.0" />
-        <dependency id="xunit.extensibility.core" version="2.1.0" />
-        <dependency id="xunit.extensibility.execution" version="2.1.0" />
         <dependency id="xunit.runner.utility" version="2.1.0" />
       </group>
     </dependencies>
