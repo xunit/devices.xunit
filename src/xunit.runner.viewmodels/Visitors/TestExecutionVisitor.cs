@@ -56,7 +56,15 @@ namespace Xunit.Runners.Visitors
         async void MakeTestResultViewModel(ITestResultMessage testResult, TestState outcome)
         {
             var tcs = new TaskCompletionSource<TestResultViewModel>();
-            var testCase = testCases[testResult.TestCase];
+
+            TestCaseViewModel testCase;
+            if (!testCases.TryGetValue(testResult.TestCase, out testCase))
+            {
+                // no matching reference, search by Unique ID as a fallback
+                testCase = testCases.FirstOrDefault(kvp => kvp.Key.UniqueID?.Equals(testResult.TestCase.UniqueID) ?? false).Value;
+                if (testCase == null)
+                    return;
+            }
 
             // Create the result VM on the UI thread as it updates properties
             context.Post(_ =>
