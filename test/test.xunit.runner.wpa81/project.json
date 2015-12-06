@@ -7,9 +7,9 @@
     },
     "supports": { },
     "runtimes": {
+        "win": { },
         "win-arm": { },
         "win-x86": { },
-        "win-anycpu": { },
-        "win": { }
+        "win-anycpu": { }
     }
 }

@@ -7,7 +7,6 @@
     },
     "supports": { },    
     "runtimes": {
-        "win": { },
-        "win-": { }
+        "win": { }
     }
 }
