@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24713.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6B0F38C9-7CEE-4181-A47A-D9F4C626E618}"
 EndProject
@@ -699,7 +699,6 @@ Global
 		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug .NET Native|x86.Build.0 = Release|Any CPU
 		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug .NET Native|x86.Deploy.0 = Release|Any CPU
 		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{F21C1AF5-A5AF-4349-840E-E34DA5BFA519}.Debug|ARM.Build.0 = Debug|Any CPU
