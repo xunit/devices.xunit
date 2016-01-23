@@ -39,9 +39,9 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-        <Reference Include="Mono.Android" />
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\common\GlobalAssemblyInfo.cs">
@@ -57,6 +57,7 @@
     <Compile Include="ResultListener.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NuGet\MainActivity.cs.txt.pp" />
     <None Include="project.json" />
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
@@ -68,7 +69,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
   <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />
   <Import Project="..\xunit.runner.xamarin\xunit.runner.viewmodels.projitems" Label="Shared" />
 </Project>

@@ -63,6 +63,7 @@
       <Link>ThreadPoolHelper.cs</Link>
     </Compile>
     <Compile Include="Navigator.cs" />
+    <None Include="NuGet\App.xaml.cs.pp" />
     <Compile Include="Pages\AssemblyTestListPage.xaml.cs">
       <DependentUpon>AssemblyTestListPage.xaml</DependentUpon>
     </Compile>
@@ -89,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <None Include="NuGet\App.xaml.pp">
+      <SubType>Designer</SubType>
+    </None>
     <Page Include="Pages\AssemblyTestListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

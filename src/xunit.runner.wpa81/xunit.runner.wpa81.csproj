@@ -104,6 +104,8 @@
     <Compile Include="RunnerPage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NuGet\App.xaml.cs.txt.pp" />
+    <None Include="NuGet\App.xaml.txt.pp" />
     <None Include="project.json" />
   </ItemGroup>
   <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />

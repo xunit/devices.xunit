@@ -61,6 +61,7 @@
     <Reference Include="monotouch" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NuGet\AppDelegate.cs.txt.pp" />
     <None Include="project.json" />
   </ItemGroup>
   <Import Project="..\xunit.runner.viewmodels\xunit.runner.devices.projitems" Label="Shared" />

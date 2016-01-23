@@ -106,6 +106,8 @@
     <Compile Include="RunnerApplicationPage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NuGet\MainPage.xaml.cs.txt.pp" />
+    <None Include="NuGet\MainPage.xaml.txt.pp" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
