@@ -15,9 +15,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using test.xunit.pcltestlib;
+
 using Xunit.Runners.UI;
-using Xunit.Sdk;
+
 
 namespace test.xunit.runner.uwp
 {
@@ -28,13 +28,11 @@ namespace test.xunit.runner.uwp
     {
         protected override void OnInitializeRunner()
         {
-         //   AddExecutionAssembly(typeof(ExtensibilityPointFactory).GetTypeInfo().Assembly);
-            // tests can be inside the main assembly
             AddTestAssembly(GetType().GetTypeInfo().Assembly);
-            // otherwise you need to ensure that the test assemblies will 
-            // become part of the app bundle
-            AddTestAssembly(typeof(PortableTests).GetTypeInfo().Assembly);
+
+            InitializeRunner();
         }
 
+        partial void InitializeRunner();
     }
 }
