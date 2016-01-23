@@ -46,10 +46,6 @@
         <dependency id="xunit.runner.utility" version="2.1.0" />
       </group>
     </dependencies>
-    <contentFiles>
-      <files include="cs/uap10.0/app.xaml.pp" buildAction="ApplicationDefinition" />
-      <files include="cs/uap10.0/app.xaml.cs.pp" buildAction="Compile" />
-    </contentFiles>
   </metadata>
   <files>
     <file src="build\xunit.runner.devices.targets" target="build\MonoAndroid\xunit.runner.devices.targets" />
@@ -93,7 +89,5 @@
     <file src="xunit.runner.wpa81\NuGet\App.xaml.txt.pp" target="content\wpa81\App.xaml.txt.pp" />
     <file src="xunit.runner.wpa81\NuGet\App.xaml.cs.txt.pp" target="content\win81\App.xaml.cs.txt.pp" />
     <file src="xunit.runner.wpa81\NuGet\App.xaml.txt.pp" target="content\win81\App.xaml.txt.pp" />
-    <file src="xunit.runner.uwp\NuGet\App.xaml.pp" target="contentFiles\cs\uap10.0\App.xaml.pp" />
-    <file src="xunit.runner.uwp\NuGet\App.xaml.cs.pp" target="contentFiles\cs\uap10.0\App.xaml.cs.pp" />
   </files>
 </package>
