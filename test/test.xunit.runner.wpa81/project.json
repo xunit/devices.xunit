@@ -5,7 +5,6 @@
     "frameworks": {
         "WindowsPhoneApp,Version=v8.1": { }
     },
-    "supports": { },
     "runtimes": {
         "win": { },
         "win-arm": { },

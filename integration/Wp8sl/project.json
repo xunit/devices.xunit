@@ -6,7 +6,6 @@
     "frameworks": {
         "WindowsPhone,Version=v8.0": { }
     },
-    "supports": { },
     "runtimes": {
         "win-arm": { },
         "win-x86": { },
