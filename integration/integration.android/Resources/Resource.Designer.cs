@@ -26,8 +26,7 @@ namespace integration.android
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Resource.String.ApplicationName = global::integration.android.Resource.String.ApplicationName;
-			global::Xamarin.Forms.Platform.Resource.String.Hello = global::integration.android.Resource.String.Hello;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::integration.android.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Attribute
