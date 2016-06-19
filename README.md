@@ -29,7 +29,7 @@ Referenced assemblies that contain tests need to be manually specified as descri
 - Windows Phone 8 Silverlight
 - Xamarin.Android
 - Xamarin.iOS (Classic and Unified)
-- Windows Runtime 8.1 
+- Windows Runtime 8.1 (Store/Phone) 
 - WPF/Desktop (future support planned)
 - Windows 10 
 
