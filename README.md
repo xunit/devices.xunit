@@ -1,7 +1,7 @@
 ## <a href="https://github.com/xunit/xunit"><img src="https://raw.github.com/xunit/media/master/full-logo.png" title="xUnit.net Device Runners" /></a>
 
 These runners enable [xUnit.net](https://github.com/xunit/xunit/) tests to run on iOS and Android devices with [Xamarin](http://xamarin.com/). It also supports Windows Phone 8 Silverlight devices.
-The xUnit.net Device Runners are a sub-project of xUnit.net under the [Outercurve Foundation](http://www.outercurve.org/). It is licensed under the [Apache 2 license](http://opensource.org/licenses/Apache-2.0), which is approved by the OSI.
+The xUnit.net Device Runners are a sub-project of xUnit.net under the [.NET Foundation](http://dotnetfoundation.org/). It is licensed under the [Apache 2 license](http://opensource.org/licenses/Apache-2.0), which is approved by the OSI.
 
 Continuous integration builds are available online via [TeamCity](http://teamcity.centurylinkcloud.com/guestLogin.html?guest=1).
 
