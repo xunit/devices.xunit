@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 
 using Xunit.Runner;
 using Xunit.Sdk;
@@ -14,7 +14,7 @@ namespace iOS
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
-    [Register("AppDelegate")]
+    [Foundation.Register("AppDelegate")]
     public partial class AppDelegate : RunnerAppDelegate
     {
 
