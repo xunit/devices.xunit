@@ -3,7 +3,7 @@
         "xunit": "2.1.0"
     },
     "frameworks": {
-        "MonoAndroid,Version=v6.0": { }
+        "MonoAndroid,Version=v7.1": { }
     },
     "runtimes": {
         "win": { }

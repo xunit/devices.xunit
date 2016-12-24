@@ -2,8 +2,7 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="PreventPclExecLib" 
           BeforeTargets="_CopyOutOfDateSourceItemsToOutputDirectory"
-          Condition=" '@(_SourceItemsToCopyToOutputDirectory)' != '' "
-          
+          Condition=" '@(_SourceItemsToCopyToOutputDirectory)' != '' "          
           >
     
     <Message Text="Prevent Pcl Execution Libraries" />
@@ -15,28 +14,10 @@
       <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.desktop.pdb' "/>
       <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.dll' "/>
       <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.pdb' "/>
-
       
       <_SourceItemsToCopyToOutputDirectory Remove="@(__xUnitExecutionLibsToRemove)" />
       
     </ItemGroup>
     <Message Text="Removing @(__xUnitExecutionLibsToRemove)->%(TargetPath)" />
-  </Target>
-  <Target Name="CleanXapPackagerExecLibs" BeforeTargets="XapPackager" Condition="'$(XapOutputs)'=='true'">
-   
-    <ItemGroup>
-
-
-      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.execution.desktop.dll' "/>
-      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.execution.desktop.pdb' "/>
-      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.desktop.dll' "/>
-      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.desktop.pdb' "/>
-      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.dll' "/>
-      <__xUnitXapExecutionLibsToRemove Include="@(XapFilesInputCollection)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.pdb' "/>
-      
-      <XapFilesInputCollection Remove="@(__xUnitXapExecutionLibsToRemove)" />
-    </ItemGroup>
-
-    <Message Text="Removing from Xap: @(__xUnitXapExecutionLibsToRemove)->%(TargetPath)" />
   </Target>
 </Project>

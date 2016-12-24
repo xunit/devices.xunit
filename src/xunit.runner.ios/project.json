@@ -5,7 +5,7 @@
     "xunit.runner.utility": "2.1.0"
   },
   "frameworks": {
-    "MonoTouch,Version=v1.0": {}
+    "Xamarin.iOS,Version=v1.0": {}
   },
   "supports": {}
 }

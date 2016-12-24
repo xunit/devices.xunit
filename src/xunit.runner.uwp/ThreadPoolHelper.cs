@@ -14,8 +14,8 @@ namespace Xunit.Runners
         public static async void RunAsync(Action action)
         {
 
-            var task = Task.Factory.StartNew(action, CancellationToken.None ,TaskCreationOptions.LongRunning, TaskScheduler.Default);
-            
+            var task = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+
             try
             {
                 await task;
@@ -28,7 +28,7 @@ namespace Xunit.Runners
                     Debug.WriteLine(e);
                 }
             }
-            
+
         }
     }
 }

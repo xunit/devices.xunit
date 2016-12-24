@@ -16,6 +16,7 @@ namespace Xunit.Runners
         int failed;
         int skipped;
         int passed;
+
         readonly object lockOjb = new object();
         public ResultListener(TextWriter writer)
         {
@@ -26,6 +27,7 @@ namespace Xunit.Runners
         {
             lock (lockOjb)
             {
+
                 if (writer == null)
                     return;
 
@@ -60,7 +62,7 @@ namespace Xunit.Runners
                 var stacktrace = result.ErrorStackTrace;
                 if (!string.IsNullOrEmpty(result.ErrorStackTrace))
                 {
-                    var lines = stacktrace.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+                    var lines = stacktrace.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var line in lines)
                         writer.WriteLine("\t\t{0}", line);
                 }
@@ -86,8 +88,10 @@ namespace Xunit.Runners
             {
                 var total = passed + failed; // ignored are *not* run
                 writer.WriteLine("Tests run: {0} Passed: {1} Failed: {2} Skipped: {3}", total, passed, failed, skipped);
+
                 writer.Dispose();
                 writer = null;
+
                 return Task.FromResult(true);
             }
         }
@@ -98,12 +102,12 @@ namespace Xunit.Runners
             if (writer == null)
             {
                 // TODO: Add options support and use TcpTextWriter
-                writer = Console.Out;
+                writer = new StringWriter();
             }
             return true;
         }
 
 
-        
+
     }
 }
