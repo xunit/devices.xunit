@@ -5,7 +5,7 @@
     "xunit.runner.utility": "2.1.0"
   },
   "frameworks": {
-    "MonoAndroid,Version=v7.1": {}
+    "MonoAndroid,Version=v6.0": {}
   },
   "supports": {}
 }
