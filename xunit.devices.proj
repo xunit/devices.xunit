@@ -32,7 +32,7 @@
 
   <!-- Build server targets -->
   <!-- Note GitVersion is not here intentionally. It's called via its own build step first -->
-  <Target Name="TeamCity" DependsOnTargets="PackageRestore;Test;GitLink;Packages;ZipArtifacts;PushMyGet" />
+  <Target Name="CI" DependsOnTargets="PackageRestore;Test;GitLink;Packages" />
 
   <!-- Individiual targets -->
 
@@ -77,26 +77,6 @@
       <NuGetPackageVersion>$(GitVersion_NuGetVersion)</NuGetPackageVersion>
     </PropertyGroup>
     <Exec Command='.nuget\NuGet.exe pack %(NuGetNuspecTargets.Identity) -version $(NuGetPackageVersion) -NoPackageAnalysis -NonInteractive' />
-  </Target>
-
-  <Target Name='ZipArtifacts'>
-    <ItemGroup>
-      <TestResults Include="TestResults*.*" />
-      <Binaries Include="*.nupkg" />
-    </ItemGroup>
-
-    <Delete Files="test-results.zip" />
-    <Zip Files="@(TestResults)" ZipFileName="test-results.zip" />
-
-    <Delete Files="binaries.zip" />
-    <Zip Files="@(Binaries)" ZipFileName="binaries.zip" StripPath="true" />
-  </Target>
-
-  <Target Name="PushMyGet">
-    <ItemGroup>
-      <NupkgFiles Include="*.nupkg" />
-    </ItemGroup>
-    <Exec Command=".nuget\NuGet.exe push %(NupkgFiles.Identity) -NonInteractive -Source https://www.myget.org/F/xunit-xamarin/api/v2/package" />
   </Target>
 
   <Target Name="_DownloadNuGet">
