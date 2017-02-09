@@ -41,7 +41,10 @@
     <Exec Command="&quot;$(NuGetExePath)&quot; install xunit.buildtasks -Source @(PackageSource) -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion" Condition="!Exists('$(SolutionDir)packages\xunit.buildtasks\')" />
     <Exec Command="&quot;$(NuGetExePath)&quot; install gitlink -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion -pre" Condition="!Exists('$(SolutionDir)\packages\gitlink\')" />
     <Exec Command="&quot;$(NuGetExePath)&quot; install gitversion.commandline -SolutionDir &quot;$(SolutionDir)&quot; -Verbosity quiet -ExcludeVersion -pre" Condition="!Exists('$(SolutionDir)\packages\gitversion.commandline\')" />
-    <Exec Command="&quot;$(NuGetExePath)&quot; restore &quot;$(SolutionDir)\$(SolutionName)&quot; -NonInteractive -Source @(PackageSource) -Verbosity quiet" />
+    <MSBuild
+        Projects="xunit.devices.sln"
+        Targets="Restore"
+        Properties="Configuration=$(Configuration);Platform=$(Platform);TrackFileAccess=$(TrackFileAccess)"/>
   </Target>
 
   <Target Name="GitVersion" DependsOnTargets="PackageRestore">
