@@ -8,7 +8,7 @@ nuget:
     
 build_script:
   - cmd: msbuild xunit.devices.proj /t:GitVersion /p:Configuration=Release
-  - cmd: msbuild xunit.devices.proj /t:CI /p:Configuration=Release
+  - cmd: msbuild xunit.devices.proj /t:CI /p:Configuration=Release /p:CommitHash=%APPVEYOR_REPO_COMMIT%
   
 
 artifacts:
