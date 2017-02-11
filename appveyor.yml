@@ -13,6 +13,8 @@ build_script:
 
 artifacts:
   - path: '*.nupkg'
+
+test: off
   
 deploy:
   provider: NuGet
