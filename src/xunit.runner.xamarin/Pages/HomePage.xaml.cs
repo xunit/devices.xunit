@@ -44,6 +44,7 @@ namespace Xunit.Runners.Pages
             // Xam Forms requires us to redraw the table root to add new content
 	        var tr = new TableRoot();
 	        var fs = new TableSection("Test Assemblies");
+	        var i = 0;
 
 	        foreach (var ta in viewModel.TestAssemblies)
 	        {
@@ -51,6 +52,8 @@ namespace Xunit.Runners.Pages
 	            ts.SetBinding(TextCell.TextProperty, "DisplayName");
 	            ts.SetBinding(TextCell.DetailProperty, "DetailText");
 	            ts.SetBinding(TextCell.DetailColorProperty, "RunStatus", converter: AssemblyRunStatusConverter);
+	            ts.AutomationId = $"testAssembly_{i}";
+	            i++;
 
 	            ts.Command = viewModel.NavigateToTestAssemblyCommand;
 	            ts.CommandParameter = ts.BindingContext;
@@ -63,6 +66,7 @@ namespace Xunit.Runners.Pages
 	        {
 	            Text = "Run Everything",
 	            Command = viewModel.RunEverythingCommand,
+                AutomationId = "runEverything"
 	        };
 
 	        table.Root.Skip(1)

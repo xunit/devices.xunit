@@ -232,10 +232,12 @@ namespace Xunit.Runners
                 int notRun;
                 results.TryGetValue(TestState.NotRun, out notRun);
 
+                string prefix = notRun == 0 ? "Complete - " : string.Empty;
+
                 // No failures and all run
                 if (failure == 0 && notRun == 0)
                 {
-                    DetailText = $"Success! {positive} test{(positive == 1 ? string.Empty : "s")}";
+                    DetailText = $"{prefix}Success! {positive} test{(positive == 1 ? string.Empty : "s")}";
                     RunStatus = RunStatus.Ok;
 
                     Result = TestState.Passed;
@@ -243,7 +245,7 @@ namespace Xunit.Runners
                 else if (failure > 0 || (notRun > 0 && notRun < count))
                 {
                     // we either have failures or some of the tests are not run
-                    DetailText = $"{positive} success, {failure} failure{(failure > 1 ? "s" : string.Empty)}, {skipped} skip{(skipped > 1 ? "s" : string.Empty)}, {notRun} not run";
+                    DetailText = $"{prefix}{positive} success, {failure} failure{(failure > 1 ? "s" : string.Empty)}, {skipped} skip{(skipped > 1 ? "s" : string.Empty)}, {notRun} not run";
 
                     if (failure > 0) // always show a fail
                     {
