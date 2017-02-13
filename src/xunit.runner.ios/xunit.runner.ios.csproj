@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunnerAppDelegate.cs" />
     <Compile Include="ThreadPoolHelper.cs" />
+    <Compile Include="AutomationTextCellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NuGet\AppDelegate.cs.txt.pp" />

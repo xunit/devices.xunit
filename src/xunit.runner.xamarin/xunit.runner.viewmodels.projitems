@@ -46,5 +46,6 @@
       <DependentUpon>TestResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Commands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\AutomationTextCell.cs" />
   </ItemGroup>
 </Project>
