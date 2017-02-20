@@ -1,9 +1,10 @@
-{
-    "dependencies": {
-        "xunit": "2.2.0"
-    },
-    "frameworks": {
-        ".NETPortable,Version=v4.6,Profile=Profile151": { }
-    },
-    "supports": { }
+﻿{
+  "supports": {},
+  "dependencies": {
+    "NETStandard.Library": "1.6.0",
+    "xunit": "2.2.0"
+  },
+  "frameworks": {
+    "netstandard1.1": {}
+  }
 }
