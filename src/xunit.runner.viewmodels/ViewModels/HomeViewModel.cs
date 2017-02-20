@@ -134,6 +134,10 @@ namespace Xunit.Runners
 
         Task Run()
         {
+            if (!string.IsNullOrWhiteSpace(DiagnosticMessages))
+            {
+                DiagnosticMessages += $"-----------{Environment.NewLine}";
+            }
             return runner.Run(TestAssemblies.Select(t => t.RunInfo).ToList(), "Run Everything");
         }
     }
