@@ -33,14 +33,26 @@ namespace Xunit.Runners
             runEverythingCommand = new DelegateCommand(RunEverythingExecute, () => !isBusy);
             NavigateToTestAssemblyCommand = new DelegateCommand<object>(async vm => await navigation.NavigateTo(NavigationPage.AssemblyTestList, vm));
 
-
+            runner.OnDiagnosticMessage += RunnerOnOnDiagnosticMessage;
 
 
             StartAssemblyScan();
         }
 
+        void RunnerOnOnDiagnosticMessage(string s)
+        {
+            DiagnosticMessages += $"{s}{Environment.NewLine}";
+        }
+
 
         public ObservableCollection<TestAssemblyViewModel> TestAssemblies { get; }
+
+        private string diagnosticMessages = string.Empty;
+        public string DiagnosticMessages
+        {
+            get { return diagnosticMessages;}
+            set { Set(ref diagnosticMessages, value); }
+        }
 
 
         void OptionsExecute()
@@ -122,6 +134,10 @@ namespace Xunit.Runners
 
         Task Run()
         {
+            if (!string.IsNullOrWhiteSpace(DiagnosticMessages))
+            {
+                DiagnosticMessages += $"-----------{Environment.NewLine}";
+            }
             return runner.Run(TestAssemblies.Select(t => t.RunInfo).ToList(), "Run Everything");
         }
     }
