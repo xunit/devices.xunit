@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xunit.Runners.Utilities;
 
 namespace Xunit.Runners.Pages
 {
@@ -44,13 +45,16 @@ namespace Xunit.Runners.Pages
             // Xam Forms requires us to redraw the table root to add new content
 	        var tr = new TableRoot();
 	        var fs = new TableSection("Test Assemblies");
+	        var i = 0;
 
 	        foreach (var ta in viewModel.TestAssemblies)
 	        {
-	            var ts = new TextCell {BindingContext = ta};
+	            var ts = new AutomationTextCell {BindingContext = ta};
 	            ts.SetBinding(TextCell.TextProperty, "DisplayName");
 	            ts.SetBinding(TextCell.DetailProperty, "DetailText");
 	            ts.SetBinding(TextCell.DetailColorProperty, "RunStatus", converter: AssemblyRunStatusConverter);
+	            ts.AutomationId = $"testAssembly_{i}";
+	            i++;
 
 	            ts.Command = viewModel.NavigateToTestAssemblyCommand;
 	            ts.CommandParameter = ts.BindingContext;
@@ -59,10 +63,11 @@ namespace Xunit.Runners.Pages
 	        }
 	        tr.Add(fs); // add the first section
 
-	        var run = new TextCell
+	        var run = new AutomationTextCell
 	        {
 	            Text = "Run Everything",
 	            Command = viewModel.RunEverythingCommand,
+                AutomationId = "runEverything"
 	        };
 
 	        table.Root.Skip(1)
@@ -71,7 +76,6 @@ namespace Xunit.Runners.Pages
 	        tr.Add(table.Root.Skip(1)); // Skip the first section and add the others
 
 	        table.Root = tr;
-
 	    }
 	}
 }
