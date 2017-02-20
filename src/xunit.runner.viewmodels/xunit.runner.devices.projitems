@@ -12,11 +12,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyRunInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceRunner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceRunnerLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INavigation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IResultChannel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestRunner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RunnerOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sinks\DeviceExecutionSink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sinks\DiagnosticMessageSink.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FilteredCollectionView.cs" />
@@ -28,7 +31,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestCaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TestResultViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestExecutionVisitor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Visitors\TestDiscoveryVisitor.cs" />
   </ItemGroup>
 </Project>

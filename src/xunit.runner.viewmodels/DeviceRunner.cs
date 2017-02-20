@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Xunit.Runners.Sinks;
 using Xunit.Runners.Utilities;
-using Xunit.Runners.Visitors;
 
 namespace Xunit.Runners
 {
@@ -133,9 +133,9 @@ namespace Xunit.Runners
                                 break;
 
                             using (var framework = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName, null, false))
-                            using (var sink = new TestDiscoveryVisitor())
+                            using (var sink = new TestDiscoverySink(() => cancelled))
                             {
-                                framework.Find(true, sink, discoveryOptions);
+                                framework.Find(false, sink, discoveryOptions);
                                 sink.Finished.WaitOne();
 
                                 result.Add(new AssemblyRunInfo
@@ -217,44 +217,42 @@ namespace Xunit.Runners
 
         Task RunTests(Func<IReadOnlyList<AssemblyRunInfo>> testCaseAccessor)
         {
-            var tcs = new TaskCompletionSource<object>(null);
+            var tcs = new TaskCompletionSource<object>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            Action handler = () =>
-                             {
-                                 var toDispose = new List<IDisposable>();
+            void Handler()
+            {
+                var toDispose = new List<IDisposable>();
 
-                                 try
-                                 {
-                                     cancelled = false;
-                                     var assemblies = testCaseAccessor();
-                                     var parallelizeAssemblies = assemblies.All(runInfo => runInfo.Configuration.ParallelizeAssemblyOrDefault);
+                try
+                {
+                    cancelled = false;
+                    var assemblies = testCaseAccessor();
+                    var parallelizeAssemblies = assemblies.All(runInfo => runInfo.Configuration.ParallelizeAssemblyOrDefault);
 
 
-                                     using (AssemblyHelper.SubscribeResolve())
-                                     {
-                                         if (parallelizeAssemblies)
-                                             assemblies
-                                                 .Select(runInfo => RunTestsInAssemblyAsync(toDispose, runInfo))
-                                                 .ToList()
-                                                 .ForEach(@event => @event.WaitOne());
-                                         else
-                                             assemblies
-                                                 .ForEach(runInfo => RunTestsInAssembly(toDispose, runInfo));
-                                     }
-                                 }
-                                 catch (Exception e)
-                                 {
-                                     tcs.SetException(e);
-                                 }
-                                 finally
-                                 {
-                                     toDispose.ForEach(disposable => disposable.Dispose());
-                                     //    OnTestRunCompleted();
-                                     tcs.TrySetResult(null);
-                                 }
-                             };
+                    using (AssemblyHelper.SubscribeResolve())
+                    {
+                        if (parallelizeAssemblies)
+                            assemblies.Select(runInfo => RunTestsInAssemblyAsync(toDispose, runInfo))
+                                      .ToList()
+                                      .ForEach(@event => @event.WaitOne());
+                        else
+                            assemblies.ForEach(runInfo => RunTestsInAssembly(toDispose, runInfo));
+                    }
+                }
+                catch (Exception e)
+                {
+                    tcs.SetException(e);
+                }
+                finally
+                {
+                    toDispose.ForEach(disposable => disposable.Dispose());
+                    //    OnTestRunCompleted();
+                    tcs.TrySetResult(null);
+                }
+            }
 
-            ThreadPoolHelper.RunAsync(handler);
+            ThreadPoolHelper.RunAsync(Handler);
 
             return tcs.Task;
         }
@@ -266,46 +264,57 @@ namespace Xunit.Runners
 
             var assemblyFileName = runInfo.AssemblyFileName;
 
+            var longRunningSeconds = runInfo.Configuration.LongRunningTestSecondsOrDefault;
+
             var controller = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName);
 
             lock (toDispose)
                 toDispose.Add(controller);
 
 
-            var xunitTestCases = runInfo.TestCases.Select(tc => new
-            {
-                vm = tc,
-                tc = tc.TestCase
-            })
-                                        .Where(tc => tc.tc.UniqueID != null)
-                                        .ToDictionary(tc => tc.tc, tc => tc.vm);
+            var xunitTestCases = runInfo.TestCases.Select(tc => new { vm = tc, tc = tc.TestCase })
+                                                  .Where(tc => tc.tc.UniqueID != null)
+                                                  .ToDictionary(tc => tc.tc, tc => tc.vm);
+
             var executionOptions = TestFrameworkOptions.ForExecution(runInfo.Configuration);
 
+            var diagSink = new DiagnosticMessageSink(null, runInfo.AssemblyFileName, executionOptions.GetDiagnosticMessagesOrDefault());
 
-            using (var executionVisitor = new TestExecutionVisitor(xunitTestCases, this, executionOptions, () => cancelled, context))
-            {
-                controller.RunTests(xunitTestCases.Select(tc => tc.Value.TestCase).ToList(), executionVisitor, executionOptions);
-                executionVisitor.Finished.WaitOne();
-            }
+            
+            var deviceExecSink = new DeviceExecutionSink(xunitTestCases, this, context);
+
+            IExecutionSink resultsSink = new DelegatingExecutionSummarySink(deviceExecSink, () => cancelled);
+            if (longRunningSeconds > 0)
+                resultsSink = new DelegatingLongRunningTestDetectionSink(resultsSink, TimeSpan.FromSeconds(longRunningSeconds), diagSink);
+
+
+            var assm = new XunitProjectAssembly() { AssemblyFilename = runInfo.AssemblyFileName };
+            deviceExecSink.OnMessage(new TestAssemblyExecutionStarting(assm, executionOptions));
+
+            controller.RunTests(xunitTestCases.Select(tc => tc.Value.TestCase).ToList(), resultsSink, executionOptions);
+            resultsSink.Finished.WaitOne();
+
+
+            deviceExecSink.OnMessage(new TestAssemblyExecutionFinished(assm, executionOptions, resultsSink.ExecutionSummary));
         }
 
         ManualResetEvent RunTestsInAssemblyAsync(List<IDisposable> toDispose, AssemblyRunInfo runInfo)
         {
             var @event = new ManualResetEvent(false);
 
-            Action handler = () =>
-                             {
-                                 try
-                                 {
-                                     RunTestsInAssembly(toDispose, runInfo);
-                                 }
-                                 finally
-                                 {
-                                     @event.Set();
-                                 }
-                             };
+            void Handler()
+            {
+                try
+                {
+                    RunTestsInAssembly(toDispose, runInfo);
+                }
+                finally
+                {
+                    @event.Set();
+                }
+            }
 
-            ThreadPoolHelper.RunAsync(handler);
+            ThreadPoolHelper.RunAsync(Handler);
 
             return @event;
         }
