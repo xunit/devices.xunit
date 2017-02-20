@@ -20,9 +20,9 @@
         <TextBlock Text="{x:Bind ViewModel.DisplayName}" Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}"/>
         <ProgressBar Grid.Row="1" Height="10" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
         <RelativePanel Grid.Row="2">
-            <SearchBox RelativePanel.AlignLeftWithPanel="True"
+            <AutoSuggestBox RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.LeftOf="resultFilter"
-                PlaceholderText="filter" QueryText="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
+                PlaceholderText="filter" Text="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
             <ComboBox x:Name="resultFilter" RelativePanel.AlignRightWithPanel="True"
                       Width="100" SelectedIndex="0" SelectionChanged="resultFilter_SelectionChanged"
                 >
