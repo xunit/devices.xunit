@@ -85,6 +85,8 @@ namespace Xunit.Runners
             }
         }
 
+        public event Action<string> OnDiagnosticMessage;
+
         public Task<IReadOnlyList<TestAssemblyViewModel>> Discover()
         {
             var tcs = new TaskCompletionSource<IReadOnlyList<TestAssemblyViewModel>>();
@@ -278,7 +280,7 @@ namespace Xunit.Runners
 
             var executionOptions = TestFrameworkOptions.ForExecution(runInfo.Configuration);
 
-            var diagSink = new DiagnosticMessageSink(null, runInfo.AssemblyFileName, executionOptions.GetDiagnosticMessagesOrDefault());
+            var diagSink = new DiagnosticMessageSink(d => context.Post(_ => OnDiagnosticMessage?.Invoke(d), null), runInfo.AssemblyFileName, executionOptions.GetDiagnosticMessagesOrDefault());
 
             
             var deviceExecSink = new DeviceExecutionSink(xunitTestCases, this, context);

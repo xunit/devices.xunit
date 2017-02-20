@@ -41,6 +41,12 @@ namespace test.xunit.runner.ios
             Assert.Equal(10, i);
         }
 
+        [Fact]
+        public async void TestLongMethod()
+        {
+            await Task.Delay(15000);
+        }
+
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
