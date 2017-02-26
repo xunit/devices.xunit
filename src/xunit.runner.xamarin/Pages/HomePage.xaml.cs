@@ -38,8 +38,6 @@ namespace Xunit.Runners.Pages
 
 	    }
 
-	   
-
 	    private void ScanComplete(object sender, EventArgs e)
 	    {
             // Xam Forms requires us to redraw the table root to add new content
