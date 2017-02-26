@@ -41,7 +41,7 @@ namespace Xunit.Runners
 
         void RunnerOnOnDiagnosticMessage(string s)
         {
-            DiagnosticMessages += $"{s}{Environment.NewLine}";
+            DiagnosticMessages += $"{s}{Environment.NewLine}{Environment.NewLine}";
         }
 
 

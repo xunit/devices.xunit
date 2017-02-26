@@ -7,6 +7,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
         <TableView Intent="Settings" x:Name="table">
@@ -21,7 +22,12 @@
             </TableView.Root>
         </TableView>
         <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Start" />
-        <Label Grid.Row="1" Text="{Binding DiagnosticMessages}"/>
+        <ContentView Grid.Row="1" Padding="20, 0, 20, 0">
+            <Label Text="Diagnostic Information:" />
+        </ContentView>
+        <ScrollView Grid.Row="2" Padding="20, 10, 20, 10">
+            <Label Text="{Binding DiagnosticMessages}" />
+        </ScrollView>
     </Grid>
 
 
