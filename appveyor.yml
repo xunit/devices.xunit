@@ -1,4 +1,4 @@
-image: Visual Studio 2017 RC
+image: Visual Studio 2017
 
 install: 
   - cmd: nuget install gitlink -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
