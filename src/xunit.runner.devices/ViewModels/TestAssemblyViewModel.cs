@@ -220,17 +220,13 @@ namespace Xunit.Runners
 
                 var results = outcomes.ToDictionary(k => k.Key, v => v.Count());
 
-                int positive;
-                results.TryGetValue(TestState.Passed, out positive);
+                results.TryGetValue(TestState.Passed, out int positive);
 
-                int failure;
-                results.TryGetValue(TestState.Failed, out failure);
+                results.TryGetValue(TestState.Failed, out int failure);
 
-                int skipped;
-                results.TryGetValue(TestState.Skipped, out skipped);
+                results.TryGetValue(TestState.Skipped, out int skipped);
 
-                int notRun;
-                results.TryGetValue(TestState.NotRun, out notRun);
+                results.TryGetValue(TestState.NotRun, out int notRun);
 
                 string prefix = notRun == 0 ? "Complete - " : string.Empty;
 

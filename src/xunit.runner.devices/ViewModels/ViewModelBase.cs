@@ -15,10 +15,7 @@ namespace Xunit.Runners
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             var evt = PropertyChanged;
-            if (evt != null)
-            {
-                evt(this, new PropertyChangedEventArgs(propertyName));
-            }
+            evt?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected bool Set<T>(ref T destination, T value, [CallerMemberName] string propertyName = null)

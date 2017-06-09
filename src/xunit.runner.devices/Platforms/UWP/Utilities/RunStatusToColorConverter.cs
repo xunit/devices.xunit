@@ -16,10 +16,8 @@ namespace Xunit.Runners.Utilities
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is RunStatus)
+            if (value is RunStatus status)
             {
-                var status = (RunStatus)value;
-
                 switch (status)
                 {
                     case RunStatus.Ok:

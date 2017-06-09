@@ -25,14 +25,11 @@ namespace Xunit.Runners
 
         internal TestCaseViewModel(string assemblyFileName, ITestCase testCase, INavigation navigation, ITestRunner runner)
         {
-            if (assemblyFileName == null) throw new ArgumentNullException(nameof(assemblyFileName));
-            if (testCase == null) throw new ArgumentNullException(nameof(testCase));
-
             this.navigation = navigation;
             this.runner = runner;
 
-            AssemblyFileName = assemblyFileName;
-            TestCase = testCase;
+            AssemblyFileName = assemblyFileName ?? throw new ArgumentNullException(nameof(assemblyFileName));
+            TestCase = testCase ?? throw new ArgumentNullException(nameof(testCase));
 
 
             Result = TestState.NotRun;

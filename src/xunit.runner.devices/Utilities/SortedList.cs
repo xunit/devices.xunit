@@ -14,8 +14,7 @@ namespace Xunit.Runners.Utilities
 
         public SortedList(IComparer<T> comparer)
         {
-            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
-            this.comparer = comparer;
+            this.comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
         }
 
         public int IndexOf(T item)

@@ -20,16 +20,14 @@ namespace Xunit.Runners.Utilities
 
         public FilteredCollectionView(ObservableCollection<T> dataSource, Func<T, TFilterArg, bool> filter, TFilterArg filterArgument, IComparer<T> sort)
         {
-            if (dataSource == null) throw new ArgumentNullException(nameof(dataSource));
-            if (filter == null) throw new ArgumentNullException(nameof(filter));
             if (sort == null) throw new ArgumentNullException(nameof(sort));
 
-            this.dataSource = dataSource;
-            this.filter = filter;
+            this.dataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
+            this.filter = filter ?? throw new ArgumentNullException(nameof(filter));
             this.filterArgument = filterArgument;
             filteredList = new SortedList<T>(sort);
 
-            this.dataSource.CollectionChanged += dataSource_CollectionChanged;
+            this.dataSource.CollectionChanged += DataSource_CollectionChanged;
 
             foreach (var item in this.dataSource)
             {
@@ -49,11 +47,11 @@ namespace Xunit.Runners.Utilities
 
         public void Dispose()
         {
-            dataSource.CollectionChanged -= dataSource_CollectionChanged;
+            dataSource.CollectionChanged -= DataSource_CollectionChanged;
 
             foreach (var item in dataSource.OfType<INotifyPropertyChanged>())
             {
-                item.PropertyChanged -= dataSource_ItemChanged;
+                item.PropertyChanged -= DataSource_ItemChanged;
             }
 
             filteredList.Clear();
@@ -193,7 +191,7 @@ namespace Xunit.Runners.Utilities
             itemChanged?.Invoke(sender, args);
         }
 
-        void dataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void DataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -228,7 +226,7 @@ namespace Xunit.Runners.Utilities
             }
         }
 
-        void dataSource_ItemChanged(object sender, PropertyChangedEventArgs e)
+        void DataSource_ItemChanged(object sender, PropertyChangedEventArgs e)
         {
             var item = (T)sender;
             var index = filteredList.IndexOf(item);
@@ -261,19 +259,17 @@ namespace Xunit.Runners.Utilities
                 }
             }
 
-            var observable = item as INotifyPropertyChanged;
-            if (observable != null)
+            if (item is INotifyPropertyChanged observable)
             {
-                observable.PropertyChanged += dataSource_ItemChanged;
+                observable.PropertyChanged += DataSource_ItemChanged;
             }
         }
 
         void OnRemoved(T item)
         {
-            var observable = item as INotifyPropertyChanged;
-            if (observable != null)
+            if (item is INotifyPropertyChanged observable)
             {
-                observable.PropertyChanged -= dataSource_ItemChanged;
+                observable.PropertyChanged -= DataSource_ItemChanged;
             }
 
             var index = filteredList.IndexOf(item);

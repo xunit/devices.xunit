@@ -47,8 +47,7 @@ namespace Xunit.Runners.Sinks
         {
             var tcs = new TaskCompletionSource<TestResultViewModel>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            TestCaseViewModel testCase;
-            if (!testCases.TryGetValue(testResult.TestCase, out testCase))
+            if (!testCases.TryGetValue(testResult.TestCase, out TestCaseViewModel testCase))
             {
                 // no matching reference, search by Unique ID as a fallback
                 testCase = testCases.FirstOrDefault(kvp => kvp.Key.UniqueID?.Equals(testResult.TestCase.UniqueID) ?? false).Value;

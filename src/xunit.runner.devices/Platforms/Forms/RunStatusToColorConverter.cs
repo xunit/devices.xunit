@@ -15,10 +15,8 @@ namespace Xunit.Runners
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is RunStatus)
+            if (value is RunStatus status)
             {
-                var status = (RunStatus)value;
-
                 switch (status)
                 {
                     case RunStatus.Ok:

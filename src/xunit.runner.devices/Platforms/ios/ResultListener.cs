@@ -116,9 +116,10 @@ namespace Xunit.Runners
             }
         }
 
+#pragma warning disable IDE1006 // Naming Styles
         [DllImport("/usr/lib/libobjc.dylib")]
         static extern IntPtr objc_msgSend(IntPtr receiver, IntPtr selector);
-
+#pragma warning restore IDE1006 // Naming Styles
 
         bool OpenWriter(string message)
         {

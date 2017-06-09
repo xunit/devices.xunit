@@ -32,12 +32,10 @@ namespace Xunit.Runners.UI
 
         public TcpTextWriter(string hostName, int port)
         {
-            if (hostName == null)
-                throw new ArgumentNullException(nameof(hostName));
             if ((port < 0) || (port > ushort.MaxValue))
                 throw new ArgumentException("port");
 
-            HostName = hostName;
+            HostName = hostName ?? throw new ArgumentNullException(nameof(hostName));
             Port = port;
 
 #if __IOS__ || MAC

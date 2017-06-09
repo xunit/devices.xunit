@@ -96,8 +96,7 @@ namespace Xunit.Runners.UI
                 AppViewBackButtonVisibility.Visible :
                 AppViewBackButtonVisibility.Collapsed;
 
-            var page = e.Content as Page;
-            if(page != null)
+            if (e.Content is Page page)
                 page.DataContext = e.Parameter;
         }
     }

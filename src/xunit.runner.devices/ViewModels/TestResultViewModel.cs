@@ -25,8 +25,7 @@ namespace Xunit.Runners
         /// <param name="testResult"></param>
         public TestResultViewModel(TestCaseViewModel testCase, ITestResultMessage testResult)
         {
-            if (testCase == null) throw new ArgumentNullException(nameof(testCase));
-            TestCase = testCase;
+            TestCase = testCase ?? throw new ArgumentNullException(nameof(testCase));
             TestResultMessage = testResult;
 
             if (testResult != null)
