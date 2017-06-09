@@ -16,11 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{98950ECA-3A16-4A7C-9E82-03EEB81EBDB3}"
-	ProjectSection(SolutionItems) = preProject
-		src\xunit.runner.devices.nuspec = src\xunit.runner.devices.nuspec
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.pcltestlib", "test\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj", "{B7C9BEBB-26C2-483B-9BE8-80A8EE523EB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.xunit.runner.android", "test\test.xunit.runner.android\test.xunit.runner.android.csproj", "{111991DA-D822-4A9F-B57B-CEF2EFC8252E}"
@@ -680,7 +675,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{98950ECA-3A16-4A7C-9E82-03EEB81EBDB3} = {E3B9769B-D056-49F0-A6A5-03EC36DE48F8}
 		{B7C9BEBB-26C2-483B-9BE8-80A8EE523EB8} = {88D90D4D-7706-4419-8177-C21123947D78}
 		{111991DA-D822-4A9F-B57B-CEF2EFC8252E} = {88D90D4D-7706-4419-8177-C21123947D78}
 		{875AC482-ABEF-4978-80B7-16BB0EB62E58} = {F8D208A4-217E-46B7-A45B-E3259B0D0B73}
