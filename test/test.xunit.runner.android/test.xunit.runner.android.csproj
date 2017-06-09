@@ -15,14 +15,14 @@
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
     <JavaOptions />
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <CopyNuGetImplementations>true</CopyNuGetImplementations>
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
@@ -73,7 +73,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <AndroidAsset Include="Assets\xunit.runner.json" />
-    <None Include="project.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -84,10 +83,15 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj">
+      <Project>{4c73a814-9327-4b0b-a46e-acfe47481817}</Project>
+      <Name>xunit.runner.devices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
+    <PackageReference Include="xunit" Version="2.2.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\src\build\xunit.runner.devices.targets" />

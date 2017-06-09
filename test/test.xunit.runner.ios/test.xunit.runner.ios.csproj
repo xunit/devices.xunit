@@ -150,7 +150,6 @@
     <None Include="app.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="project.json" />
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -167,10 +166,15 @@
     <Content Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj">
+      <Project>{4c73a814-9327-4b0b-a46e-acfe47481817}</Project>
+      <Name>xunit.runner.devices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
+    <PackageReference Include="xunit" Version="2.2.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\src\build\xunit.runner.devices.targets" />

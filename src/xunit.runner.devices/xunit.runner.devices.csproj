@@ -26,6 +26,7 @@
     <Compile Condition="'$(IsXamForms)' == 'true'" Include="Platforms\Forms\**\*.cs" />
     <Compile Condition="'$(TargetFramework)' == 'xamarinios10'" Include="Platforms\ios\**\*.cs" />
     <Compile Condition="'$(TargetFramework)' == 'monoandroid70'" Include="Platforms\android\**\*.cs" />
+    <AndroidResource Include="Platforms\android\Resources\**\*.xml" />
     
     <Page Condition="'$(IsXamForms)' == 'false'" Include="Platforms\UWP\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
     <EmbeddedResource Condition="'$(IsXamForms)' == 'true'" Include="Platforms\Forms\**\*.xaml" SubType="Designer" Generator="MSBuild:UpdateDesignTimeXaml" />
