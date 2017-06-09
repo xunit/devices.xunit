@@ -167,11 +167,6 @@
     <Content Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\xunit.runner.ios\xunit.runner.ios.csproj">
-      <Project>{3133b3c8-08e5-435d-84ae-0ba775ff10a7}</Project>
-      <Name>xunit.runner.ios</Name>
-      <IsAppExtension>false</IsAppExtension>
-    </ProjectReference>
     <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>

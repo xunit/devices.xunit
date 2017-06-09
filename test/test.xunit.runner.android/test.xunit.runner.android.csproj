@@ -84,10 +84,6 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\xunit.runner.android\xunit.runner.android.csproj">
-      <Project>{a0d90d0b-bc16-42aa-af74-8b49772f8406}</Project>
-      <Name>xunit.runner.android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>

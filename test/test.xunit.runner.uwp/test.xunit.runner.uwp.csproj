@@ -127,10 +127,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\xunit.runner.uwp\xunit.runner.uwp.csproj">
-      <Project>{cd8c2c87-0b12-4501-be45-bea8554cf548}</Project>
-      <Name>xunit.runner.uwp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\test.xunit.pcltestlib\test.xunit.pcltestlib.csproj">
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>

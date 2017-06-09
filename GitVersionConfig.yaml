@@ -1,8 +1,0 @@
-assembly-versioning-scheme: MajorMinorPatch 
-next-version: 2.2.0-beta
-branches:
-  feature:
-    mode: ContinuousDeployment
-  develop:
-    mode: ContinuousDeployment
-    tag: dev
