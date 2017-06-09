@@ -313,7 +313,7 @@ Global
 		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug .NET Native|x64.Build.0 = AppStore|iPhone
 		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug .NET Native|x86.ActiveCfg = AppStore|iPhone
 		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug .NET Native|x86.Build.0 = AppStore|iPhone
-		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug|ARM.ActiveCfg = Debug|iPhone
 		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{2B12073E-4618-4D2D-BF9B-6B12A063FDB2}.Debug|iPhone.Build.0 = Debug|iPhone
