@@ -7,6 +7,18 @@
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
     <GenerateLibraryLayout Condition="'$(TargetFramework)' == 'uap10.0'">true</GenerateLibraryLayout>
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+    <AssemblyTitle>xUnit for Devices</AssemblyTitle>
+    <Product>xUnit for Devices ($(TargetFramework))</Product>
+    <Description>Includes support for running xUnit.net v2 tests on iOS, Android, and UWP devices</Description>
+    <PackageTags>xunit;uwp;xamarin;android;ios;monoandroid;tdd;unit;test</PackageTags>
+    <Authors>Oren Novotny</Authors>    
+    <PackageProjectUrl>https://github.com/xunit/devices.xunit</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</PackageIconUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</PackageLicenseUrl>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <Company>.NET Foundation</Company>
+    <Copyright>Copyright (C) .NET Foundation</Copyright>
   </PropertyGroup>
   
   <ItemGroup>
@@ -19,6 +31,7 @@
     
     <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.3.4.247" />
     <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.2.3" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.1.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
