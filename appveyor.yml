@@ -1,16 +1,23 @@
 image: Visual Studio 2017
-
-install: 
-  - cmd: nuget install gitlink -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
+configuration: Release  
+  
+init:
+  - git config --global core.autocrlf input
 
 nuget:
   disable_publish_on_pr: true
-    
-build_script:
-  - cmd: msbuild xunit.devices.proj /t:GitVersion /p:Configuration=Release
-  - cmd: msbuild xunit.devices.proj /t:CI /p:Configuration=Release /p:CommitHash=%APPVEYOR_REPO_COMMIT%
   
+before_build:
+  - cmd: msbuild /t:restore xUnit.Devices.sln
+  
+build:
+  verbosity: normal
+  parallel: true
+  project: xUnit.Devices.sln
 
+after_build:  
+  - cmd: msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=Release /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
+  
 artifacts:
   - path: '*.nupkg'
 
