@@ -1,10 +1,10 @@
 ﻿{
   "dependencies": {
     "xunit": "2.2.0",
-    "xunit.runner.devices": "2.2.0-beta-build0024"
+    "xunit.runner.devices": "2.2.0"
   },
   "frameworks": {
-    "MonoAndroid,Version=v6.0": {}
+    "MonoAndroid,Version=v7.0": {}
   },
   "runtimes": {
     "win": {}
