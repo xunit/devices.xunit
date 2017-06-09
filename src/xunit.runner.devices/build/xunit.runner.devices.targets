@@ -14,7 +14,10 @@
       <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.desktop.pdb' "/>
       <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.dll' "/>
       <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.visualstudio.testadapter.pdb' "/>
-      
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.net452.dll' "/>
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.utility.net452.pdb' "/>
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.reporters.net452.dll' "/>
+      <__xUnitExecutionLibsToRemove Include="@(_SourceItemsToCopyToOutputDirectory)" Condition="'%(Filename)%(Extension)' == 'xunit.runner.reporters.net452.pdb' "/>
       <_SourceItemsToCopyToOutputDirectory Remove="@(__xUnitExecutionLibsToRemove)" />
       
     </ItemGroup>
