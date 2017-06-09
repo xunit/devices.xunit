@@ -6,6 +6,7 @@
 
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
+    <GenerateLibraryLayout Condition="'$(TargetFramework)' == 'uap10.0'">true</GenerateLibraryLayout>
   </PropertyGroup>
   
   <ItemGroup>
