@@ -24,14 +24,14 @@
   <ItemGroup>
     <Compile Remove="Platforms\**\*.*" />
     <None Include="Platforms\**\*.*" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.0.21-beta" PrivateAssets="all" />
-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.2" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.0.37-beta" PrivateAssets="all" />
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.7-beta.64" PrivateAssets="All" />
     <PackageReference Include="xunit.core" Version="2.2.0" />
     <PackageReference Include="xunit.runner.utility" Version="2.2.0" />
     
     <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.3.4.247" />
     <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.2.3" />
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.1.0" PrivateAssets="All" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
