@@ -124,14 +124,13 @@ namespace Xunit.Runners
                                                .Name + ".dll";
 #else
                     var codebase = assm.CodeBase;
-                    var assemblyFileName = Path.GetFileName(codebase);
+                    var assemblyFileName = codebase.Substring(7); 
 #endif
 
                     // Xunit needs the file name
 
 
-                    var configuration = GetConfiguration(assm.GetName()
-                                                             .Name);
+                    var configuration = GetConfiguration(assm.GetName().Name);
                     var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
 
                     try
