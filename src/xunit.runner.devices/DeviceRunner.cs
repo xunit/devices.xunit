@@ -119,9 +119,16 @@ namespace Xunit.Runners
             {
                 foreach (var assm in TestAssemblies)
                 {
-                    // Xunit needs the file name
+#if WINDOWS_UWP
                     var assemblyFileName = assm.GetName()
                                                .Name + ".dll";
+#else
+                    var codebase = assm.CodeBase;
+                    var assemblyFileName = Path.GetFileName(codebase);
+#endif
+
+                    // Xunit needs the file name
+
 
                     var configuration = GetConfiguration(assm.GetName()
                                                              .Name);
