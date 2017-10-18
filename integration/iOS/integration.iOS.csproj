@@ -23,6 +23,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
+    <MtouchArch>x86_64</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -114,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.3.0" />
-    <PackageReference Include="xunit.runner.devices" Version="2.3.0-preview.18" />
+    <PackageReference Include="xunit.runner.devices" Version="2.3.0-preview.23" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppDelegate.cs.txt" />
