@@ -143,7 +143,7 @@ namespace Xunit.Runners
                         {
                             var alert = new UIAlertView("Network Error",
                                                         $"Cannot connect to {hostname}:{options.HostPort}. Continue on console ?",
-                                                        null, "Cancel", "Continue");
+                                                        (IUIAlertViewDelegate)null, "Cancel", "Continue");
                             var button = -1;
                             alert.Clicked += delegate(object sender, UIButtonEventArgs e) { button = (int)e.ButtonIndex; };
                             alert.Show();
