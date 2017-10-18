@@ -117,42 +117,39 @@ namespace Xunit.Runners
 
             try
             {
-                using (AssemblyHelper.SubscribeResolve())
+                foreach (var assm in TestAssemblies)
                 {
-                    foreach (var assm in TestAssemblies)
+                    // Xunit needs the file name
+                    var assemblyFileName = assm.GetName()
+                                               .Name + ".dll";
+
+                    var configuration = GetConfiguration(assm.GetName()
+                                                             .Name);
+                    var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
+
+                    try
                     {
-                        // Xunit needs the file name
-                        var assemblyFileName = assm.GetName()
-                                                   .Name + ".dll";
+                        if (cancelled)
+                            break;
 
-                        var configuration = GetConfiguration(assm.GetName()
-                                                                 .Name);
-                        var discoveryOptions = TestFrameworkOptions.ForDiscovery(configuration);
-
-                        try
+                        using (var framework = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName, null, false))
+                        using (var sink = new TestDiscoverySink(() => cancelled))
                         {
-                            if (cancelled)
-                                break;
+                            framework.Find(false, sink, discoveryOptions);
+                            sink.Finished.WaitOne();
 
-                            using (var framework = new XunitFrontController(AppDomainSupport.Denied, assemblyFileName, null, false))
-                            using (var sink = new TestDiscoverySink(() => cancelled))
+                            result.Add(new AssemblyRunInfo
                             {
-                                framework.Find(false, sink, discoveryOptions);
-                                sink.Finished.WaitOne();
-
-                                result.Add(new AssemblyRunInfo
-                                {
-                                    AssemblyFileName = assemblyFileName,
-                                    Configuration = configuration,
-                                    TestCases = sink.TestCases.Select(tc => new TestCaseViewModel(assemblyFileName, tc, navigation, this))
-                                                    .ToList()
-                                });
-                            }
+                                AssemblyFileName = assemblyFileName,
+                                Configuration = configuration,
+                                TestCases = sink.TestCases.Select(tc => new TestCaseViewModel(assemblyFileName, tc, navigation, this))
+                                                .ToList()
+                            });
                         }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e);
-                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
                     }
                 }
             }
@@ -231,16 +228,13 @@ namespace Xunit.Runners
                     var assemblies = testCaseAccessor();
                     var parallelizeAssemblies = assemblies.All(runInfo => runInfo.Configuration.ParallelizeAssemblyOrDefault);
 
+                    if (parallelizeAssemblies)
+                        assemblies.Select(runInfo => RunTestsInAssemblyAsync(toDispose, runInfo))
+                                  .ToList()
+                                  .ForEach(@event => @event.WaitOne());
+                    else
+                        assemblies.ForEach(runInfo => RunTestsInAssembly(toDispose, runInfo));
 
-                    using (AssemblyHelper.SubscribeResolve())
-                    {
-                        if (parallelizeAssemblies)
-                            assemblies.Select(runInfo => RunTestsInAssemblyAsync(toDispose, runInfo))
-                                      .ToList()
-                                      .ForEach(@event => @event.WaitOne());
-                        else
-                            assemblies.ForEach(runInfo => RunTestsInAssembly(toDispose, runInfo));
-                    }
                 }
                 catch (Exception e)
                 {

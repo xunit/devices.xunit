@@ -5,8 +5,4 @@
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
   </PropertyGroup>
   
-  
-    <!-- Workaround -->
-  <Target Name="GetPackagingOutputs" />
-  
 </Project>

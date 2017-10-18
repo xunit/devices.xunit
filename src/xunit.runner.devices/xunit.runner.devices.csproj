@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>uap10.0;monoandroid70;xamarinios10</TargetFrameworks>
-    <DebugType>full</DebugType>
-
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
     <GenerateLibraryLayout Condition="'$(TargetFramework)' == 'uap10.0'">true</GenerateLibraryLayout>
@@ -23,16 +21,16 @@
   
   <ItemGroup>
     <Compile Remove="Platforms\**\*.*" />
+    <EmbeddedResource Remove="Platforms\**\*.*" />
     <None Include="Platforms\**\*.*" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.0.37-beta" PrivateAssets="all" />
-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.7" PrivateAssets="All" />
-    <PackageReference Include="Xamarin.Forms" Version="2.3.4.267" />
-    <PackageReference Include="xunit.core" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.utility" Version="2.2.0" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.0.41" PrivateAssets="all" />
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0-preview.2.build.8" PrivateAssets="All" />
+    <PackageReference Include="xunit.core" Version="2.3.0" />
+    <PackageReference Include="xunit.runner.utility" Version="2.3.0" />
     
-    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.3.4.247" />
-    <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.2.3" />
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.4.0.282" />
+    <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.2.3" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.4.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,26 +48,13 @@
     <EmbeddedResource Include="Properties\xunit.runner.devices.rd.xml" />
   </ItemGroup>
 
-
   <ItemGroup Label="Package">
     <None Include="build\*.targets" PackagePath="build\monoandroid70" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\xamarinios10" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\uap10.0" Pack="true" />
     <None Include="build\Android\*.*" PackagePath="content\monoandroid70" Pack="true" />
     <None Include="build\iOS\*.*" PackagePath="content\xamarinios10" Pack="true" />
-    
-    <None Include="bin\$(Configuration)\uap10.0\$(AssemblyName)\*.*" PackagePath="lib\uap10.0\$(AssemblyName)" Pack="true" Visible="false" />
-    <None Include="bin\$(Configuration)\uap10.0\$(AssemblyName)\Platforms\UWP\*.*" PackagePath="lib\uap10.0\$(AssemblyName)\Platforms\UWP" Pack="true" Visible="false" />
-    <None Include="bin\$(Configuration)\uap10.0\$(AssemblyName)\Platforms\UWP\Pages\*.*" PackagePath="lib\uap10.0\$(AssemblyName)\Platforms\UWP\Pages" Pack="true" Visible="false" />
   </ItemGroup>
-
-  <!--<Target Name="AddLibraryLayoutFiles" BeforeTargets="_AddPriFileToPackBuildOutput">
-    <ItemGroup>
-      <_TargetPathsToAssemblies Include="bin\$(Configuration)\uap10.0\$(AssemblyName)\**\*.xaml">
-        <FinalOutputPath>lib\uap10.0\%(RecursiveDir)%(Filename)%(Extension)</FinalOutputPath>
-      </_TargetPathsToAssemblies>
-    </ItemGroup>
-  </Target>-->
   
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
