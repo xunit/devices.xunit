@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>uap10.0;monoandroid70;xamarinios10</TargetFrameworks>
-    <DebugType>full</DebugType>
+    <DebugType>embedded</DebugType>
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
     <GenerateLibraryLayout Condition="'$(TargetFramework)' == 'uap10.0'">true</GenerateLibraryLayout>
