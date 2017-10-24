@@ -9,6 +9,7 @@ if([string]::IsNullOrEmpty($env:SignClientSecret)){
 # Setup Variables we need to pass into the sign client tool
 
 $appSettings = "$currentDirectory\appsettings.json"
+$filter = "$currentDirectory\filter.txt"
 
 $appPath = "$currentDirectory\..\packages\SignClient\tools\netcoreapp2.0\SignClient.dll"
 
@@ -17,7 +18,7 @@ $nupgks = ls $currentDirectory\..\*.nupkg | Select -ExpandProperty FullName
 foreach ($nupkg in $nupgks){
 	Write-Host "Submitting $nupkg for signing"
 
-	dotnet $appPath 'sign' -c $appSettings -i $nupkg -s $env:SignClientSecret -n 'xUnit.net' -d 'xUnit.net' -u 'https://github.com/xunit/devices.xunit' 
+	dotnet $appPath 'sign' -c $appSettings -i $nupkg -f $filter -s $env:SignClientSecret -n 'xUnit.net' -d 'xUnit.net' -u 'https://github.com/xunit/devices.xunit' 
 
 	Write-Host "Finished signing $nupkg"
 }
