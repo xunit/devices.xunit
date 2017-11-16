@@ -134,7 +134,7 @@
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
-    <PackageReference Include="xunit" Version="2.3.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
