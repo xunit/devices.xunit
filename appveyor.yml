@@ -4,7 +4,6 @@ configuration: Release
 environment:
   SignClientSecret:
     secure: bkFZxe/+pW/X6nOwSYgMfr7XCgZD8F5KPNCsvHntf55YqvpYdnQucPZT5xmnf7eY
-  ANDROID_HOME: "C:\\android-sdk-windows"
   
 init:
   - git config --global core.autocrlf input
