@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>uap10.0;monoandroid70;xamarinios10</TargetFrameworks>
+    <TargetFrameworks>uap10.0;monoandroid80;xamarinios10</TargetFrameworks>
     <DebugType>embedded</DebugType>
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
@@ -29,11 +29,11 @@
     <None Include="Platforms\**\*.*" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.0.41" PrivateAssets="all" />
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.77107" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.91635" />
     <PackageReference Include="xunit.extensibility.execution" Version="$(XunitVersion)" PrivateAssets="all" />
     <PackageReference Include="xunit.runner.utility" Version="$(XunitVersion)" PrivateAssets="all" />
 
-    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.4.0.282" />
+    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.5.0.91635" />
     <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.2.3" />
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.5.0" PrivateAssets="All" />
   </ItemGroup>
@@ -42,7 +42,7 @@
     <Compile Condition="'$(IsXamForms)' == 'false'" Include="Platforms\UWP\**\*.cs" />
     <Compile Condition="'$(IsXamForms)' == 'true'" Include="Platforms\Forms\**\*.cs" />
     <Compile Condition="'$(TargetFramework)' == 'xamarinios10'" Include="Platforms\ios\**\*.cs" />
-    <Compile Condition="'$(TargetFramework)' == 'monoandroid70'" Include="Platforms\android\**\*.cs" />
+    <Compile Condition="'$(TargetFramework)' == 'monoandroid80'" Include="Platforms\android\**\*.cs" />
     <AndroidResource Include="Platforms\android\Resources\**\*.xml" />
     
     <Page Condition="'$(IsXamForms)' == 'false'" Include="Platforms\UWP\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
@@ -54,13 +54,13 @@
   </ItemGroup>
 
   <ItemGroup Label="Package">
-    <None Include="build\*.targets" PackagePath="build\monoandroid70" Pack="true" />
+    <None Include="build\*.targets" PackagePath="build\monoandroid80" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\xamarinios10" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\uap10.0" Pack="true" />
     <None Include="build\Android\*.*" PackagePath="content\monoandroid70" Pack="true" />
     <None Include="build\iOS\*.*" PackagePath="content\xamarinios10" Pack="true" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.1\*.dll" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
-    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid70" Pack="true" Visible="false" />
+    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid80" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\xamarinios10" Pack="true" Visible="false" />
   </ItemGroup>
   
