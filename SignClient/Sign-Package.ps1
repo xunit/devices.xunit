@@ -18,7 +18,7 @@ $nupgks = ls $currentDirectory\..\*.nupkg | Select -ExpandProperty FullName
 foreach ($nupkg in $nupgks){
 	Write-Host "Submitting $nupkg for signing"
 
-	dotnet $appPath 'sign' -c $appSettings -i $nupkg -f $filter -s $env:SignClientSecret -n 'xUnit.net' -d 'xUnit.net' -u 'https://github.com/xunit/devices.xunit' 
+	dotnet $appPath 'sign' -c $appSettings -i $nupkg -f $filter -r $env:SignClientUser -s $env:SignClientSecret -n 'xUnit.net' -d 'xUnit.net' -u 'https://github.com/xunit/devices.xunit' 
 
 	Write-Host "Finished signing $nupkg"
 }

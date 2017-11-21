@@ -3,8 +3,10 @@ configuration: Release
 
 environment:
   SignClientSecret:
-    secure: bkFZxe/+pW/X6nOwSYgMfr7XCgZD8F5KPNCsvHntf55YqvpYdnQucPZT5xmnf7eY
-  
+    secure: OSvGedclGNJvIXRn1DnArhQo6mhRV4mIgavxwjTJp1Y=
+  SignClientUser:
+    secure: uyweGSwxexnLy4dBNleW8tYcXTA291faj34PQV0ePxOTFSa5Cvf50jyICVP9mLGS
+      
 init:
   - git config --global core.autocrlf input
 
