@@ -184,7 +184,7 @@ namespace Xunit.Runners
 
         static Stream GetConfigurationStreamForAssembly(string assemblyName)
         {
-#if ANDROID
+#if __ANDROID__
             // Android needs to read the config from its asset manager
             return PlatformHelpers.ReadConfigJson(assemblyName);
 #else

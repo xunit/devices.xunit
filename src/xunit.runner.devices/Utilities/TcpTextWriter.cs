@@ -43,7 +43,7 @@ namespace Xunit.Runners.UI
 #endif
             try
             {
-#if __IOS__ || MAC || ANDROID
+#if __IOS__ || MAC || __ANDROID__
                 var client = new TcpClient(hostName, port);
                 writer = new StreamWriter(client.GetStream());
 #elif WINDOWS_PHONE || NETFX_CORE
