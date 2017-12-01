@@ -34,7 +34,7 @@
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.6.0" PrivateAssets="All" />
 
     <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.5.0.91635" />
-    <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
+    <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>
