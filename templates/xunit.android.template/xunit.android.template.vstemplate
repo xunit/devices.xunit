@@ -20,7 +20,7 @@
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AndroidManifest.xml">AndroidManifest.xml</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="MainActivity.cs">MainActivity.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="xunit.runner.json">xunit.runner.json</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Assets\xunit.runner.json">xunit.runner.json</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Assets\AboutAssets.txt">AboutAssets.txt</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Resources\Resource.Designer.cs">Resource.Designer.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Resources\AboutResources.txt">AboutResources.txt</ProjectItem>

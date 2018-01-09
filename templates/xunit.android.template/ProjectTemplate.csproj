@@ -55,16 +55,10 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
-    <Content Include="xunit.runner.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidAsset Include="Assets\xunit.runner.json" />
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
@@ -72,7 +66,7 @@
 
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.3.1" />
-    <PackageReference Include="xunit.runner.devices" Version="0.9.9" />
+    <PackageReference Include="xunit.runner.devices" Version="2.3.2" />
   </ItemGroup>
 
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
