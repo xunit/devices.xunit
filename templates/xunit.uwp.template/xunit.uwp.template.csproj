@@ -8,23 +8,24 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{F940ED3E-7C67-445F-8499-3B901A9FB467}</ProjectGuid>
+    <ProjectGuid>{7047FD2B-5AE4-4E89-86A7-ED11E4452E4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>xunit.devices.templates</RootNamespace>
-    <AssemblyName>xunit.devices.templates</AssemblyName>
+    <RootNamespace>xunit.uwp.template</RootNamespace>
+    <AssemblyName>xunit.uwp.template</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
     <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CreateVsixContainer>false</CreateVsixContainer>
+    <DeployExtension>false</DeployExtension>
+    <DeployVSTemplates>false</DeployVSTemplates>
+    <CopyVsixManifestToOutput>false</CopyVsixManifestToOutput>
     <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
-    <StartAction>Program</StartAction>
-    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
-    <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,47 +45,50 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.CoreUtility">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="source.extension.vsixmanifest">
+    <None Include="AssemblyInfo.cs" />
+    <None Include="Class1.cs" />
+    <None Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ProjectTemplate.csproj" />
+    <None Include="ProjectTemplate_TemporaryKey.pfx" />
+    <None Include="xunit.uwp.template.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
-    <Content Include="license.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="logo-128-transparent.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="stylesheet.css" />
+    <VSTemplate Include="xunit.uwp.template.vstemplate">
+      <OutputSubPath>Windows UAP</OutputSubPath>
+    </VSTemplate>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\xunit.android.template\xunit.android.template.csproj">
-      <Project>{5C60D6D6-CEE6-4717-89AC-ECCCF4433E61}</Project>
-      <Name>xunit.android.template</Name>
-      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-    </ProjectReference>
-    <ProjectReference Include="..\xunit.ios.template\xunit.ios.template.csproj">
-      <Project>{878EE2AC-EFB9-4982-94D8-A9D4436C4407}</Project>
-      <Name>xunit.ios.template</Name>
-      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-    </ProjectReference>
-    <ProjectReference Include="..\xunit.uwp.template\xunit.uwp.template.csproj">
-      <Project>{7047FD2B-5AE4-4E89-86A7-ED11E4452E4B}</Project>
-      <Name>xunit.uwp.template</Name>
-      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-    </ProjectReference>
+    <None Include="Assets\LockScreenLogo.scale-200.png" />
+    <None Include="Assets\SplashScreen.scale-200.png" />
+    <None Include="Assets\Square150x150Logo.scale-200.png" />
+    <None Include="Assets\Square44x44Logo.scale-200.png" />
+    <None Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <None Include="Assets\StoreLogo.png" />
+    <None Include="Assets\Wide310x150Logo.scale-200.png" />
+    <None Include="Properties\UnitTestApp.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

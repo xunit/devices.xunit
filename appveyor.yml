@@ -30,6 +30,8 @@ before_build:
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"
       $doc = Get-Content ".\templates\xunit.ios.template\ProjectTemplate.csproj"
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.ios.template\ProjectTemplate.csproj"
+      $doc = Get-Content ".\templates\xunit.uwp.template\ProjectTemplate.csproj"
+      $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.uwp.template\ProjectTemplate.csproj"
 
 build:
   verbosity: normal
