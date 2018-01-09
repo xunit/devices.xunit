@@ -1,4 +1,4 @@
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 configuration: Release  
 
 environment:
@@ -15,17 +15,17 @@ nuget:
 
 install: 
   - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion  
-  - echo y | "C:\Program Files (x86)\Android\android-sdk\tools\android.bat" --silent update sdk --no-ui --all --filter platform-tools,tools,build-tools-26.0.2,android-26,android-25,extra-google-m2repository,extra-android-m2repository
-  # on windows we need to accept sublicenses for the new tooling, wee. 30 is an arbitrary number,
-  # but should be the maximum number of licenses we explicitly need to type "Y ENTER" for.
-  # also, the sdkmanager in all its glory leaks a bit of output to stderr, and powershell
-  # and appveyor interpret that as errors, and blows up. so, when piping in our "Y ENTER"
-  # responses, we invoke cmd so we can redirect stderr to stdout, and tell it to --update itself.
-  - ps: for($i=0;$i -lt 30;$i++) { $response += "y`n"}; $response | cmd /c '"C:\Program Files (x86)\Android\android-sdk\tools\bin\sdkmanager.bat" 2>&1' --update
 
 before_build:
   - cmd: msbuild /t:restore xUnit.Devices.sln
-  
+  - ps: | 
+      nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion  
+      $vers = & .\packages\nerdbank.gitversioning\tools\Get-Version.ps1
+      $nugetVer = $vers.SimpleVersion
+
+      $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+      $doc | % { $_.Replace("0.9.9", "$nugetVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+
 build:
   verbosity: normal
   parallel: true
@@ -33,10 +33,12 @@ build:
 
 after_build:  
   - cmd: msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=Release /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
+  - cmd: move templates\xunit.devices.templates\bin\Release\*.vsix .
   - ps: '.\SignClient\Sign-Package.ps1'
     
 artifacts:
   - path: '*.nupkg'
+  - path: '*.vsix'
 
 test: off
   
