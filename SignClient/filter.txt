@@ -1,3 +1,1 @@
-lib\uap10.0\xunit.runner.devices.dll
-lib\monoandroid70\xunit.runner.devices.dll
-lib\xamarinios10\xunit.runner.devices.dll
+**/xunit.runner.devices.dll
