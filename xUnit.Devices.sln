@@ -40,9 +40,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.android.template", "templates\xunit.android.template\xunit.android.template.csproj", "{5C60D6D6-CEE6-4717-89AC-ECCCF4433E61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.devices.templates", "templates\xunit.devices.templates\xunit.devices.templates.csproj", "{F940ED3E-7C67-445F-8499-3B901A9FB467}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4C73A814-9327-4B0B-A46E-ACFE47481817} = {4C73A814-9327-4B0B-A46E-ACFE47481817}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.ios.template", "templates\xunit.ios.template\xunit.ios.template.csproj", "{878EE2AC-EFB9-4982-94D8-A9D4436C4407}"
 EndProject
