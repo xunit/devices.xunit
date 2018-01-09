@@ -30,6 +30,7 @@
           </Folder>
           <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
           <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
+          <ProjectItem ReplaceParameters="true" TargetFileName="xunit.runner.json">xunit.runner.json</ProjectItem>
           <ProjectItem ReplaceParameters="true" TargetFileName="Package.appxmanifest">Package.appxmanifest</ProjectItem>
           <Folder Name="Properties" TargetFolderName="Properties">
               <ProjectItem ReplaceParameters="true" TargetFileName="UnitTestApp.rd.xml">UnitTestApp.rd.xml</ProjectItem>

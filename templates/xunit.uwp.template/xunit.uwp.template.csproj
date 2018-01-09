@@ -67,6 +67,7 @@
     </None>
     <None Include="ProjectTemplate.csproj" />
     <None Include="ProjectTemplate_TemporaryKey.pfx" />
+    <None Include="xunit.runner.json" />
     <None Include="xunit.uwp.template.ico" />
   </ItemGroup>
   <ItemGroup>

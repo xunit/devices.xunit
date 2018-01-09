@@ -58,6 +58,7 @@
     <None Include="Main.axml" />
     <None Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="xunit.runner.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AssemblyInfo.cs" />

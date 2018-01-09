@@ -20,6 +20,7 @@
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="AppDelegate.cs">AppDelegate.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="xunit.runner.json">xunit.runner.json</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="Main.cs">Main.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="Info.plist">Info.plist</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="Entitlements.plist" OpenInEditor="false">Entitlements.plist</ProjectItem>
