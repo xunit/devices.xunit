@@ -44,10 +44,8 @@ before_build:
       $doc = Get-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
 
-build:
-  verbosity: normal
-  parallel: true
-  project: xUnit.Devices.sln
+build_script: 
+  - cmd: msbuild xUnit.Devices.sln /m /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true
 
 after_build:  
   - cmd: msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=Release /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
