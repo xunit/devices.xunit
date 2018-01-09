@@ -25,6 +25,7 @@
     <StartAction>Program</StartAction>
     <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
     <StartArguments>/rootsuffix Exp</StartArguments>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,4 +96,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="BeforeBuild">
+    <MSBuild Projects="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj" Targets="GetNuGetOutputGroup" Properties="Configuration=$(Configuration)">
+      <Output TaskParameter="TargetOutputs" ItemName="_NuPkgFiles" />
+    </MSBuild>
+    <ItemGroup>
+      <Content Include="@(_NuPkgFiles)" IncludeInVSIX="true" VSIXSubPath="Packages" />
+      <Content Include="$(NuGetPackageRoot)xunit\2.3.1\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />
+    </ItemGroup>
+  </Target>
 </Project>

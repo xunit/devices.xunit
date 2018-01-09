@@ -64,4 +64,12 @@
   </ItemGroup>
   
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+  <Target Name="GetNuGetOutputGroup" DependsOnTargets="Pack" Returns="@(NuGetOutputGroupOutput)">
+
+    <ItemGroup>
+      <NuGetOutputGroupOutput Include="$(PackageOutputAbsolutePath)$(PackageId).$(PackageVersion).nupkg" />
+    </ItemGroup>
+
+  </Target>
 </Project>

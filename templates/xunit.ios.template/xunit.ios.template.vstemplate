@@ -43,9 +43,17 @@
         <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
         <FullClassName>Xamarin.VisualStudio.TemplateWizards.SetMinimumOSVersionWizard</FullClassName>
     </WizardExtension>
+    <WizardExtension>
+        <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+        <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+    </WizardExtension>
     <WizardData>
         <MinimumOSVersion>
             <SdkType>iOS</SdkType>
         </MinimumOSVersion>
+        <packages repository="extension" repositoryId="xunit.devices.templates">
+            <package id="xunit" version="2.3.1" />
+            <package id="xunit.runner.devices" version="0.9.9" />
+        </packages>
     </WizardData>
 </VSTemplate>

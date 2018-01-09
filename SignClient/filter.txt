@@ -1,1 +1,1 @@
-**/xunit.runner.devices.dll
+**/xunit.runner.devices.*

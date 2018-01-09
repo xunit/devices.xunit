@@ -38,4 +38,10 @@
         <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
         <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
     </WizardExtension>
+    <WizardData>
+        <packages repository="extension" repositoryId="xunit.devices.templates">
+            <package id="xunit" version="2.3.1" />
+            <package id="xunit.runner.devices" version="0.9.9" />
+        </packages>
+    </WizardData>
 </VSTemplate>

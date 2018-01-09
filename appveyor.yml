@@ -28,12 +28,21 @@ before_build:
       $doc | % { $_.Replace("0.9.9", "$simpVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
       # ProjectTemplates
       $nuGetVer = $vers.NuGetPackageVersion
+      # Android
       $doc = Get-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"
+      $doc = Get-Content ".\templates\xunit.android.template\xunit.android.template.vstemplate"
+      $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.android.template\xunit.android.template.vstemplate"
+      # iOS
       $doc = Get-Content ".\templates\xunit.ios.template\ProjectTemplate.csproj"
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.ios.template\ProjectTemplate.csproj"
+      $doc = Get-Content ".\templates\xunit.ios.template\xunit.ios.template.vstemplate"
+      $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.ios.template\xunit.ios.template.vstemplate"
+      # UWP
       $doc = Get-Content ".\templates\xunit.uwp.template\ProjectTemplate.csproj"
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.uwp.template\ProjectTemplate.csproj"
+      $doc = Get-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
+      $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
 
 build:
   verbosity: normal
