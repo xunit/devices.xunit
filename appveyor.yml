@@ -19,7 +19,7 @@ install:
   - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion  
 
 before_build:
-  - cmd: msbuild /t:restore xUnit.Devices.sln
+  - cmd: msbuild /m /t:restore xUnit.Devices.sln /v:m
   - ps: | 
       nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir $Env:APPVEYOR_BUILD_FOLDER -Verbosity quiet -ExcludeVersion  
       $vers = & .\packages\nerdbank.gitversioning\tools\Get-Version.ps1
@@ -45,7 +45,7 @@ before_build:
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
 
 build_script: 
-  - cmd: msbuild xUnit.Devices.sln /m /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true
+  - cmd: msbuild xUnit.Devices.sln /m /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /v:m
 
 after_build:  
   - cmd: msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=Release /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
