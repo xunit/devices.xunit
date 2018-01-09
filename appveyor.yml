@@ -24,10 +24,13 @@ before_build:
       nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir $Env:APPVEYOR_BUILD_FOLDER -Verbosity quiet -ExcludeVersion  
       $vers = & .\packages\nerdbank.gitversioning\tools\Get-Version.ps1
       $simpVer = $vers.Version
+      $nuGetVer = $vers.NuGetPackageVersion
       $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
       $doc | % { $_.Replace("0.9.9", "$simpVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+      $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+      $doc | % { $_.Replace("9.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
       # ProjectTemplates
-      $nuGetVer = $vers.NuGetPackageVersion
+      
       # Android
       $doc = Get-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"
       $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"

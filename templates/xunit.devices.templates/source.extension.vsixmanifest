@@ -19,7 +19,7 @@
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="xunit.ios.template" d:TargetPath="|xunit.ios.template;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="xunit.uwp.template" d:TargetPath="|xunit.uwp.template;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
         <Asset Type="xunit.2.3.1.nupkg" Path="Packages\xunit.2.3.1.nupkg" />
-        <Asset Type="xunit.runner.devices.0.9.9.nupkg" Path="Packages\xunit.runner.devices.0.9.9.nupkg" />
+        <Asset Type="xunit.runner.devices.9.9.9.nupkg" Path="Packages\xunit.runner.devices.9.9.9.nupkg" />
     </Assets>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
