@@ -26,6 +26,7 @@
     <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
     <StartArguments>/rootsuffix Exp</StartArguments>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,14 +64,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="stylesheet.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <!--<ProjectReference Update="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj">
-      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>-->
-    <!--<ProjectReference Remove="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj" />-->
-    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xunit.android.template\xunit.android.template.csproj">
@@ -114,11 +107,4 @@
     </ItemGroup>
   </Target>
 
-  <!--<Target Name="RemoveBuildDep" AfterTargets="_SplitProjectReferencesByFileExistence" BeforeTargets="_GetProjectReferenceTargetFrameworkProperties">
-    <ItemGroup>
-      <_MSBuildProjectReferenceExistent Update="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj">
-        <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
-      </_MSBuildProjectReferenceExistent>  
-    </ItemGroup>    
-  </Target>-->
 </Project>
