@@ -21,9 +21,15 @@ before_build:
   - ps: | 
       nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir $Env:APPVEYOR_BUILD_FOLDER -Verbosity quiet -ExcludeVersion  
       $vers = & .\packages\nerdbank.gitversioning\tools\Get-Version.ps1
-      $nugetVer = $vers.SimpleVersion
+      $simpVer = $vers.SimpleVersion
       $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
-      $doc | % { $_.Replace("0.9.9", "$nugetVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+      $doc | % { $_.Replace("0.9.9", "$simpVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+      # ProjectTemplates
+      $nuGetVer = $vers.NuGetPackageVersion
+      $doc = Get-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"
+      $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.android.template\ProjectTemplate.csproj"
+      $doc = Get-Content ".\templates\xunit.ios.template\ProjectTemplate.csproj"
+      $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.ios.template\ProjectTemplate.csproj"
 
 build:
   verbosity: normal
