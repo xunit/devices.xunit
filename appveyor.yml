@@ -60,7 +60,7 @@ deploy:
   artifact: /.*\.nupkg/
 
 after_deploy:
-  - cmd: curl -X POST --header "X-NuGet-ApiKey:%MyGetApiKey%" -d @xunit.devices.templates.vsix https://www.myget.org/F/xunit-xamarin/vsix/upload
+  - cmd: curl -X POST --header "X-NuGet-ApiKey:%MyGetApiKey%" --data-binary @xunit.devices.templates.vsix https://www.myget.org/F/xunit-xamarin/vsix/upload
 
 notifications:
 - provider: Slack
