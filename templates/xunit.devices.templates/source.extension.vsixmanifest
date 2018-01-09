@@ -7,7 +7,7 @@
         <MoreInfo>http://xunit.github.io/</MoreInfo>
         <License>license.txt</License>
         <Icon>logo-128-transparent.png</Icon>
-        <Tags>xunit ios android xamarin</Tags>
+        <Tags>xunit uwp ios android xamarin device devices</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,16.0)" />
