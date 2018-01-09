@@ -65,7 +65,6 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <None Include="ProjectTemplate.csproj" />
-    <None Include="xunit.ios.template.ico" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="xunit.ios.template.vstemplate">

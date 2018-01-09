@@ -3,7 +3,7 @@
   <TemplateData>
     <Name>xUnit for Devices (iOS)</Name>
     <Description>xUnit for Devices (iOS) Project Template</Description>
-    <Icon>xunit.ios.template.ico</Icon>
+    <Icon Package="{52CBD135-1F97-2580-011F-C7CD052E44DE}" ID="531"/>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>1000</SortOrder>
     <TemplateID>46d9542e-737e-45e7-9a4e-ff28bd5c99e2</TemplateID>

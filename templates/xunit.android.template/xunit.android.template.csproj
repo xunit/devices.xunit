@@ -64,7 +64,6 @@
     <None Include="AssemblyInfo.cs" />
     <None Include="Class1.cs" />
     <None Include="ProjectTemplate.csproj" />
-    <None Include="xunit.android.template.ico" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="xunit.android.template.vstemplate">

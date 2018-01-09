@@ -3,7 +3,7 @@
   <TemplateData>
     <Name>xUnit for Devices (Universal Windows)</Name>
     <Description>xUnit for Devices (Universal Windows) Project Template</Description>
-    <Icon>xunit.uwp.template.ico</Icon>
+    <Icon Package="{52CBD135-1F97-2580-011F-C7CD052E44DE}" ID="531"/>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>1000</SortOrder>
     <TemplateID>7c1965f3-57a9-4cbd-a876-24f558064b05</TemplateID>

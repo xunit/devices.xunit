@@ -3,7 +3,7 @@
   <TemplateData>
     <Name>xUnit for Devices (Android)</Name>
     <Description>xUnit for Devices (Android) Project Template</Description>
-    <Icon>xunit.android.template.ico</Icon>
+    <Icon Package="{52CBD135-1F97-2580-011F-C7CD052E44DE}" ID="531"/>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>1000</SortOrder>
     <TemplateID>4f057b8c-a9a9-41e3-a324-f5b175040187</TemplateID>
@@ -33,5 +33,9 @@
     <WizardExtension>
         <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
         <FullClassName>Xamarin.VisualStudio.TemplateWizards.AndroidTargetFrameworkVersionWizard</FullClassName>
+    </WizardExtension>
+    <WizardExtension>
+        <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+        <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
     </WizardExtension>
 </VSTemplate>
