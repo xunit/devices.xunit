@@ -6,7 +6,7 @@
         <Description xml:space="preserve">Project templates to create xUnit for Devices unit test apps</Description>
         <MoreInfo>http://xunit.github.io/</MoreInfo>
         <License>license.txt</License>
-        <Icon>logo-transparent.ico</Icon>
+        <Icon>logo-transparent.png</Icon>
         <Tags>xunit uwp ios android xamarin device devices</Tags>
     </Metadata>
     <Installation>
