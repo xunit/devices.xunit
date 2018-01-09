@@ -68,7 +68,7 @@
   <Target Name="GetNuGetOutputGroup" DependsOnTargets="Pack" Returns="@(NuGetOutputGroupOutput)">
 
     <ItemGroup>
-      <NuGetOutputGroupOutput Include="$(PackageOutputAbsolutePath)$(PackageId).$(PackageVersion).nupkg" />
+      <NuGetOutputGroupOutput Include="@(NuGetPackOutput)" Condition="'%(Extension)' == '.nupkg'" />
     </ItemGroup>
 
   </Target>
