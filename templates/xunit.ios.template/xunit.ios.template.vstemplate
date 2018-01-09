@@ -1,21 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
-    <Name>xunit.ios.template</Name>
-    <Description>xunit.ios.template</Description>
+    <Name>xUnit for Devices (iOS)</Name>
+    <Description>xUnit for Devices (iOS) Project Template</Description>
     <Icon>xunit.ios.template.ico</Icon>
     <ProjectType>CSharp</ProjectType>
-    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
     <SortOrder>1000</SortOrder>
     <TemplateID>46d9542e-737e-45e7-9a4e-ff28bd5c99e2</TemplateID>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>xunit.ios.template</DefaultName>
+    <DefaultName>UnitTestApp</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
+      <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
+      <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+      <LocationField>Enabled</LocationField>
+      <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
   </TemplateData>
   <TemplateContent>
     <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="AppDelegate.cs">AppDelegate.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Main.cs">Main.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Info.plist">Info.plist</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Entitlements.plist" OpenInEditor="false">Entitlements.plist</ProjectItem>
+        <Folder Name="Resources" TargetFolderName="Resources">
+            <ProjectItem ReplaceParameters="false" TargetFileName="Default.png">Default.png</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="Default@2x.png">Default@2x.png</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="Default-568h@2x.png">Default-568h@2x.png</ProjectItem>
+        </Folder>
     </Project>
   </TemplateContent>
+    <WizardExtension>
+        <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
+        <FullClassName>Xamarin.VisualStudio.TemplateWizards.SanitizedAssemblyNameWizard</FullClassName>
+    </WizardExtension>
+    <WizardExtension>
+        <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
+        <FullClassName>Xamarin.VisualStudio.TemplateWizards.SetConfigurationAndPlatformWizard</FullClassName>
+    </WizardExtension>
+    <WizardExtension>
+        <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
+        <FullClassName>Xamarin.VisualStudio.TemplateWizards.SetMinimumOSVersionWizard</FullClassName>
+    </WizardExtension>
+    <WizardData>
+        <MinimumOSVersion>
+            <SdkType>iOS</SdkType>
+        </MinimumOSVersion>
+    </WizardData>
 </VSTemplate>

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-$if$ ($targetframeworkversion$ >= 3.5)using System.Linq;
-$endif$using System.Text;
+using Xunit;
 
 namespace $safeprojectname$
 {
-	public class Class1
-{
-}
+    public class Class1
+    {
+        [Fact]
+        public void Test1()
+        {
+            Assert.True(true);
+        }
+    }
 }
