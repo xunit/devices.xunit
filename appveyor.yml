@@ -19,10 +19,9 @@ install:
 before_build:
   - cmd: msbuild /t:restore xUnit.Devices.sln
   - ps: | 
-      nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion  
+      nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir $Env:APPVEYOR_BUILD_FOLDER -Verbosity quiet -ExcludeVersion  
       $vers = & .\packages\nerdbank.gitversioning\tools\Get-Version.ps1
       $nugetVer = $vers.SimpleVersion
-
       $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
       $doc | % { $_.Replace("0.9.9", "$nugetVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
 
