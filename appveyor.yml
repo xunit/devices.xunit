@@ -6,6 +6,8 @@ environment:
     secure: JuZIfeRY/XF5i/9oZFH5cbUIiIuliazF8TaNB5HvRKU=
   SignClientUser:
     secure: uyweGSwxexnLy4dBNleW8tYcXTA291faj34PQV0ePxOTFSa5Cvf50jyICVP9mLGS
+  MyGetApiKey:
+    secure: w1p7TvDGit5RlN4XKLjDC12Kd43SQ5qwLgRGGXtjfHKX1Yf7ZAOYBW6pLUkPJFJ6
       
 init:
   - git config --global core.autocrlf input
@@ -21,7 +23,7 @@ before_build:
   - ps: | 
       nuget install nerdbank.gitversioning -Version 2.1.11 -SolutionDir $Env:APPVEYOR_BUILD_FOLDER -Verbosity quiet -ExcludeVersion  
       $vers = & .\packages\nerdbank.gitversioning\tools\Get-Version.ps1
-      $simpVer = $vers.SimpleVersion
+      $simpVer = $vers.Version
       $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
       $doc | % { $_.Replace("0.9.9", "$simpVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
       # ProjectTemplates
@@ -56,6 +58,9 @@ deploy:
   api_key:
     secure: w1p7TvDGit5RlN4XKLjDC12Kd43SQ5qwLgRGGXtjfHKX1Yf7ZAOYBW6pLUkPJFJ6
   artifact: /.*\.nupkg/
+
+deploy_script:
+  - cmd: curl -X POST --header "X-NuGet-ApiKey:%MyGetApiKey%" -d @xunit.devices.templates.vsix https://www.myget.org/F/xunit-xamarin/vsix/upload
 
 notifications:
 - provider: Slack
