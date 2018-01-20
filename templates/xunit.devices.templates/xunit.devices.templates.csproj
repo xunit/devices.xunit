@@ -104,6 +104,8 @@
     <ItemGroup>
       <Content Include="@(_NuPkgFiles)" IncludeInVSIX="true" VSIXSubPath="Packages" />
       <Content Include="$(NuGetPackageRoot)xunit\2.4.0-beta.2.build4010\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />
+      <Content Include="$(NuGetPackageRoot)xunit\2.3.1\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />
+      <Content Include="$(NuGetPackageRoot)xunit.runner.visualstudio\2.3.1\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />
     </ItemGroup>
   </Target>
 
