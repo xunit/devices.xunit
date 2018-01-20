@@ -55,6 +55,7 @@
     <WizardData>
         <packages repository="extension" repositoryId="xunit.devices.templates">
             <package id="xunit" version="2.3.1" />
+            <package id="xunit.runner.visualstudio" version="2.3.1" />
             <package id="xunit.runner.devices" version="0.9.9" />
         </packages>
     </WizardData>
