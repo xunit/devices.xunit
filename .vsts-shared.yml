@@ -49,12 +49,12 @@ steps:
   displayName: Update Versions
 
 - powershell: |
-    msbuild xUnit.Devices.sln /restore /m /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /p:DeployExtension=false
+    msbuild xUnit.Devices.sln /restore /m /p:Configuration=$(BuildConfiguration) /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /p:DeployExtension=false
   displayName: Build
 
 - powershell: |
     mkdir $(Build.ArtifactStagingDirectory)\CI
-    msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=Release /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\CI
+    msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=$(BuildConfiguration) /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\CI
     mv templates\xunit.devices.templates\bin\Release\*.vsix $(Build.ArtifactStagingDirectory)\CI
   displayName: Pack  
     
