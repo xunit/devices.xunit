@@ -49,7 +49,7 @@ steps:
   displayName: Update Versions
 
 - powershell: |
-    msbuild xUnit.Devices.sln /restore /m /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /p:DeployExtension=false /v:m
+    msbuild xUnit.Devices.sln /restore /m /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /p:DeployExtension=false
   displayName: Build
 
 - powershell: |
