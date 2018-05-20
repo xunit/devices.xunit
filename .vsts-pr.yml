@@ -2,4 +2,4 @@ queue: Hosted VS2017
 variables: 
   BuildConfiguration: Release
 steps:
-- template: .vsts-build.yml
+- template: .vsts-shared.yml
