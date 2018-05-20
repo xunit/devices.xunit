@@ -6,6 +6,7 @@ if([string]::IsNullOrEmpty($env:SignClientSecret)){
 	return;
 }
 
+& nuget install SignClient -Version 0.9.1 -SolutionDir "$currentDirectory\..\" -Verbosity quiet -ExcludeVersion
 # Setup Variables we need to pass into the sign client tool
 
 $appSettings = "$currentDirectory\appsettings.json"
@@ -13,8 +14,8 @@ $filter = "$currentDirectory\filter.txt"
 
 $appPath = "$currentDirectory\..\packages\SignClient\tools\netcoreapp2.0\SignClient.dll"
 
-$nupgks = ls $currentDirectory\..\*.nupkg | Select -ExpandProperty FullName
-$vsixs = ls $currentDirectory\..\*.vsix | Select -ExpandProperty FullName
+$nupgks = ls $Env:ArtifactDirectory\*.nupkg | Select -ExpandProperty FullName
+$vsixs = ls $Env:ArtifactDirectory\*.vsix | Select -ExpandProperty FullName
 
 
 foreach ($nupkg in $nupgks){
