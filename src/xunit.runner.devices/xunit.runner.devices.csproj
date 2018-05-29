@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/1.5.4">
 
   <PropertyGroup>
-    <TargetFrameworks>uap10.0;monoandroid80;xamarinios10</TargetFrameworks>
+    <TargetFrameworks>uap10.0;monoandroid81;xamarinios10</TargetFrameworks>
     <DebugType>embedded</DebugType>
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
@@ -43,7 +43,7 @@
     <Compile Condition="'$(IsXamForms)' == 'false'" Include="Platforms\UWP\**\*.cs" />
     <Compile Condition="'$(IsXamForms)' == 'true'" Include="Platforms\Forms\**\*.cs" />
     <Compile Condition="'$(TargetFramework)' == 'xamarinios10'" Include="Platforms\ios\**\*.cs" />
-    <Compile Condition="'$(TargetFramework)' == 'monoandroid80'" Include="Platforms\android\**\*.cs" />
+    <Compile Condition="'$(TargetFramework)' == 'monoandroid81'" Include="Platforms\android\**\*.cs" />
     <AndroidResource Include="Platforms\android\Resources\**\*.xml" />
     
     <Page Condition="'$(IsXamForms)' == 'false'" Include="Platforms\UWP\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
@@ -55,14 +55,14 @@
   </ItemGroup>
 
   <ItemGroup Label="Package">
-    <None Include="build\*.targets" PackagePath="build\monoandroid80" Pack="true" />
+    <None Include="build\*.targets" PackagePath="build\monoandroid81" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\xamarinios10" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\uap10.0" Pack="true" />
-    <None Include="build\Android\*.*" PackagePath="content\monoandroid80" Pack="true" />
+    <None Include="build\Android\*.*" PackagePath="content\monoandroid81" Pack="true" />
     <None Include="build\iOS\*.*" PackagePath="content\xamarinios10" Pack="true" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.dll" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.pri" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
-    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid80" Pack="true" Visible="false" />
+    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid81" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\xamarinios10" Pack="true" Visible="false" />
   </ItemGroup>
 
