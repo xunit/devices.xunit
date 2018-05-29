@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.5.4">
 
   <PropertyGroup>
     <TargetFrameworks>uap10.0;monoandroid80;xamarinios10</TargetFrameworks>
@@ -20,21 +20,19 @@
     <Copyright>Copyright (C) .NET Foundation</Copyright>
     <NoPackageAnalysis>true</NoPackageAnalysis>
 
-    <XunitVersion>2.3.1</XunitVersion>
+    <XunitVersion>2.4.0-beta.2.build4010</XunitVersion>
   </PropertyGroup>
   
   <ItemGroup>
     <Compile Remove="Platforms\**\*.*" />
     <EmbeddedResource Remove="Platforms\**\*.*" />
     <None Include="Platforms\**\*.*" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.11" PrivateAssets="all" />
-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.23" PrivateAssets="all" />    
     <PackageReference Include="xunit.extensibility.execution" Version="$(XunitVersion)" PrivateAssets="all" />
     <PackageReference Include="xunit.runner.utility" Version="$(XunitVersion)" PrivateAssets="all" />
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.7.4" PrivateAssets="All" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.1" PrivateAssets="All" />
 
     <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="2.5.0.121934" />
-    <PackageReference Condition=" '$(TargetFramework)' == 'uap10.0' " Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,8 +60,6 @@
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid80" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\xamarinios10" Pack="true" Visible="false" />
   </ItemGroup>
-  
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
   <Target Name="GetNuGetOutputGroup" DependsOnTargets="Pack" Returns="@(NuGetOutputGroupOutput)">
 

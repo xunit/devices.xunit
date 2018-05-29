@@ -12,7 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{E3B9769B-D
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		appveyor.yml = appveyor.yml
+		.vsts-ci.yml = .vsts-ci.yml
+		.vsts-pr.yml = .vsts-pr.yml
+		.vsts-shared.yml = .vsts-shared.yml
+		Directory.build.props = Directory.build.props
 		README.md = README.md
 		version.json = version.json
 	EndProjectSection
