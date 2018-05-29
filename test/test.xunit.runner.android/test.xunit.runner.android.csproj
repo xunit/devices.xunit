@@ -90,7 +90,7 @@
       <Project>{b7c9bebb-26c2-483b-9be8-80a8ee523eb8}</Project>
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
-    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit" Version="2.4.0-beta.2.build4010" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\src\xunit.runner.devices\build\xunit.runner.devices.targets" />
