@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="xunitfordevicestemplates" Version="0.9.9" Language="en-US" Publisher="onovotny" />
+    <Identity Id="xunit.devices.templates" Version="0.9.9" Language="en-US" Publisher="Oren Novotny" />
     <DisplayName>xUnit for Devices Project Templates</DisplayName>
     <Description xml:space="preserve">Project templates to create xUnit for Devices unit test apps</Description>
     <MoreInfo>https://xunit.github.io/</MoreInfo>
