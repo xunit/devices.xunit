@@ -13,7 +13,7 @@ _The xUnit.net logo was designed by [Nathan Young](https://twitter.com/nathanyou
 
 ## How to get started
 
-xUnit.net supports both Portable Class Library (PCL) and platform specific projects for iOS and Android. 
+xUnit.net supports both .NET Standard and platform specific projects for iOS and Android. 
 Unit tests for Xamarin have two main components, which may reside in the same assembly.
 
 1.  Assemblies containing tests: install the latest xUnit 2.1 package. `Install-Package xUnit`
@@ -26,7 +26,6 @@ Referenced assemblies that contain tests need to be manually specified as descri
 ## Platform support
 - Xamarin.Android
 - Xamarin.iOS
-- WPF/Desktop (future support planned)
 - UWP (Windows 10)
 
 ## This is a work-in-progress
@@ -40,8 +39,4 @@ they should not pull in additional non-xunit libraries (except Xamarin.Forms).
 * trait display/filters
 * UI polish
 
-## Links to Resources
-
-* [Xamarin](http://xamarin.com/)
-* [TeamCity](http://www.jetbrains.com/teamcity/index.html)
 
