@@ -28,22 +28,5 @@ namespace $safeprojectname$
         {
             AddTestAssembly(typeof(App).GetTypeInfo().Assembly);
         }
-
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
-        {
-            // Start the test runner if we have args
-            if (!string.IsNullOrWhiteSpace(e.Arguments))
-            {
-                Microsoft.VisualStudio.TestPlatform.TestExecutor.UnitTestClient.CreateDefaultUI();
-                // Ensure the current window is active
-                Window.Current.Activate();
-
-                Microsoft.VisualStudio.TestPlatform.TestExecutor.UnitTestClient.Run(e.Arguments);
-            }
-            else
-            {
-                base.OnLaunched(e);
-            }
-        }
     }
 }
