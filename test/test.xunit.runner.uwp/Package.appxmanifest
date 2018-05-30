@@ -28,7 +28,7 @@
   </Resources>
 
   <Applications>
-    <Application Id="App"
+    <Application Id="vstest.executionengine.universal.App"
       Executable="$targetnametoken$.exe"
       EntryPoint="test.xunit.runner.uwp.App">
       <uap:VisualElements
