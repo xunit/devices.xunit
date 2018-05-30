@@ -54,6 +54,11 @@
     <EmbeddedResource Include="Properties\xunit.runner.devices.rd.xml" />
   </ItemGroup>
 
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="15.7.2" PrivateAssets="All" />
+  </ItemGroup>
+
   <ItemGroup Label="Package">
     <None Include="build\*.targets" PackagePath="build\monoandroid81" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\xamarinios10" Pack="true" />

@@ -43,49 +43,59 @@ namespace Xunit.Runners.UI
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Resources.MergedDictionaries.Add(new DeviceResources());
-
-            var rootFrame = Window.Current.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+            if (!string.IsNullOrWhiteSpace(e.Arguments) && e.Arguments.Contains("role") && e.Arguments.Contains("parentprocessid"))
             {
-                rootFrame = new Frame();
-                rootFrame.Navigated += OnNavigated;
+                // Start the VS Test Runner if there's args we recognize
+                Microsoft.VisualStudio.TestPlatform.TestExecutor.UnitTestClient.CreateDefaultUI();
+                // Ensure the current window is active
+                Window.Current.Activate();
 
-                // Place the frame in the current Window
-
-                OnInitializeRunner();
-
-                Initialized = true;
-
-                RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
-                RunnerOptions.Current.AutoStart = AutoStart;
-
-                var nav = new Navigator(rootFrame);
-
-                var runner = new DeviceRunner(testAssemblies, nav, new ResultListener(Writer));
-                var hvm = new HomeViewModel(nav, runner);
-
-                nav.NavigateTo(NavigationPage.Home, hvm);
-
-              
-
-                Window.Current.Content = rootFrame;
+                Microsoft.VisualStudio.TestPlatform.TestExecutor.UnitTestClient.Run(e.Arguments);
             }
-
-            // Ensure the current window is active
-            Window.Current.Activate();
-            // Hook up the default Back handler
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
+            else
             {
-                if (rootFrame.CanGoBack)
+                Resources.MergedDictionaries.Add(new DeviceResources());
+
+                var rootFrame = Window.Current.Content as Frame;
+
+                // Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (rootFrame == null)
                 {
-                    args.Handled = true;
-                    rootFrame.GoBack();
+                    rootFrame = new Frame();
+                    rootFrame.Navigated += OnNavigated;
+
+                    // Place the frame in the current Window
+
+                    OnInitializeRunner();
+
+                    Initialized = true;
+
+                    RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
+                    RunnerOptions.Current.AutoStart = AutoStart;
+
+                    var nav = new Navigator(rootFrame);
+
+                    var runner = new DeviceRunner(testAssemblies, nav, new ResultListener(Writer));
+                    var hvm = new HomeViewModel(nav, runner);
+
+                    nav.NavigateTo(NavigationPage.Home, hvm);
+
+                    Window.Current.Content = rootFrame;
                 }
-            };
+
+                // Ensure the current window is active
+                Window.Current.Activate();
+                // Hook up the default Back handler
+                SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
+                {
+                    if (rootFrame.CanGoBack)
+                    {
+                        args.Handled = true;
+                        rootFrame.GoBack();
+                    }
+                };
+            }
         }
 
         void OnNavigated(object sender, NavigationEventArgs e)
