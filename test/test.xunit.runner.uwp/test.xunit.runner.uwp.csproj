@@ -127,7 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="xunit.runner.utility">
-      <Version>2.4.0-beta.2.build4010</Version>
+      <Version>2.4.0-rc.1.build4038</Version>
     </PackageReference>
     <ProjectReference Include="..\..\src\xunit.runner.devices\xunit.runner.devices.csproj">
       <Project>{4c73a814-9327-4b0b-a46e-acfe47481817}</Project>
@@ -138,9 +138,9 @@
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.5</Version>
     </PackageReference>
-    <PackageReference Include="xunit" Version="2.4.0-beta.2.build4010" />
+    <PackageReference Include="xunit" Version="2.4.0-rc.1.build4038" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
