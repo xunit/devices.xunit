@@ -50,7 +50,9 @@ namespace Xunit.Runner
             RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
             RunnerOptions.Current.AutoStart = AutoStart;
 
+#pragma warning disable CS0618 // Type or member is obsolete
             runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new ResultListener(Writer));
+#pragma warning restore CS0618 // Type or member is obsolete
 
             Initialized = true;
 
