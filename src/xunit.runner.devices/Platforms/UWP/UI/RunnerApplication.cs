@@ -18,7 +18,11 @@ namespace Xunit.Runners.UI
         readonly List<Assembly> testAssemblies = new List<Assembly>();
 
         public bool TerminateAfterExecution { get; set; }
-        public TextWriter Writer { get; set; }
+
+        [Obsolete("Use ResultChannel")]
+        protected TextWriter Writer { get; set; }
+        protected IResultChannel ResultChannel { get; set; }
+
         public bool AutoStart { get; set; }
         public bool Initialized { get; private set; }
 
@@ -76,7 +80,9 @@ namespace Xunit.Runners.UI
 
                     var nav = new Navigator(rootFrame);
 
-                    var runner = new DeviceRunner(testAssemblies, nav, new ResultListener(Writer));
+#pragma warning disable CS0618 // Type or member is obsolete
+                    var runner = new DeviceRunner(testAssemblies, nav, ResultChannel ?? new ResultListener(Writer));
+#pragma warning restore CS0618 // Type or member is obsolete
                     var hvm = new HomeViewModel(nav, runner);
 
                     nav.NavigateTo(NavigationPage.Home, hvm);

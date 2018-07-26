@@ -32,7 +32,9 @@ namespace Xunit.Runner
         protected bool Initialized { get; set; }
 
         protected bool TerminateAfterExecution { get; set; }
+        [Obsolete("Use ResultChannel")]
         protected TextWriter Writer { get; set; }
+        protected IResultChannel ResultChannel { get; set; }
 
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -48,7 +50,9 @@ namespace Xunit.Runner
             RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
             RunnerOptions.Current.AutoStart = AutoStart;
 
-            runner = new FormsRunner(executionAssembly, testAssemblies, Writer);
+#pragma warning disable CS0618 // Type or member is obsolete
+            runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new ResultListener(Writer));
+#pragma warning restore CS0618 // Type or member is obsolete
 
             Initialized = true;
 

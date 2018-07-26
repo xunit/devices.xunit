@@ -15,14 +15,17 @@ namespace Xunit.Runners
         // ReSharper disable once NotAccessedField.Local
         readonly Assembly executionAssembly;
         readonly IReadOnlyCollection<Assembly> testAssemblies;
-        readonly TextWriter writer;
+        readonly IResultChannel resultChannel;
 
-        public FormsRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, TextWriter writer)
+        public FormsRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, TextWriter writer) : this(executionAssembly, testAssemblies, new ResultListener(writer))
+        {
+        }
+
+        public FormsRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, IResultChannel resultChannel)
         {
             this.executionAssembly = executionAssembly;
             this.testAssemblies = testAssemblies;
-            this.writer = writer;
-
+            this.resultChannel = resultChannel;
 
             MainPage = GetMainPage();
         }
@@ -33,7 +36,7 @@ namespace Xunit.Runners
             var hp = new HomePage();
             var nav = new Navigator(hp.Navigation);
 
-            var runner = new DeviceRunner(testAssemblies, nav, new ResultListener(writer));
+            var runner = new DeviceRunner(testAssemblies, nav, resultChannel);
 
             var vm = new HomeViewModel(nav, runner);
 

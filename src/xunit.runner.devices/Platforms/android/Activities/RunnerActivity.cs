@@ -21,7 +21,9 @@ namespace Xunit.Runners.UI
         protected bool Initialized { get; private set; }
 
         protected bool TerminateAfterExecution { get; set; }
+        [Obsolete("Use ResultChannel")]
         protected TextWriter Writer { get; set; }
+        protected IResultChannel ResultChannel { get; set; }
         protected bool AutoStart { get; set; }
 
         protected override void OnCreate(Bundle bundle)
@@ -35,7 +37,9 @@ namespace Xunit.Runners.UI
             RunnerOptions.Current.TerminateAfterExecution = TerminateAfterExecution;
             RunnerOptions.Current.AutoStart = AutoStart;
 
-            runner = new FormsRunner(executionAssembly, testAssemblies, Writer);
+#pragma warning disable CS0618 // Type or member is obsolete
+            runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new ResultListener(Writer));
+#pragma warning restore CS0618 // Type or member is obsolete
 
             Initialized = true;
 
