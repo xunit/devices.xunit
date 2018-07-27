@@ -33,7 +33,7 @@
     <PackageReference Include="xunit.runner.utility" Version="$(XunitVersion)" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-62925-02" PrivateAssets="All" />
 
-    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="3.1.0.583944" />
+    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="3.1.0.637273" />
   </ItemGroup>
 
   <ItemGroup>
