@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.20-preview">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.41">
 
   <PropertyGroup>
     <TargetFrameworks>uap10.0;monoandroid81;xamarinios10</TargetFrameworks>
@@ -19,7 +19,7 @@
     <Company>.NET Foundation</Company>
     <Copyright>Copyright (C) .NET Foundation</Copyright>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <XunitVersion>2.4.0-rc.1.build4038</XunitVersion>
+    <XunitVersion>2.4.0</XunitVersion>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
@@ -53,7 +53,7 @@
 
 
   <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="15.7.2" PrivateAssets="All" ExcludeAssets="Build" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="15.8.0" PrivateAssets="All" ExcludeAssets="Build" />
   </ItemGroup>
 
   <ItemGroup Label="Package">

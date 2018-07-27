@@ -52,7 +52,7 @@
             <SdkType>iOS</SdkType>
         </MinimumOSVersion>
         <packages repository="extension" repositoryId="xunit.devices.templates">
-            <package id="xunit" version="2.4.0-rc.1.build4038" />
+            <package id="xunit" version="2.4.0" />
             <package id="xunit.runner.devices" version="0.9.9" />
         </packages>
     </WizardData>
