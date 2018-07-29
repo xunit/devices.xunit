@@ -1,0 +1,8 @@
+<linker>
+    <assembly fullname="xunit.abstractions" />
+    <assembly fullname="xunit.assert" />
+    <assembly fullname="xunit.core" />
+    <assembly fullname="xunit.execution.dotnet" />
+    <assembly fullname="xunit.runner.devices" />
+    <assembly fullname="xunit.runner.utility.netstandard20" />
+</linker>

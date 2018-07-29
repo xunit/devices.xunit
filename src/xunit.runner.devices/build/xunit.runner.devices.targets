@@ -23,4 +23,8 @@
     </ItemGroup>
     <Message Text="Removing @(__xUnitExecutionLibsToRemove)->%(TargetPath)" />
   </Target>
+
+  <ItemGroup>
+    <LinkDescription Include="$(MSBuildThisFileDirectory)XamarinLinker.xml" Condition="Exists('$(MSBuildThisFileDirectory)XamarinLinker.xml')" Visible="false" />
+  </ItemGroup>
 </Project>
