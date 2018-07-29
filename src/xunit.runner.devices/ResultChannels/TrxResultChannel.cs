@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Xunit.Runners.UI
+namespace Xunit.Runners.ResultChannels
 {
     /// <summary>
     /// Generates a TRX-like report for the testrun

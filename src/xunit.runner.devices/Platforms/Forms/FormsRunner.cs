@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xunit.Runners.Pages;
+using Xunit.Runners.ResultChannels;
 
 namespace Xunit.Runners
 {
@@ -17,7 +18,8 @@ namespace Xunit.Runners
         readonly IReadOnlyCollection<Assembly> testAssemblies;
         readonly IResultChannel resultChannel;
 
-        public FormsRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, TextWriter writer) : this(executionAssembly, testAssemblies, new ResultListener(writer))
+        public FormsRunner(Assembly executionAssembly, IReadOnlyCollection<Assembly> testAssemblies, TextWriter writer) : 
+            this(executionAssembly, testAssemblies, new TextWriterResultChannel(writer))
         {
         }
 

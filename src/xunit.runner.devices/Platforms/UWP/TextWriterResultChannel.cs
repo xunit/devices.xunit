@@ -8,9 +8,9 @@ using Xunit.Runners;
 using Xunit.Runners.UI;
 
 
-namespace Xunit.Runners
+namespace Xunit.Runners.ResultChannels
 {
-    class ResultListener : IResultChannel
+    public class TextWriterResultChannel : IResultChannel
     {
         TextWriter writer;
         int failed;
@@ -18,7 +18,7 @@ namespace Xunit.Runners
         int passed;
 
         readonly object lockOjb = new object();
-        public ResultListener(TextWriter writer)
+        public TextWriterResultChannel(TextWriter writer)
         {
             this.writer = writer;
         }
