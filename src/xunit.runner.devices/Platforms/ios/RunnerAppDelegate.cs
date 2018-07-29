@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Xunit.Runners;
 using Xunit.Runners.UI;
+using Xunit.Runners.ResultChannels;
 #if __UNIFIED__
 using Foundation;
 using UIKit;
@@ -51,7 +52,7 @@ namespace Xunit.Runner
             RunnerOptions.Current.AutoStart = AutoStart;
 
 #pragma warning disable CS0618 // Type or member is obsolete
-            runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new ResultListener(Writer));
+            runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new TextWriterResultChannel(Writer));
 #pragma warning restore CS0618 // Type or member is obsolete
 
             Initialized = true;
