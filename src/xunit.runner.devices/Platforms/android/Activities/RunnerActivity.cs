@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Android.OS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xunit.Runners.ResultChannels;
 
 namespace Xunit.Runners.UI
 {
@@ -38,7 +39,7 @@ namespace Xunit.Runners.UI
             RunnerOptions.Current.AutoStart = AutoStart;
 
 #pragma warning disable CS0618 // Type or member is obsolete
-            runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new ResultListener(Writer));
+            runner = new FormsRunner(executionAssembly, testAssemblies, ResultChannel ?? new TextWriterResultChannel(Writer));
 #pragma warning restore CS0618 // Type or member is obsolete
 
             Initialized = true;

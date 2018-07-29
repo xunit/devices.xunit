@@ -20,9 +20,9 @@ using ObjCRuntime;
 using UIKit;
 #endif
 
-namespace Xunit.Runners
+namespace Xunit.Runners.ResultChannels
 {
-    class ResultListener : IResultChannel
+    public class TextWriterResultChannel : IResultChannel
     {
         int failed;
         int passed;
@@ -30,7 +30,7 @@ namespace Xunit.Runners
         TextWriter writer;
         readonly object lockOjb = new object();
 
-        public ResultListener(TextWriter writer)
+        public TextWriterResultChannel(TextWriter writer)
         {
             this.writer = writer;
         }
