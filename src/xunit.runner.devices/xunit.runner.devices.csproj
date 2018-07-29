@@ -60,8 +60,8 @@
     <None Include="build\*.targets" PackagePath="build\monoandroid81" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\xamarinios10" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\uap10.0" Pack="true" />
-    <None Include="properties\XamarinLinker.xml" PackagePath="build\monoandroid81" Pack="true" />
-    <None Include="properties\XamarinLinker.xml" PackagePath="build\xamarinios10" Pack="true" />
+    <None Include="build\XamarinLinker.xml" PackagePath="build\monoandroid81" Pack="true" />
+    <None Include="build\XamarinLinker.xml" PackagePath="build\xamarinios10" Pack="true" />
     <None Include="build\Android\*.*" PackagePath="content\monoandroid81" Pack="true" />
     <None Include="build\iOS\*.*" PackagePath="content\xamarinios10" Pack="true" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.dll" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
