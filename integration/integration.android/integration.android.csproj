@@ -87,8 +87,8 @@
     <Content Include="MainActivity.cs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="xunit" Version="2.3.1" />
-    <PackageReference Include="xunit.runner.devices" Version="2.4.0-build.10" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.devices" Version="2.4.0-build.44" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

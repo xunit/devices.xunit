@@ -23,8 +23,8 @@ namespace test.xunit.runner.android
 
             AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             // or in any reference assemblies			
-
-            //AddTestAssembly(typeof(PortableTests).Assembly);
+            
+            AddTestAssembly(typeof(PortableTests).Assembly);
             // or in any assembly that you load (since JIT is available)
 
 #if false
