@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
-using Xunit.Runners;
 
 namespace Xunit.Runners.UI
 {
@@ -17,7 +16,7 @@ namespace Xunit.Runners.UI
         private const string xmlNamespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010";
         private const string testListId = "8c84fa94-04c1-424b-9868-57a2d4851a1d";
         private System.IO.Stream outputStream;
-        private bool disposeStream;
+        private readonly bool disposeStream;
         private XmlDocument doc;
         private int testCount;
         private int testFailed;
@@ -57,7 +56,10 @@ namespace Xunit.Runners.UI
         public static Task<TrxResultChannel> CreateTcpTrxResultChannel(string hostName, int port)
         {
             if ((port < 0) || (port > ushort.MaxValue))
+            {
                 throw new ArgumentException("port");
+            }
+
             var HostName = hostName ?? throw new ArgumentNullException(nameof(hostName));
             var Port = port;
 
@@ -135,16 +137,16 @@ namespace Xunit.Runners.UI
 
         void ITestListener.RecordResult(TestResultViewModel result)
         {
-            string id = Guid.NewGuid().ToString();
-            string executionId = Guid.NewGuid().ToString();
+            var id = Guid.NewGuid().ToString();
+            var executionId = Guid.NewGuid().ToString();
             var resultNode = doc.CreateElement("UnitTestResult", xmlNamespace);
             resultNode.SetAttribute("outcome", ToTrxStatus(result.TestCase.Result));
             resultNode.SetAttribute("testType", "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b");
             resultNode.SetAttribute("testListId", testListId);
             resultNode.SetAttribute("executionId", executionId);
-            int idx = result.TestCase.DisplayName.LastIndexOf('.');
-            string testName = result.TestCase.TestCase.TestMethod.Method.Name;
-            string className = result.TestCase.TestCase.TestMethod.TestClass.Class.Name;
+            var idx = result.TestCase.DisplayName.LastIndexOf('.');
+            var testName = result.TestCase.TestCase.TestMethod.Method.Name;
+            var className = result.TestCase.TestCase.TestMethod.TestClass.Class.Name;
             resultNode.SetAttribute("testName", testName);
             resultNode.SetAttribute("testId", id);
             resultNode.SetAttribute("duration", result.Duration.ToString("G", CultureInfo.InvariantCulture));
@@ -246,7 +248,9 @@ namespace Xunit.Runners.UI
             rootNode.AppendChild(resultSummary);
             doc.Save(outputStream);
             if (disposeStream)
+            {
                 outputStream.Dispose();
+            }
 
 #if __IOS__ || MAC
             if (showNetworkIndicator)
