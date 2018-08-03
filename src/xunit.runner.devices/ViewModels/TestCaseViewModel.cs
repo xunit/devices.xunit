@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +34,7 @@ namespace Xunit.Runners
 
             Result = TestState.NotRun;
             RunStatus = RunStatus.NotRun;
-            Message = "not run";
+            Message = "🔷 not run";
 
             // Create an initial result representing not run
             TestResult = new TestResultViewModel(this, null);
@@ -114,14 +114,14 @@ namespace Xunit.Runners
             if (message.TestResultMessage is ITestPassed)
             {
                 Result = TestState.Passed;
-                msg = $"Success! {TestResult.Duration.TotalMilliseconds} ms";
+                msg = $"✔ Success! {TestResult.Duration.TotalMilliseconds} ms";
                 rs = RunStatus.Ok;
             }
             if (message.TestResultMessage is ITestFailed)
             {
                 Result = TestState.Failed;
                 var failedMessage = (ITestFailed)(message.TestResultMessage);
-                msg = ExceptionUtility.CombineMessages(failedMessage);
+                msg = $"⛔ {ExceptionUtility.CombineMessages(failedMessage)}";
                 stackTrace = ExceptionUtility.CombineStackTraces(failedMessage);
                 rs = RunStatus.Failed;
             }
@@ -130,7 +130,7 @@ namespace Xunit.Runners
                 Result = TestState.Skipped;
 
                 var skipped = (ITestSkipped)(message.TestResultMessage);
-                msg = skipped.Reason;
+                msg = $"⚠ {skipped.Reason}";
                 rs = RunStatus.Skipped;
             }
 

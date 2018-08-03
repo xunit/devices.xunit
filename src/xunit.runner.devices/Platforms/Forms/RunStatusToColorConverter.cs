@@ -10,8 +10,8 @@ namespace Xunit.Runners
 {
     class RunStatusToColorConverter : IValueConverter
     {
-        static readonly Color NoTestColor = Color.FromHex("#ff7f00");
-        static readonly Color SkippedColor = Color.FromHex("#ff7700");
+        internal static readonly Color NoTestColor = Color.FromHex("#ff7f00");
+        internal static readonly Color SkippedColor = Color.FromHex("#ff7700");
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -28,7 +28,7 @@ namespace Xunit.Runners
                     case RunStatus.Skipped:
                         return SkippedColor;
                     case RunStatus.NotRun:
-                        return Color.Purple;
+                        return Color.DarkGray;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

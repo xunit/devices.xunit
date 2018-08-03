@@ -45,19 +45,69 @@ namespace Xunit.Runners.Pages
 	        var fs = new TableSection("Test Assemblies");
 	        var i = 0;
 
+
+            var margin = new Thickness(0, 0, 5, 0);
 	        foreach (var ta in viewModel.TestAssemblies)
 	        {
-	            var ts = new AutomationTextCell {BindingContext = ta};
-	            ts.SetBinding(TextCell.TextProperty, "DisplayName");
-	            ts.SetBinding(TextCell.DetailProperty, "DetailText");
-	            ts.SetBinding(TextCell.DetailColorProperty, "RunStatus", converter: AssemblyRunStatusConverter);
-	            ts.AutomationId = $"testAssembly_{i}";
-	            i++;
 
-	            ts.Command = viewModel.NavigateToTestAssemblyCommand;
-	            ts.CommandParameter = ts.BindingContext;
+                var lblAssm = new Label();
+                lblAssm.SetBinding(Label.TextProperty, nameof(ta.DisplayName));
+                lblAssm.SetBinding(Label.TextColorProperty, nameof(ta.RunStatus), converter: AssemblyRunStatusConverter);
+
+
+                var lblPassed = new Label();
+                lblPassed.SetBinding(Label.TextProperty, nameof(ta.Passed));
+                lblPassed.TextColor = Color.Green;
+                lblPassed.Margin = margin;
+
+                var lblFailed = new Label();
+                lblFailed.SetBinding(Label.TextProperty, nameof(ta.Failed));
+                lblFailed.TextColor = Color.Red;
+                lblFailed.Margin = margin;
+
+                var lblSkipped = new Label();
+                lblSkipped.SetBinding(Label.TextProperty, nameof(ta.Skipped));
+                lblSkipped.TextColor = RunStatusToColorConverter.SkippedColor;
+                lblSkipped.Margin = margin;
+
+                var lblNotRun = new Label();
+                lblNotRun.SetBinding(Label.TextProperty, nameof(ta.NotRun));
+                lblNotRun.TextColor = Color.DarkGray;
+
+                var vs = new CommandViewCell()
+                {
+                    BindingContext = ta,
+                    View = new StackLayout
+                    {
+                        Margin = new Thickness(20,0,0,0),
+                        Children =
+                        {
+                            lblAssm,
+                            new StackLayout
+                            {
+                                Orientation = StackOrientation.Horizontal,
+                                Children =
+                                {
+                                    new Label{Text = " ✔ ", TextColor = Color.Green},
+                                    lblPassed,
+                                    new Label{Text=" ⛔ "},
+                                    lblFailed,
+                                    new Label{Text = " ⚠ ", TextColor = RunStatusToColorConverter.SkippedColor},
+                                    lblSkipped,
+                                    new Label{Text=" 🔷 "},
+                                    lblNotRun
+                                }
+                            }
+                        }
+                    },
+                    AutomationId = $"testAssembly_{i}",
+                    CommandParameter = ta,
+                    Command = viewModel.NavigateToTestAssemblyCommand
+                };
+
+	            i++;
                 
-                fs.Add(ts);
+                fs.Add(vs);
 	        }
 	        tr.Add(fs); // add the first section
 
