@@ -24,6 +24,7 @@ Storage.dat
 
 *.ide/
 .vs/
+.store/
 
 *.nuget.targets
 *.nuget.props

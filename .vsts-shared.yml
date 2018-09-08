@@ -2,62 +2,61 @@ parameters:
   signSteps: []
   
 steps:
-- task: BatchScript@1
+- task: DotNetCoreCLI@2  
   inputs:
-    filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsDevCmd.bat"
-    arguments: -no_logo
-    modifyEnvironment: true
-  displayName: Setup Environment Variables
-
-- task: NuGetToolInstaller@0
-  displayName: Use NuGet 4.7.0
-  inputs:
-    versionSpec: 4.7.0
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: build
-    projects: scripts/setversion.csproj
-    arguments: -c $(BuildConfiguration)   
+    command: custom
+    custom: tool
+    arguments: install --tool-path . nbgv
+  displayName: Install NBGV tool
+  
+- script: nbgv cloud
   displayName: Set Version
-  condition: eq(variables['system.pullrequest.isfork'], false)
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - powershell: |   
     # version    
-    nuget install NerdBank.GitVersioning -SolutionDir $(Build.SourcesDirectory) -Verbosity quiet -ExcludeVersion
-    
-    $vers = & $(Build.SourcesDirectory)\packages\nerdbank.gitversioning\tools\Get-Version.ps1
-    
-    $simpVer = $vers.Version
-    $nuGetVer = $vers.NuGetPackageVersion
+    $ver = .\nbgv get-version -f json | ConvertFrom-Json
+        
     $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
-    $doc | % { $_.Replace("0.9.9", "$simpVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+    $doc | % { $_.Replace("0.9.9", "$($ver.CloudBuildVersionVars.GitBuildVersionSimple)") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
     $doc = Get-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
-    $doc | % { $_.Replace("9.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
+    $doc | % { $_.Replace("9.9.9", "$($ver.NuGetPackageVersion)") } | Set-Content ".\templates\xunit.devices.templates\source.extension.vsixmanifest"
     
     # ProjectTemplates
     
     # Android
     $doc = Get-Content ".\templates\xunit.android.template\xunit.android.template.vstemplate"
-    $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.android.template\xunit.android.template.vstemplate"
+    $doc | % { $_.Replace("0.9.9", "$($ver.NuGetPackageVersion)") } | Set-Content ".\templates\xunit.android.template\xunit.android.template.vstemplate"
     # iOS
     $doc = Get-Content ".\templates\xunit.ios.template\xunit.ios.template.vstemplate"
-    $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.ios.template\xunit.ios.template.vstemplate"
+    $doc | % { $_.Replace("0.9.9", "$($ver.NuGetPackageVersion)") } | Set-Content ".\templates\xunit.ios.template\xunit.ios.template.vstemplate"
     # UWP
     $doc = Get-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
-    $doc | % { $_.Replace("0.9.9", "$nuGetVer") } | Set-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
+    $doc | % { $_.Replace("0.9.9", "$($ver.NuGetPackageVersion)") } | Set-Content ".\templates\xunit.uwp.template\xunit.uwp.template.vstemplate"
   displayName: Update Versions
 
-- powershell: |
-    msbuild xUnit.Devices.sln /restore /m /p:Configuration=$(BuildConfiguration) /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /p:DeployExtension=false
-  displayName: Build
+- powershell: mkdir $(Build.ArtifactStagingDirectory)\CI
+  displayName: Create output directory
 
-- powershell: |
-    mkdir $(Build.ArtifactStagingDirectory)\CI
-    msbuild src\xunit.runner.devices\xunit.runner.devices.csproj /t:pack /p:Configuration=$(BuildConfiguration) /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\CI
-    mv templates\xunit.devices.templates\bin\Release\*.vsix $(Build.ArtifactStagingDirectory)\CI
-  displayName: Pack  
-    
+- task: MSBuild@1
+  displayName: Build
+  inputs:
+    solution: xUnit.Devices.sln
+    msbuildArguments: /restore /p:UseDotNetNativeToolchain=false /p:BuildAppxUploadPackageForUap=true /p:DeployExtension=false
+    configuration: $(BuildConfiguration)
+    maximumCpuCount: true
+
+- task: MSBuild@1
+  displayName: Pack devices
+  inputs:
+    solution: src\xunit.runner.devices\xunit.runner.devices.csproj
+    msbuildArguments: /t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\CI
+    configuration: $(BuildConfiguration)
+    maximumCpuCount: true  
+
+- powershell: mv templates\xunit.devices.templates\bin\Release\*.vsix $(Build.ArtifactStagingDirectory)\CI
+  displayName: Move VISX to output directory  
+
 - ${{ parameters.signSteps }}
 
 - task: PublishBuildArtifacts@1
@@ -66,4 +65,4 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)\CI
     artifactType: container
     artifactName: CI
-  condition: eq(variables['system.pullrequest.isfork'], false)
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
