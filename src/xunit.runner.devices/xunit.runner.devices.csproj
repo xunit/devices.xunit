@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.46">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.55">
 
   <PropertyGroup>
     <TargetFrameworks>uap10.0;monoandroid81;xamarinios10</TargetFrameworks>
