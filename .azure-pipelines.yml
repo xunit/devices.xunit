@@ -1,6 +1,11 @@
-parameters: 
-  signSteps: []
-  
+trigger:
+- master
+- rel/*
+ 
+queue: Hosted VS2017
+variables: 
+  BuildConfiguration: Release
+
 steps:
 - task: DotNetCoreCLI@2  
   inputs:
@@ -57,7 +62,15 @@ steps:
 - powershell: mv templates\xunit.devices.templates\bin\Release\*.vsix $(Build.ArtifactStagingDirectory)\CI
   displayName: Move VISX to output directory  
 
-- ${{ parameters.signSteps }}
+- task: PowerShell@2
+  displayName: Authenticode Sign Nightly artifacts
+  inputs:
+    filePath: scripts/Sign-Package.ps1
+  env:
+    SignClientUser: $(SignClientUser)
+    SignClientSecret: $(SignClientSecret)
+    ArtifactDirectory: $(Build.ArtifactStagingDirectory)\CI
+  condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
 - task: PublishBuildArtifacts@1
   displayName: Publish CI Artifacts
@@ -66,3 +79,5 @@ steps:
     artifactType: container
     artifactName: CI
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
+
+
