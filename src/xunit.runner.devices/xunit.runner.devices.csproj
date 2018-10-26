@@ -22,18 +22,18 @@
     <XunitVersion>2.4.0</XunitVersion>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <DebugType>embedded</DebugType>
+    <DebugType>embedded</DebugType>    
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Platforms\**\*.*" />
     <EmbeddedResource Remove="Platforms\**\*.*" />
     <None Include="Platforms\**\*.*" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.65" PrivateAssets="all" />    
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13" PrivateAssets="all" />    
     <PackageReference Include="xunit.runner.utility" Version="$(XunitVersion)" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
 
-    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="3.1.0.637273" />
+    <PackageReference Condition="'$(IsXamForms)' == 'true'" Include="Xamarin.Forms" Version="3.3.0.912540" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="15.8.0" PrivateAssets="All" ExcludeAssets="Build" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="15.9.0" PrivateAssets="All" ExcludeAssets="Build" />
   </ItemGroup>
 
   <ItemGroup Label="Package">

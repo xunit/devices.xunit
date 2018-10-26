@@ -18,7 +18,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>test.xunit.runner.uwp_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>2DF86FF8A1CB10C076DA196D5F2095D049759E6A</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>BC5864FC965FC624600AEC790BD17A7137547DAD</PackageCertificateThumbprint>
+    <UnitTestPlatformVersion>15.5</UnitTestPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -138,9 +139,10 @@
       <Name>test.xunit.pcltestlib</Name>
     </ProjectReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.1.7</Version>
     </PackageReference>
     <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -148,6 +150,10 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
+  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug .NET Native|ARM'">
     <OutputPath>bin\ARM\Debug .NET Native\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
