@@ -19,7 +19,7 @@
     <Company>.NET Foundation</Company>
     <Copyright>Copyright (C) .NET Foundation</Copyright>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <XunitVersion>2.4.0</XunitVersion>
+    <XunitVersion>2.4.1</XunitVersion>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>    
@@ -66,8 +66,8 @@
     <None Include="build\iOS\*.*" PackagePath="content\xamarinios10" Pack="true" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.dll" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.pri" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
-    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard2.0\*.dll" PackagePath="lib\monoandroid81" Pack="true" Visible="false" />
-    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard2.0\*.dll" PackagePath="lib\xamarinios10" Pack="true" Visible="false" />
+    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid81" Pack="true" Visible="false" />
+    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\xamarinios10" Pack="true" Visible="false" />
   </ItemGroup>
 
   <Target Name="GetNuGetOutputGroup" DependsOnTargets="Pack" Returns="@(NuGetOutputGroupOutput)">
