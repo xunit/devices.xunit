@@ -49,6 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="extension.manifest.json" />
+    <None Include="readme.md" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -105,9 +107,8 @@
     </MSBuild>
     <ItemGroup>
       <Content Include="@(_NuPkgFiles)" IncludeInVSIX="true" VSIXSubPath="Packages" />
-      <Content Include="$(NuGetPackageRoot)xunit\2.4.1\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />      
+      <Content Include="$(NuGetPackageRoot)xunit\2.4.1\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />
       <Content Include="$(NuGetPackageRoot)xunit.runner.visualstudio\2.4.1\*.nupkg" IncludeInVSIX="true" VSIXSubPath="Packages" />
     </ItemGroup>
   </Target>
-
 </Project>

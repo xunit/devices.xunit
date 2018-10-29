@@ -1,0 +1,1 @@
+﻿xUnit for Devices project templates for Xamarin iOS, Xamarin Android, and UWP.

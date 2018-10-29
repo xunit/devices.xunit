@@ -12,8 +12,8 @@ dotnet tool install --tool-path . SignClient
 $appSettings = "$currentDirectory\appsettings.json"
 $filter = "$currentDirectory\filter.txt"
 
-$nupgks = ls $Env:ArtifactDirectory\*.nupkg | Select -ExpandProperty FullName
-$vsixs = ls $Env:ArtifactDirectory\*.vsix | Select -ExpandProperty FullName
+$nupgks = gci $Env:ArtifactDirectory\*.nupkg -Recurse | Select -ExpandProperty FullName
+$vsixs = gci $Env:ArtifactDirectory\*.vsix -Recurse | Select -ExpandProperty FullName
 
 foreach ($nupkg in $nupgks){
 	Write-Host "Submitting $nupkg for signing"

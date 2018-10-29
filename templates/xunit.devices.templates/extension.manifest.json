@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [ "testing", "visual studio extensions", "other templates" ],
+  "identity": {
+    "internalName": "xunitfordevicestemplates",
+    "tags": [ "devices", "ios", "unit test", "uwp", "xamarin", "xunit" ]
+  },
+  "overview": "readme.md",
+  "publisher": "onovotny",
+  "repo": "https://github.com/xunit/devices.xunit"
+}

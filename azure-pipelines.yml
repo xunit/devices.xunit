@@ -61,17 +61,21 @@ steps:
     configuration: $(BuildConfiguration)
     maximumCpuCount: true  
 
-- powershell: mv templates\xunit.devices.templates\bin\Release\*.vsix $(Build.ArtifactStagingDirectory)\CI
+- powershell: |
+    mkdir $(Build.ArtifactStagingDirectory)\Vsix
+    mv templates\xunit.devices.templates\bin\Release\*.vsix $(Build.ArtifactStagingDirectory)\Vsix
+    copy templates\xunit.devices.templates\extension.manifest.json $(Build.ArtifactStagingDirectory)\Vsix
+    copy templates\xunit.devices.templates\readme.md $(Build.ArtifactStagingDirectory)\Vsix
   displayName: Move VISX to output directory  
 
 - task: PowerShell@2
-  displayName: Authenticode Sign Nightly artifacts
+  displayName: Authenticode Artifacts
   inputs:
     filePath: scripts/Sign-Package.ps1
   env:
     SignClientUser: $(SignClientUser)
     SignClientSecret: $(SignClientSecret)
-    ArtifactDirectory: $(Build.ArtifactStagingDirectory)\CI
+    ArtifactDirectory: $(Build.ArtifactStagingDirectory)
   condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
 - task: PublishBuildArtifacts@1
@@ -82,4 +86,10 @@ steps:
     artifactName: CI
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
-
+- task: PublishBuildArtifacts@1
+  displayName: Publish Vsix Artifacts
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)\Vsix
+    artifactType: container
+    artifactName: Vsix
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
