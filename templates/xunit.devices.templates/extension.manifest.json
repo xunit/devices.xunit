@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/vsix-publish",
-  "categories": [ "testing", "visual studio extensions", "other templates" ],
+  "categories": [ "visual studio extensions", "other" ],
   "identity": {
     "internalName": "xunitfordevicestemplates",
     "tags": [ "devices", "ios", "unit test", "uwp", "xamarin", "xunit" ]
