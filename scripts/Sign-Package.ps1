@@ -28,7 +28,7 @@ foreach ($vsix in $vsixs){
 
 	.\SignClient 'sign' -c $appSettings -i $vsix -f $filter -r $env:SignClientUser -s $env:SignClientSecret -n 'xUnit.net' -d 'xUnit.net' -u 'https://github.com/xunit/devices.xunit' 
 
-	Write-Host "Finished signing $nupkg"
+	Write-Host "Finished signing $vsix"
 }
 
 Write-Host "Sign-package complete"
