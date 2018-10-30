@@ -2,8 +2,7 @@
   "$schema": "http://json.schemastore.org/vsix-publish",
   "categories": [ "visualstudioextensions", "othertemplates" ],
   "identity": {
-    "internalName": "xunitfordevicestemplates",
-    "tags": [ "devices", "ios", "unit test", "uwp", "xamarin", "xunit" ]
+    "internalName": "xunitfordevicestemplates"
   },
   "overview": "readme.md",
   "publisher": "onovotny",
