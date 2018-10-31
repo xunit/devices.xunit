@@ -7,10 +7,10 @@
     <MoreInfo>https://xunit.github.io/</MoreInfo>
     <License>license.txt</License>
     <Icon>logo-transparent.png</Icon>
-    <Tags>xunit uwp ios android xamarin device devices</Tags>
+    <Tags>xunit;uwp;ios;android;xamarin;device;devices</Tags>
   </Metadata>
   <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,16.0)" />
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,17.0)" />
   </Installation>
   <Dependencies>
   </Dependencies>
@@ -18,9 +18,8 @@
     <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="xunit.android.template" d:TargetPath="|xunit.android.template;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
     <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="xunit.ios.template" d:TargetPath="|xunit.ios.template;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
     <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="xunit.uwp.template" d:TargetPath="|xunit.uwp.template;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
-
   </Assets>
   <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
   </Prerequisites>
 </PackageManifest>
