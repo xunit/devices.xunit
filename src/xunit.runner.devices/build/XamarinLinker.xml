@@ -4,5 +4,5 @@
     <assembly fullname="xunit.core" />
     <assembly fullname="xunit.execution.dotnet" />
     <assembly fullname="xunit.runner.devices" />
-    <assembly fullname="xunit.runner.utility.netstandard20" />
+    <assembly fullname="xunit.runner.utility.netstandard15" />
 </linker>
