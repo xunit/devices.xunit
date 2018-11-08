@@ -1,7 +1,11 @@
 trigger:
 - master
 - rel/*
- 
+
+pr:
+- master
+- rel/*
+
 pool:
   vmImage: vs2017-win2016
 
@@ -18,7 +22,6 @@ steps:
   
 - script: nbgv cloud
   displayName: Set Version
-  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - powershell: |   
     # version    
@@ -84,7 +87,6 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)\CI
     artifactType: container
     artifactName: CI
-  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Vsix Artifacts
@@ -92,4 +94,3 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)\Vsix
     artifactType: container
     artifactName: Vsix
-  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
