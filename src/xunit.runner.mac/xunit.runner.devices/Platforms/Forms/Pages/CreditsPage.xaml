@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:utilities="clr-namespace:Xunit.Runners.Utilities;assembly=xunit.runner.devices"
+             x:Class="Xunit.Runners.Pages.CreditsPage" Title="Credits">
+    <StackLayout>
+        <WebView HeightRequest="250" x:Name="WebView" />
+        <TableView>
+            <TableRoot>
+                <TableSection>
+                    <TextCell Text="About xUnit" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="http://xunit.github.io/" />
+                    <TextCell Text="About xUnit for Devices" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="https://github.com/xunit/devices.xunit" />
+                    <TextCell Text="About Xamarin" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="http://xamarin.com" />
+                    <TextCell Text="About Xamarin Forms" Command="{x:Static utilities:Commands.LaunchUrl}" CommandParameter="http://xamarin.com/forms" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </StackLayout>
+
+</ContentPage>
