@@ -68,7 +68,7 @@ namespace Xunit.Runners.ResultChannels
 #endif
             try
             {
-#if __IOS__ || MAC || __ANDROID__
+#if __IOS__ || MAC || __ANDROID__ || __MACOS__
                 var client = new System.Net.Sockets.TcpClient(hostName, port);
                 var channel = new TrxResultChannel(client.GetStream(), true);
 #if __IOS__ || MAC
