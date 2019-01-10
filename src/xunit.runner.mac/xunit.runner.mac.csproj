@@ -213,16 +213,20 @@
     <Compile Include="..\xunit.runner.devices\Platforms\Forms\Utilities\CommandViewCell.cs">
       <Link>xunit.runner.devices\Platforms\Forms\Utilities\CommandViewCell.cs</Link>
     </Compile>
-    <Compile Include="xunit.runner.devices\Platforms\Forms\Pages\AssemblyTestListPage.xaml.cs">
+    <Compile Include="..\xunit.runner.devices\Platforms\Forms\Pages\AssemblyTestListPage.xaml.cs">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\AssemblyTestListPage.xaml.cs</Link>
       <DependentUpon>AssemblyTestListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xunit.runner.devices\Platforms\Forms\Pages\CreditsPage.xaml.cs">
+    <Compile Include="..\xunit.runner.devices\Platforms\Forms\Pages\CreditsPage.xaml.cs">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\CreditsPage.xaml.cs</Link>
       <DependentUpon>CreditsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xunit.runner.devices\Platforms\Forms\Pages\HomePage.xaml.cs">
+    <Compile Include="..\xunit.runner.devices\Platforms\Forms\Pages\HomePage.xaml.cs">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\HomePage.xaml.cs</Link>
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xunit.runner.devices\Platforms\Forms\Pages\TestResultPage.xaml.cs">
+    <Compile Include="..\xunit.runner.devices\Platforms\Forms\Pages\TestResultPage.xaml.cs">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\TestResultPage.xaml.cs</Link>
       <DependentUpon>TestResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Platforms\Mac\RunnerAppDelegate.cs" />
@@ -234,19 +238,23 @@
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="xunit.runner.devices\Platforms\Forms\Pages\AssemblyTestListPage.xaml">
+    <EmbeddedResource Include="..\xunit.runner.devices\Platforms\Forms\Pages\AssemblyTestListPage.xaml">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\AssemblyTestListPage.xaml</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="xunit.runner.devices\Platforms\Forms\Pages\CreditsPage.xaml">
+    <EmbeddedResource Include="..\xunit.runner.devices\Platforms\Forms\Pages\CreditsPage.xaml">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\CreditsPage.xaml</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="xunit.runner.devices\Platforms\Forms\Pages\HomePage.xaml">
+    <EmbeddedResource Include="..\xunit.runner.devices\Platforms\Forms\Pages\HomePage.xaml">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\HomePage.xaml</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="xunit.runner.devices\Platforms\Forms\Pages\TestResultPage.xaml">
+    <EmbeddedResource Include="..\xunit.runner.devices\Platforms\Forms\Pages\TestResultPage.xaml">
+      <Link>xunit.runner.devices\Platforms\Forms\Pages\TestResultPage.xaml</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
