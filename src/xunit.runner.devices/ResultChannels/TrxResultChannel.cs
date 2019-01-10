@@ -149,7 +149,7 @@ namespace Xunit.Runners.ResultChannels
             var className = result.TestCase.TestCase.TestMethod.TestClass.Class.Name;
             resultNode.SetAttribute("testName", testName);
             resultNode.SetAttribute("testId", id);
-            resultNode.SetAttribute("duration", result.Duration.ToString("G", CultureInfo.InvariantCulture));
+            resultNode.SetAttribute("duration", result.Duration.ToString("c", CultureInfo.InvariantCulture));
             resultNode.SetAttribute("computerName", "");
 
             if (result.TestCase.Result == TestState.Failed)
