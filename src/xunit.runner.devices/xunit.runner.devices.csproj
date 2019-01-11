@@ -40,6 +40,7 @@
     <Compile Condition="'$(IsXamForms)' == 'false'" Include="Platforms\UWP\**\*.cs" />
     <Compile Condition="'$(IsXamForms)' == 'true'" Include="Platforms\Forms\**\*.cs" />
     <Compile Condition="'$(TargetFramework)' == 'xamarinios10'" Include="Platforms\ios\**\*.cs" />
+    <Compile Condition="'$(TargetFramework)' == 'xamarinmac20'" Include="Platforms\macOS\**\*.cs" />
     <Compile Condition="'$(TargetFramework)' == 'monoandroid81'" Include="Platforms\android\**\*.cs" />
     <AndroidResource Include="Platforms\android\Resources\**\*.xml" />
     
@@ -59,15 +60,19 @@
   <ItemGroup Label="Package">
     <None Include="build\*.targets" PackagePath="build\monoandroid81" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\xamarinios10" Pack="true" />
+    <None Include="build\*.targets" PackagePath="build\xamarinmac20" Pack="true" />
     <None Include="build\*.targets" PackagePath="build\uap10.0" Pack="true" />
     <None Include="build\XamarinLinker.xml" PackagePath="build\monoandroid81" Pack="true" />
     <None Include="build\XamarinLinker.xml" PackagePath="build\xamarinios10" Pack="true" />
+    <None Include="build\XamarinLinker.xml" PackagePath="build\xamarinmac20" Pack="true" />
     <None Include="build\Android\*.*" PackagePath="content\monoandroid81" Pack="true" />
     <None Include="build\iOS\*.*" PackagePath="content\xamarinios10" Pack="true" />
+    <None Include="build\macOS\*.*" PackagePath="content\xamarinmac20" Pack="true" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.dll" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\uap10.0\*.pri" PackagePath="lib\uap10.0" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\monoandroid81" Pack="true" Visible="false" />
     <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\xamarinios10" Pack="true" Visible="false" />
+    <None Include="$(NuGetPackageRoot)xunit.runner.utility\$(XunitVersion)\lib\netstandard1.5\*.dll" PackagePath="lib\xamarinmac20" Pack="true" Visible="false" />
   </ItemGroup>
 
   <Target Name="GetNuGetOutputGroup" DependsOnTargets="Pack" Returns="@(NuGetOutputGroupOutput)">
