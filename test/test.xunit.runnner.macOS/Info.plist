@@ -5,7 +5,7 @@
     <key>CFBundleName</key>
     <string>test.xunit.runnner.macOS</string>
     <key>CFBundleIdentifier</key>
-    <string>com.velocitysystems.test-xunit-runnner-macOS</string>
+	<string>com.your-company.test.xunit.runner.macOS</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
     <key>CFBundleVersion</key>
