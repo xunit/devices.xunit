@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.55">
 
   <PropertyGroup>
-    <TargetFrameworks>uap10.0;monoandroid81;xamarinios10</TargetFrameworks>
+    <TargetFrameworks>uap10.0;monoandroid81;xamarinios10;xamarinmac20</TargetFrameworks>
     <DebugType>embedded</DebugType>
     <IsXamForms Condition="'$(TargetFramework)' == 'uap10.0'">false</IsXamForms>
     <IsXamForms Condition="'$(IsXamForms)' == ''">true</IsXamForms>
