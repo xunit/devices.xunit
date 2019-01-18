@@ -14,7 +14,7 @@
     <Authors>Oren Novotny</Authors>    
     <PackageProjectUrl>https://github.com/xunit/devices.xunit</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/xunit/media/master/logo-512-transparent.png</PackageIconUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <DefaultLanguage>en-US</DefaultLanguage>
     <Company>.NET Foundation</Company>
     <Copyright>Copyright (C) .NET Foundation</Copyright>
