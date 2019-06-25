@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.devices" Version="2.5.28" />
+    <PackageReference Include="xunit.runner.devices" Version="2.5.32" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppDelegate.cs.txt" />
