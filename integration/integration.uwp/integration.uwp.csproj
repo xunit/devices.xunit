@@ -120,7 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.devices" Version="2.5.34" />
+    <PackageReference Include="xunit.runner.devices" Version="2.5.38" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
