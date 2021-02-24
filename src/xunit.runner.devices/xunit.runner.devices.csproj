@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.4.0" PrivateAssets="All" ExcludeAssets="Build" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.9.1" PrivateAssets="All" ExcludeAssets="Build" />
   </ItemGroup>
 
   <ItemGroup Label="Package">
