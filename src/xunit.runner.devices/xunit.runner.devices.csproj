@@ -29,7 +29,7 @@
     <Compile Remove="Platforms\**\*.*" />
     <EmbeddedResource Remove="Platforms\**\*.*" />
     <None Include="Platforms\**\*.*" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.0.26" PrivateAssets="all" />    
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.203" PrivateAssets="all" />    
     <PackageReference Include="xunit.runner.utility" Version="$(XunitVersion)" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
 
