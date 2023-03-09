@@ -1,6 +1,6 @@
 ## <a href="https://github.com/xunit/xunit"><img src="https://raw.github.com/xunit/media/master/full-logo.png" title="xUnit.net Device Runners" /></a>
 
-[<img align="right" width="100px" src="https://dotnetfoundation.org/img/logo_v4.svg" />](https://dotnetfoundation.org/projects/xunit)
+[<img align="right" width="100px" src="https://raw.githubusercontent.com/xunit/media/main/dotnet-foundation.svg" />](https://dotnetfoundation.org/projects/project-detail/xunit)
 
 These runners enable [xUnit.net](https://github.com/xunit/xunit/) tests to run on iOS and Android devices with [Xamarin](http://xamarin.com/) and on any UWP device. 
 
