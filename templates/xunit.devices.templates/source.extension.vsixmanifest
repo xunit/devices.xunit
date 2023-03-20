@@ -4,7 +4,7 @@
     <Identity Id="xunit.devices.templates" Version="0.9.9" Language="en-US" Publisher="Oren Novotny" />
     <DisplayName>xUnit for Devices Project Templates</DisplayName>
     <Description xml:space="preserve">Project templates to create xUnit for Devices unit test apps</Description>
-    <MoreInfo>https://xunit.github.io/</MoreInfo>
+    <MoreInfo>https://xunit.net/</MoreInfo>
     <License>license.txt</License>
     <Icon>logo-transparent.png</Icon>
     <Tags>xunit;uwp;ios;android;xamarin;device;devices</Tags>

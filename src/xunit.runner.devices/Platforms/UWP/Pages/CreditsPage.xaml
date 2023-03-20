@@ -19,9 +19,9 @@
                 Content="Oren Novotny"  VerticalAlignment="Center"/>
         </StackPanel>
         <HyperlinkButton Content="About xUnit"
-                         NavigateUri="http://xunit.github.io"/>
+                         NavigateUri="https://xunit.net/"/>
         <HyperlinkButton Content="About xUnit for Devices"
                          NavigateUri="https://github.com/xunit/devices.xunit"/>
-        
+
     </StackPanel>
 </Page>
