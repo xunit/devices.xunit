@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "13:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: Nerdbank.GitVersioning
+    versions:
+    - 3.3.37
+    - 3.4.190
+  - dependency-name: Microsoft.TestPlatform.TestHost
+    versions:
+    - 16.8.3
+    - 16.9.1
+  - dependency-name: Microsoft.NETCore.UniversalWindowsPlatform
+    versions:
+    - 6.2.11
